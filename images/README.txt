@@ -6,7 +6,7 @@ To use your own photo:
      1600–2000 px wide, ideally under 400 KB).
   2. Open assets/data.js and add the name to LOCAL_PHOTOS at the top, e.g.
        window.LOCAL_PHOTOS = ["bazaar","momos","fri"];
-  3. Upload the folder to Netlify again.
+  3. Ask Claude to publish it (changes pushed to GitHub go live automatically).
 
 If a photo is missing here, the site loads the Unsplash version from the internet.
 If that also fails (no internet), it shows a designed artwork panel instead,
