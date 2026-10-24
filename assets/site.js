@@ -1,0 +1,219 @@
+/* The Doon Index — shared site script: images, nav, sliders, effects, bag, saved, overlays. */
+(function(){
+document.documentElement.classList.add("js");
+const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelectorAll(s)];
+const RM=matchMedia("(prefers-reduced-motion: reduce)").matches;
+const inr=n=>"₹"+n.toLocaleString("en-IN");
+const store={get(k,d){try{const v=JSON.parse(localStorage.getItem(k));return v??d}catch{return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch{}}};
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+/* ---------- images: local file → Unsplash → artwork ---------- */
+const UNS=(id,w)=>`https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=${w}&q=70`;
+function phIn(key,w=900,alt="",eager=false){
+  const p=PHOTOS[key]||{h:38};
+  const init=(alt||key).replace(/[^A-Za-z]/g,"").charAt(0)||"D";
+  const local=(window.LOCAL_PHOTOS||[]).includes(key);
+  const attrs=eager?'fetchpriority="high"':'loading="lazy"';
+  let src,extra="";
+  if(local){src=`images/${key}.jpg`;if(p.u)extra=` data-fb="${UNS(p.u,w)}"`}
+  else if(p.u){const ws=[400,700,1000,1400,2000].filter(x=>x<=w*1.6);if(!ws.length)ws.push(w);
+    src=UNS(p.u,w);extra=` srcset="${ws.map(x=>UNS(p.u,x)+" "+x+"w").join(", ")}" sizes="${w>=1600?"100vw":w>=1000?"(max-width:700px) 100vw, 70vw":w>=700?"(max-width:700px) 85vw, 35vw":"(max-width:700px) 45vw, 20vw"}"`}
+  else return `<div class="art" aria-hidden="true"><span>${init}</span></div>`;
+  return `<div class="art" aria-hidden="true"><span>${init}</span></div><img src="${src}"${extra} alt="${esc(alt)}" ${attrs} decoding="async">`;
+}
+const hue=key=>(PHOTOS[key]||{h:38}).h;
+function ph(key,w=900,alt="",cls="",eager=false){return `<div class="ph ${cls}" style="--h:${hue(key)}">${phIn(key,w,alt,eager)}</div>`}
+document.addEventListener("load",e=>{if(e.target.tagName==="IMG")e.target.classList.add("ok")},true);
+document.addEventListener("error",e=>{const i=e.target;if(i.tagName!=="IMG")return;
+  if(i.dataset.fb){const f=i.dataset.fb;i.removeAttribute("data-fb");i.src=f}else i.remove()},true);
+
+/* ---------- nav + footer ---------- */
+const page=document.body.dataset.page||"home";
+const home=page==="home"?"":"index.html";
+const NAV=[["Explore",home+"#explore"],["Hidden Gems",home+"#gems"],["Neighbourhoods",home+"#areas"],["Schools",home+"#schools"],["Shop",home+"#shop"],["Journal","blog.html"],["For Business",home+"#business"]];
+const heart=`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-7.5-4.6-9.5-9.2C1 8.2 3.4 4.5 7 4.5c2 0 3.6 1.1 5 3 1.4-1.9 3-3 5-3 3.6 0 6 3.7 4.5 7.3C19.5 16.4 12 21 12 21z"/></svg>`;
+const arrowL=`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M15 5l-7 7 7 7"/></svg>`;
+const arrowR=`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 5l7 7-7 7"/></svg>`;
+const navEl=$("#nav");
+if(navEl){
+  navEl.className="nav"+(document.body.dataset.nav==="light"?" light":"");
+  navEl.innerHTML=`<div class="wrap"><a class="logo" href="index.html">The Doon <i>Index</i></a>
+  <nav class="links" aria-label="Main">${NAV.map(([l,h])=>`<a href="${h}"${page==="blog"&&l==="Journal"?' class="on"':""}>${l}</a>`).join("")}</nav>
+  <div class="actions"><button class="icon-btn" id="savedBtn" aria-label="Saved places">${heart}<span class="badge" id="savedCount">0</span></button>
+  <button class="icon-btn" id="bagBtn" aria-label="Shopping bag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 8h14l-1.2 12H6.2L5 8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg><span class="badge" id="bagCount">0</span></button>
+  <button class="icon-btn menu-btn" id="menuBtn" aria-label="Open menu">Menu</button></div></div>`;
+  let lastY=0;
+  const onScroll=()=>{const y=scrollY;const solidAt=document.body.dataset.nav==="light"?0:innerHeight*.55;
+    navEl.classList.toggle("solid",y>solidAt);
+    navEl.classList.toggle("hide",y>lastY&&y>400&&!document.body.style.overflow);lastY=y;
+    const pr=$(".progress");if(pr){const h=document.documentElement.scrollHeight-innerHeight;pr.style.width=(h>0?y/h*100:0)+"%"}};
+  addEventListener("scroll",onScroll,{passive:true});onScroll();
+}
+/* phone tab bar */
+const tb=document.createElement("nav");tb.className="tabbar";tb.setAttribute("aria-label","Quick links");
+const ico={home:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>`,
+ explore:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/></svg>`,
+ journal:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3z"/><path d="M9 9h6M9 13h6"/></svg>`,
+ bag:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M5 8h14l-1.2 12H6.2L5 8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>`};
+tb.innerHTML=`<a href="index.html#top"${page==="home"?' class="on"':""}>${ico.home}Home</a><a href="${home}#explore">${ico.explore}Explore</a><a href="blog.html"${page!=="home"?' class="on"':""}>${ico.journal}Journal</a>
+ <button id="tbSaved" type="button">${heart}Saved<span class="badge" data-count="saved">0</span></button><button id="tbBag" type="button">${ico.bag}Bag<span class="badge" data-count="bag">0</span></button>`;
+document.body.appendChild(tb);
+const footEl=$("#footer");
+if(footEl){footEl.className="site";footEl.innerHTML=`<div class="wrap">
+  <div class="foot"><div><a class="logo" href="index.html">The Doon <i>Index</i></a><p>An independent guide to Dehradun, made by people who live here.</p></div>
+  <div><h4>Explore</h4><ul><li><a href="${home}#explore">Cafés</a></li><li><a href="${home}#explore">Street food</a></li><li><a href="${home}#gems">Hidden gems</a></li><li><a href="${home}#areas">Neighbourhoods</a></li></ul></div>
+  <div><h4>Discover</h4><ul><li><a href="${home}#schools">Schools</a></li><li><a href="${home}#shop">Shop</a></li><li><a href="blog.html">Journal</a></li></ul></div>
+  <div><h4>Business</h4><ul><li><a href="#" data-biz="list">Add your business</a></li><li><a href="#" data-biz="partner">Partner with us</a></li></ul></div></div>
+  <div class="big-word" aria-hidden="true">Dehra<i>dun</i></div>
+  <div class="legal"><span>© 2026 The Doon Index · Dehradun, Uttarakhand</span><span>Prototype · photos via Unsplash · vendors and products are sample data</span></div></div>`}
+
+/* ---------- toast + overlays ---------- */
+function toast(m){$$(".toast").forEach(t=>t.remove());const t=document.createElement("div");t.className="toast";t.textContent=m;document.body.appendChild(t);setTimeout(()=>t.remove(),2400)}
+const layer=document.createElement("div");document.body.appendChild(layer);
+const scrim=document.createElement("div");scrim.className="scrim";scrim.hidden=true;document.body.appendChild(scrim);
+function openLayer(html){layer.innerHTML=html;scrim.hidden=false;document.body.style.overflow="hidden";const f=layer.querySelector("button,input");f&&f.focus({preventScroll:true})}
+function closeLayer(){layer.innerHTML="";scrim.hidden=true;document.body.style.overflow=""}
+scrim.onclick=closeLayer;
+document.addEventListener("keydown",e=>{if(e.key==="Escape")closeLayer()});
+const maps=q=>`https://www.google.com/maps/search/${encodeURIComponent(q+" Dehradun")}`;
+
+/* ---------- saved + bag ---------- */
+let saved=new Set(store.get("doon_saved",[]));
+let bag=store.get("doon_bag",{});
+const bagCount=()=>Object.values(bag).reduce((a,b)=>a+b,0);
+function sync(){store.set("doon_saved",[...saved]);store.set("doon_bag",bag);
+  const sc=$("#savedCount"),bc=$("#bagCount");if(sc)sc.textContent=saved.size;if(bc)bc.textContent=bagCount();
+  $$('[data-count="saved"]').forEach(e=>{e.textContent=saved.size;e.hidden=!saved.size});
+  $$('[data-count="bag"]').forEach(e=>{e.textContent=bagCount();e.hidden=!bagCount()});
+  $$("[data-save]").forEach(b=>b.classList.toggle("on",saved.has(+b.dataset.save)));
+  document.dispatchEvent(new Event("doon:sync"))}
+function toggleSave(id){saved.has(id)?saved.delete(id):saved.add(id);sync();toast(saved.has(id)?"Saved to your list":"Removed from saved")}
+function addToBag(id){bag[id]=(bag[id]||0)+1;sync()}
+
+function placeModal(p,isGem){
+  openLayer(`<div class="modal" role="dialog" aria-modal="true" aria-label="${esc(p.n)}"><button class="x" data-close aria-label="Close">✕</button>
+  ${ph(p.img,1600,p.n)}
+  <div class="mbody"><p class="label">${isGem?"Hidden gem":CATS[p.c]}${p.f?" · Featured":""}</p><h2>${p.n}</h2><p>${p.d}</p>
+  <div class="facts"><div><small>Area</small><b>${isGem?p.alt.split("·")[0]:p.a}</b></div><div><small>Budget</small><b>${p.p||"Free"}</b></div><div><small>Best time</small><b>${p.best}</b></div><div><small>Type</small><b>${isGem?"Outdoors":CATS[p.c].replace(/s$/,"")}</b></div></div>
+  <p class="tip"><b>Local tip ·</b> ${p.tip}</p>
+  <div class="btn-row"><a class="btn" href="${maps(p.n)}" target="_blank" rel="noopener">Get directions</a>${isGem?(p.post?`<a class="btn line" href="post.html?p=${p.post}">Read the guide</a>`:""):`<button class="btn line" data-save-m="${p.id}">${saved.has(p.id)?"Saved ✓":"Save place"}</button>`}</div></div></div>`)}
+function schoolModal(s){
+  openLayer(`<div class="modal" role="dialog" aria-modal="true" aria-label="${esc(s.n)}"><button class="x" data-close aria-label="Close">✕</button>
+  ${ph("fri",1600,s.n)}<div class="mbody"><p class="label">School · ${s.type}</p><h2>${s.n}</h2><p>${s.d}</p>
+  <div class="facts"><div><small>Area</small><b>${s.a}</b></div><div><small>Board</small><b>${s.board}</b></div><div><small>Type</small><b>${s.type}</b></div><div><small>For</small><b>${s.g}</b></div></div>
+  <p class="tip"><b>Before you visit ·</b> Ask for the full annual fee in writing and request a campus tour during term time.</p>
+  <div class="btn-row"><a class="btn" href="${maps(s.n)}" target="_blank" rel="noopener">Get directions</a><a class="btn line" href="post.html?p=choosing-school-dehradun">Read our school guide</a></div></div></div>`)}
+function bagDrawer(){
+  const ids=Object.keys(bag).filter(k=>bag[k]>0);const total=ids.reduce((t,k)=>t+(SHOP.find(s=>s.id===k)?.p||0)*bag[k],0);
+  openLayer(`<aside class="drawer" aria-label="Your bag"><header><h3>Your bag</h3><button class="x" data-close aria-label="Close">✕</button></header>
+  <div class="items">${ids.length?ids.map(k=>{const s=SHOP.find(x=>x.id===k);if(!s)return"";return `<div class="ci">${ph(s.img,200,s.n)}<div><b>${s.n}</b><div class="qty"><button data-dec="${k}" aria-label="Decrease">−</button><span>${bag[k]}</span><button data-inc="${k}" aria-label="Increase">+</button></div></div><span class="price">${inr(s.p*bag[k])}</span></div>`}).join("")
+   :`<div class="empty-bag"><p>Your bag is empty.</p><a class="btn line" href="${home}#shop" data-close>Browse the store</a></div>`}</div>
+  ${ids.length?`<footer><div class="total"><span>Subtotal</span><span>${inr(total)}</span></div><button class="btn" data-checkout>Checkout</button><p class="note">Free delivery in Dehradun on orders above ₹999.</p></footer>`:""}</aside>`)}
+function savedDrawer(){
+  const l=PLACES.filter(p=>saved.has(p.id));
+  openLayer(`<aside class="drawer" aria-label="Saved places"><header><h3>Saved places</h3><button class="x" data-close aria-label="Close">✕</button></header>
+  <div class="items">${l.length?l.map(p=>`<div class="ci" style="cursor:pointer" data-place="${p.id}">${ph(p.img,200,p.n)}<div><b>${p.n}</b><span class="meta">${p.a}</span></div><span>→</span></div>`).join("")
+   :`<div class="empty-bag"><p>Tap the heart on any place to save it for later.</p></div>`}</div></aside>`)}
+function bizModal(type){
+  openLayer(`<div class="modal" role="dialog" aria-modal="true" aria-label="Add your business"><button class="x" data-close aria-label="Close" style="background:var(--sunk);color:var(--ink)">✕</button>
+  <div class="mbody"><p class="label">${type==="partner"?"Partnerships":"Add your business"}</p><h2>${type==="partner"?"Let’s work together":"Get your place on the Index"}</h2>
+  <p>${type==="partner"?"Brand collaborations, events, school features and sponsored stories. Tell us what you have in mind.":"Tell us about your business. Our team will verify the details and get in touch within two working days."}</p>
+  <form class="form" id="bizForm" name="${type==="partner"?"partner":"add-business"}" data-form="${type==="partner"?"partner":"add-business"}"><input type="hidden" name="form-name" value="${type==="partner"?"partner":"add-business"}"><p hidden><label>Leave empty<input name="bot-field"></label></p>
+   <label for="b1">Business name<input id="b1" name="business" required placeholder="e.g. Doon Chai Co."></label>
+   <label for="b2">Category<select id="b2" name="category"><option>Café or restaurant</option><option>Street food vendor</option><option>Shop or boutique</option><option>School or institute</option><option>Stay or homestay</option><option>Other</option></select></label>
+   <label for="b3">Neighbourhood<select id="b3" name="area">${AREAS.map(a=>`<option>${a}</option>`).join("")}<option>Other</option></select></label>
+   <label for="b4">Phone or WhatsApp<input id="b4" name="phone" required inputmode="tel" placeholder="+91"></label>
+   <label for="b5" class="full">${type==="partner"?"Tell us about the idea":"What makes your place special?"}<textarea id="b5" name="details" rows="3" placeholder="${type==="partner"?"Campaign, event, budget, dates…":"Your best dish, your story, what regulars love…"}"></textarea></label>
+   <div class="full"><button class="btn" type="submit">Send details</button></div></form></div></div>`)}
+
+document.addEventListener("click",e=>{
+  const t=e.target;
+  if(t.closest("[data-close]")){closeLayer();return}
+  const sv=t.closest("[data-save]");if(sv){e.preventDefault();e.stopPropagation();toggleSave(+sv.dataset.save);return}
+  const sm=t.closest("[data-save-m]");if(sm){const id=+sm.dataset.saveM;toggleSave(id);sm.textContent=saved.has(id)?"Saved ✓":"Save place";return}
+  const pl=t.closest("[data-place]");if(pl){placeModal(PLACES.find(p=>p.id==pl.dataset.place));return}
+  const gm=t.closest("[data-gem]");if(gm){placeModal(GEMS[gm.dataset.gem],true);return}
+  const sc=t.closest("[data-school]");if(sc){schoolModal(SCHOOLS.find(s=>s.n===sc.dataset.school));return}
+  const ad=t.closest("[data-add]");if(ad){addToBag(ad.dataset.add);ad.textContent="Added ✓";ad.classList.add("done");setTimeout(()=>{ad.textContent="Add to bag";ad.classList.remove("done")},1300);return}
+  const inc=t.closest("[data-inc]"),dec=t.closest("[data-dec]");
+  if(inc||dec){const k=(inc||dec).dataset[inc?"inc":"dec"];bag[k]=Math.max(0,(bag[k]||0)+(inc?1:-1));if(!bag[k])delete bag[k];sync();bagDrawer();return}
+  if(t.closest("[data-checkout]")){closeLayer();toast("Checkout will connect to Razorpay on the live site");return}
+  const bz=t.closest("[data-biz]");if(bz){e.preventDefault();bizModal(bz.dataset.biz);return}
+  if(t.closest("#bagBtn,#tbBag")){bagDrawer();return}
+  if(t.closest("#savedBtn,#tbSaved")){savedDrawer();return}
+  if(t.closest("#menuBtn")){openLayer(`<div class="mobile-menu"><button class="x" data-close aria-label="Close">✕</button>${NAV.map(([l,h],i)=>`<a href="${h}" data-close style="animation-delay:${.05*i+.1}s">${l}</a>`).join("")}</div>`);return}
+});
+document.addEventListener("keydown",e=>{if(e.key==="Enter"&&e.target.matches("[data-place],[data-gem],[data-post-link]"))e.target.click()});
+/* Netlify Forms: posts to the site root; works once the site is live on Netlify */
+function send(form){if(location.protocol==="file:")return;
+  try{fetch("/",{method:"POST",headers:{"Content-Type":"application/x-www-form-urlencoded"},body:new URLSearchParams(new FormData(form)).toString()}).catch(()=>{})}catch(err){}}
+document.addEventListener("submit",e=>{
+  if(e.target.id==="bizForm"){e.preventDefault();const f=e.target,n=$("#b1").value.trim();send(f);closeLayer();toast(`Thanks! We’ll be in touch about ${n}.`)}
+  if(e.target.matches("[data-news]")){e.preventDefault();send(e.target);const ok=e.target.parentElement.querySelector(".ok");if(ok)ok.hidden=false;e.target.reset()}
+});
+
+/* ---------- slider ---------- */
+function initSlider(root){
+  const track=$(".track",root),prev=$("[data-prev]",root),next=$("[data-next]",root),bar=$(".s-prog i",root);
+  if(!track)return;
+  const step=()=>{const c=track.children[0];return c?c.getBoundingClientRect().width+parseFloat(getComputedStyle(track).columnGap||20):300};
+  const upd=()=>{const max=track.scrollWidth-track.clientWidth;const r=max>0?track.scrollLeft/max:0;
+    if(bar){const w=Math.max(12,track.clientWidth/track.scrollWidth*100);bar.style.width=w+"%";bar.style.transform=`translateX(${r*(100/w*100-100)}%)`}
+    if(prev)prev.disabled=track.scrollLeft<4;if(next)next.disabled=track.scrollLeft>max-4};
+  prev&&(prev.onclick=()=>track.scrollBy({left:-step(),behavior:"smooth"}));
+  next&&(next.onclick=()=>track.scrollBy({left:step(),behavior:"smooth"}));
+  track.addEventListener("scroll",upd,{passive:true});addEventListener("resize",upd);setTimeout(upd,50);
+  let down=false,sx=0,sl=0,moved=0;
+  track.addEventListener("pointerdown",e=>{if(e.pointerType!=="mouse")return;down=true;moved=0;sx=e.clientX;sl=track.scrollLeft});
+  addEventListener("pointermove",e=>{if(!down)return;const dx=e.clientX-sx;moved=Math.abs(dx);if(moved>6)track.classList.add("drag");track.scrollLeft=sl-dx});
+  addEventListener("pointerup",()=>{if(!down)return;down=false;if(track.classList.contains("drag")){
+    track.classList.remove("drag");const s=step();track.scrollTo({left:Math.round(track.scrollLeft/s)*s,behavior:"smooth"})}});
+  track.addEventListener("click",e=>{if(moved>6){e.stopPropagation();e.preventDefault();moved=0}},true);
+}
+function sliderControls(){return `<div class="s-ctrl"><div class="s-prog"><i></i></div><div class="arrows"><button data-prev aria-label="Previous">${arrowL}</button><button data-next aria-label="Next">${arrowR}</button></div></div>`}
+
+/* ---------- effects ---------- */
+function splitWords(el){if(!el||el.dataset.split)return;el.dataset.split=1;
+  const walk=n=>{[...n.childNodes].forEach(c=>{if(c.nodeType===3){const f=document.createDocumentFragment();
+    c.textContent.split(/(\s+)/).forEach(w=>{if(!w)return;if(/^\s+$/.test(w)){f.appendChild(document.createTextNode(w));return}
+      const o=document.createElement("span");o.className="w";const i=document.createElement("span");i.textContent=w;o.appendChild(i);f.appendChild(o)});
+    c.replaceWith(f)}else if(c.nodeType===1&&!c.classList.contains("w"))walk(c)})};
+  walk(el);el.classList.add("split");$$(".w > span",el).forEach((s,i)=>s.style.transitionDelay=(i*.07)+"s")}
+function playSplit(el){requestAnimationFrame(()=>requestAnimationFrame(()=>el.classList.add("in")))}
+function initReveal(){
+  if(!("IntersectionObserver" in window)||RM)return;
+  const io=new IntersectionObserver(es=>es.forEach(en=>{if(en.isIntersecting){en.target.classList.remove("pre");
+    $$(".split:not(.in)",en.target).forEach(playSplit);io.unobserve(en.target)}}),{rootMargin:"0px 0px -10% 0px"});
+  $$(".rv,.clip").forEach(el=>{if(el.getBoundingClientRect().top>innerHeight*.9){el.classList.add("pre");io.observe(el)}else $$(".split",el).forEach(playSplit)});
+  $$(".sec-head h2").forEach(h=>{splitWords(h);const host=h.closest(".rv,.clip");if(!host||!host.classList.contains("pre"))playSplit(h)});
+}
+function initCursor(){
+  if(RM||!matchMedia("(pointer:fine)").matches)return;
+  const c=document.createElement("div");c.className="cursor";document.body.appendChild(c);
+  let x=innerWidth/2,y=innerHeight/2,cx=x,cy=y;
+  addEventListener("pointermove",e=>{x=e.clientX;y=e.clientY;c.classList.add("live");const t=e.target;
+    c.classList.toggle("view",!!t.closest(".card,.gem,.post-card,.hood,.tile,.next-read,.fs"));
+    c.classList.toggle("big",!c.classList.contains("view")&&!!t.closest("a,button,select,input,textarea,.chip"))});
+  (function loop(){cx+=(x-cx)*.2;cy+=(y-cy)*.2;c.style.transform=`translate(${cx}px,${cy}px) translate(-50%,-50%)`;requestAnimationFrame(loop)})();
+  document.addEventListener("mouseleave",()=>c.classList.remove("live"));
+}
+function initMagnetic(){
+  if(RM||!matchMedia("(pointer:fine)").matches)return;
+  document.addEventListener("pointermove",e=>{const b=e.target.closest(".btn,.arrows button,.fs-nav button");
+    $$(".mag").forEach(m=>{if(m!==b){m.style.transform="";m.classList.remove("mag")}});
+    if(!b)return;const r=b.getBoundingClientRect();b.classList.add("mag");
+    b.style.transform=`translate(${(e.clientX-r.left-r.width/2)*.18}px,${(e.clientY-r.top-r.height/2)*.25}px)`});
+}
+function preloader(){
+  if(RM)return;let seen=false;try{seen=sessionStorage.getItem("doon_loaded")}catch{}
+  if(seen)return;try{sessionStorage.setItem("doon_loaded",1)}catch{}
+  const l=document.createElement("div");l.className="loader";
+  l.innerHTML=`<div class="lw"><span>The Doon <i>Index</i></span></div><div class="bar"></div>`;
+  document.body.appendChild(l);setTimeout(()=>l.classList.add("done"),1300);setTimeout(()=>l.remove(),2400);
+  return 1300;
+}
+
+window.Doon={$,$$,ph,phIn,hue,inr,esc,sync,saved:()=>saved,initSlider,sliderControls,splitWords,playSplit,toast,arrowL,arrowR,heart,
+  start(opts={}){const delay=opts.preloader?preloader()||0:0;sync();$$(".slider").forEach(initSlider);initCursor();initMagnetic();
+    setTimeout(()=>{initReveal();opts.onReady&&opts.onReady()},delay?delay-300:0)}};
+})();

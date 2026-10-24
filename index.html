@@ -1,0 +1,324 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The Doon Index</title>
+<meta name="description" content="The complete guide to Dehradun: cafés, street food, hidden gems, schools, shops and stories from the Doon Valley.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23121418'/%3E%3Ctext x='32' y='45' font-family='Georgia,serif' font-size='38' font-style='italic' text-anchor='middle' fill='%23C9A86A'%3ED%3C/text%3E%3C/svg%3E">
+<meta name="theme-color" content="#0E1013">
+<meta property="og:site_name" content="The Doon Index">
+<meta property="og:type" content="website">
+<meta property="og:title" content="The Doon Index · The complete guide to Dehradun">
+<meta property="og:description" content="Cafés, street food, hidden gems, schools, shops and stories from the Doon Valley.">
+<meta property="og:image" content="https://images.unsplash.com/photo-1660791601899-f79f14cc427d?auto=format&fit=crop&w=1200&h=630&q=80">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preload" as="image" href="https://images.unsplash.com/photo-1660791601899-f79f14cc427d?auto=format&fit=crop&w=2000&q=70" imagesrcset="https://images.unsplash.com/photo-1660791601899-f79f14cc427d?auto=format&fit=crop&w=700&q=70 700w, https://images.unsplash.com/photo-1660791601899-f79f14cc427d?auto=format&fit=crop&w=1400&q=70 1400w, https://images.unsplash.com/photo-1660791601899-f79f14cc427d?auto=format&fit=crop&w=2000&q=70 2000w" imagesizes="100vw" fetchpriority="high">
+<link rel="preconnect" href="https://images.unsplash.com">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;1,6..96,400&family=Manrope:wght@400;600;700;800&display=swap">
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body data-page="home">
+<header id="nav"></header>
+
+<!-- HERO SLIDESHOW -->
+<section class="hero" id="top" aria-roledescription="carousel" aria-label="Dehradun highlights">
+  <div id="slides"></div>
+  <div class="hero-content">
+    <div class="wrap">
+      <p class="label">The complete guide to Dehradun</p>
+      <h1 id="heroTitle">The valley, <em>street by street.</em></h1>
+      <div class="hero-row">
+        <div>
+          <p class="lede">From the momo cart at Ghanta Ghar to cafés hidden up Rajpur Road. Every place, vendor, school and story worth knowing in Dehradun.</p>
+          <form class="finder" id="finder" role="search">
+            <select id="fCat" aria-label="Category">
+              <option value="all">Everything</option><option value="cafe">Cafés</option><option value="street">Street food</option><option value="shop">Shopping</option><option value="place">Places</option><option value="school">Schools</option>
+            </select>
+            <input id="fQ" type="search" placeholder="Search momos, bakeries, Rajpur Road…" aria-label="Search">
+            <button type="submit">Search</button>
+          </form>
+        </div>
+        <div class="slide-info">
+          <div class="counter"><b id="slideNum">01</b> / <span id="slideTotal">04</span></div>
+          <p class="slide-cap" id="slideCap"></p>
+          <div class="dots" id="dots"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-cue" aria-hidden="true"></div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee" aria-hidden="true"><div class="track" id="marq"></div></div>
+
+<main>
+  <!-- CATEGORIES -->
+  <section class="sec rv" style="padding-top:90px">
+    <div class="wrap">
+      <div class="sec-head">
+        <div><p class="label">Start here</p><h2>What are you <em>looking for?</em></h2></div>
+      </div>
+      <div class="tiles" id="tiles"></div>
+    </div>
+  </section>
+
+  <!-- EDITOR'S PICKS SLIDER -->
+  <section class="sec rv">
+    <div class="wrap">
+      <div class="sec-head">
+        <div><p class="label">Editor’s picks</p><h2>This week in <em>the Doon</em></h2></div>
+        <p>Places we keep going back to. Drag, swipe or use the arrows.</p>
+      </div>
+      <div class="slider s-3" id="picks"></div>
+    </div>
+  </section>
+
+  <!-- DIRECTORY -->
+  <section class="sec rv" id="explore">
+    <div class="wrap">
+      <div class="sec-head">
+        <div><p class="label">The directory</p><h2>Where to eat, shop <em>&amp; wander</em></h2></div>
+        <p>Hand-picked by people who live here. Tap any place for timings, tips and directions.</p>
+      </div>
+      <div class="toolbar">
+        <div class="chips" id="chips" role="group" aria-label="Category"></div>
+        <div class="selects">
+          <select id="area" aria-label="Neighbourhood"></select>
+          <select id="price" aria-label="Budget"><option value="">Any budget</option><option>₹</option><option>₹₹</option><option>₹₹₹</option></select>
+        </div>
+      </div>
+      <p class="count" id="count"></p>
+      <div class="grid" id="grid"></div>
+      <div class="more-row" id="moreRow"><button class="btn line" id="moreBtn" type="button">Show more</button></div>
+    </div>
+  </section>
+
+  <!-- HIDDEN GEMS -->
+  <section class="band" id="gems">
+    <div class="wrap rv">
+      <div class="sec-head">
+        <div><p class="label">Off the main road</p><h2>Hidden <em>gems</em></h2></div>
+        <p>Places locals send their friends to. Hover a card for the story.</p>
+      </div>
+      <div class="slider s-25" id="gemSlider"></div>
+    </div>
+  </section>
+
+  <!-- NEIGHBOURHOODS -->
+  <section class="sec clip" id="areas">
+    <div class="wrap">
+      <div class="sec-head">
+        <div><p class="label">Neighbourhoods</p><h2>Know the city <em>by its roads</em></h2></div>
+        <p>Each part of Dehradun has its own pace. Pick one to see what’s around.</p>
+      </div>
+      <div class="hoods" id="hoods"></div>
+    </div>
+  </section>
+
+  <!-- QUOTE -->
+  <section class="quote rv">
+    <div class="wrap">
+      <blockquote>“Every road out of Dehradun leads somewhere <em>worth stopping.</em>”</blockquote>
+      <cite>From the Journal · 48 hours in Dehradun</cite>
+    </div>
+  </section>
+
+  <!-- SCHOOLS -->
+  <section class="sec rv" id="schools">
+    <div class="wrap">
+      <div class="sec-head">
+        <div><p class="label">Education city</p><h2>Schools of <em>the Doon</em></h2></div>
+        <p>Dehradun is home to some of India’s best-known boarding and day schools. Compare board, type and area in one place.</p>
+      </div>
+      <div class="school-wrap">
+        <a class="school-feature ph" href="post.html?p=choosing-school-dehradun" id="schoolFeature"></a>
+        <div>
+          <div class="chips" id="schoolChips" style="margin-bottom:22px"></div>
+          <div id="slist"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SHOP SLIDER -->
+  <section class="sec rv" id="shop">
+    <div class="wrap">
+      <div class="sec-head">
+        <div><p class="label">The Doon store</p><h2>Take the valley <em>home</em></h2></div>
+        <p>Small-batch goods from Dehradun’s farms, kitchens and makers. Delivered across India.</p>
+      </div>
+      <div class="slider s-4" id="shopSlider"></div>
+    </div>
+  </section>
+
+  <!-- JOURNAL SLIDER -->
+  <section class="sec rv" id="journal">
+    <div class="wrap">
+      <div class="sec-head">
+        <div><p class="label">The journal</p><h2>Stories from <em>the valley</em></h2></div>
+        <a class="link-more" href="blog.html">Read the journal</a>
+      </div>
+      <div class="slider s-3" id="postSlider"></div>
+    </div>
+  </section>
+
+  <!-- FOR BUSINESS -->
+  <section class="sec clip" id="business">
+    <div class="wrap">
+      <div class="biz">
+        <div class="ph" id="bizImg"></div>
+        <div class="biz-body">
+          <div><p class="label">For businesses</p><h2 style="margin-top:12px">Your place deserves <em>to be found.</em></h2></div>
+          <p>Whether you run a café on Rajpur Road, a thela in Paltan Bazaar or a school in Selaqui, The Doon Index puts you in front of people who are actively looking for what you do in Dehradun.</p>
+          <div class="why">
+            <div><b>Reach local searchers</b><span>Residents, students and tourists planning where to go next.</span></div>
+            <div><b>A page that sells you</b><span>Photos, menu, timings, offers and directions in one place.</span></div>
+            <div><b>Told as a story</b><span>We visit, photograph and write about places worth knowing.</span></div>
+            <div><b>Beyond the website</b><span>Selected listings feature in our reels, stories and newsletter.</span></div>
+          </div>
+          <ol class="steps">
+            <li><span><b>Tell us about your place.</b> Share the basics in a two-minute form.</span></li>
+            <li><span><b>We verify and visit.</b> Our team checks details and plans photos.</span></li>
+            <li><span><b>Go live.</b> Your page appears in search, categories and neighbourhood guides.</span></li>
+          </ol>
+          <div class="btn-row"><button class="btn" data-biz="list">Add your business</button><button class="btn line" data-biz="partner">Partner with us</button></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NEWSLETTER -->
+  <div class="wrap rv">
+    <div class="news">
+      <div><p class="label">The Sunday letter</p><h2 style="margin-top:12px">One new Doon find, <em>every week.</em></h2></div>
+      <div>
+        <form data-news name="newsletter"><input type="hidden" name="form-name" value="newsletter"><input type="email" id="newsEmail" name="email" required placeholder="Your email address" aria-label="Email address"><button type="submit">Subscribe →</button></form>
+        <p class="ok" hidden>You’re on the list. See you on Sunday.</p>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer id="footer"></footer>
+<!-- Static copies of the forms so Netlify can detect them at deploy time -->
+<form name="add-business" data-netlify="true" netlify-honeypot="bot-field" hidden><input name="bot-field"><input name="business"><input name="category"><input name="area"><input name="phone"><textarea name="details"></textarea></form>
+<form name="partner" data-netlify="true" netlify-honeypot="bot-field" hidden><input name="bot-field"><input name="business"><input name="category"><input name="area"><input name="phone"><textarea name="details"></textarea></form>
+<form name="newsletter" data-netlify="true" hidden><input type="email" name="email"></form>
+
+
+<script src="assets/data.js"></script>
+<script src="assets/site.js"></script>
+<script>
+(function(){
+const {$,$$,ph,phIn,hue,inr,esc,saved,sliderControls,splitWords,playSplit,heart}=Doon;
+
+/* hero slideshow */
+const DUR=6500;let cur=0,timer=null,paused=false;
+$("#slides").innerHTML=HERO_SLIDES.map((s,i)=>`<div class="slide${i?"":" on"}">${ph(s.img,2000,s.cap,"",i===0)}</div>`).join("");
+$("#slideTotal").textContent=String(HERO_SLIDES.length).padStart(2,"0");
+$("#dots").innerHTML=HERO_SLIDES.map((s,i)=>`<button aria-label="Show ${esc(s.cap)}" style="--dur:${DUR}ms"></button>`).join("");
+function go(i){cur=(i+HERO_SLIDES.length)%HERO_SLIDES.length;
+  $$(".slide").forEach((s,k)=>s.classList.toggle("on",k===cur));
+  $$("#dots button").forEach((d,k)=>{d.classList.remove("on");d.classList.toggle("done",k<cur);if(k===cur){void d.offsetWidth;d.classList.add("on")}});
+  $("#slideNum").textContent=String(cur+1).padStart(2,"0");
+  const s=HERO_SLIDES[cur];$("#slideCap").innerHTML=`<b>${s.cap}</b> · ${s.sub}`;
+  clearTimeout(timer);if(!paused)timer=setTimeout(()=>go(cur+1),DUR)}
+$("#dots").onclick=e=>{const b=e.target.closest("button");if(b)go([...b.parentNode.children].indexOf(b))};
+const hero=$(".hero");
+hero.addEventListener("mouseenter",()=>{paused=true;hero.classList.add("paused");clearTimeout(timer)});
+hero.addEventListener("mouseleave",()=>{paused=false;hero.classList.remove("paused");timer=setTimeout(()=>go(cur+1),2500)});
+let tx=0;hero.addEventListener("touchstart",e=>tx=e.touches[0].clientX,{passive:true});
+hero.addEventListener("touchend",e=>{const dx=e.changedTouches[0].clientX-tx;if(Math.abs(dx)>50&&!e.target.closest("form"))go(cur+(dx<0?1:-1))});
+addEventListener("scroll",()=>{const y=scrollY;if(y<innerHeight)$$(".slide .ph").forEach(p=>p.style.transform=`translateY(${y*.3}px)`)},{passive:true});
+
+/* marquee */
+const words=["Rajpur Road","Paltan Bazaar","Ghanta Ghar","Sahastradhara","Robber’s Cave","Clement Town","Dalanwala","Mussoorie Road","Chakrata Road","Selaqui"];
+$("#marq").innerHTML=[...words,...words].map(w=>`<span>${w}</span>`).join("");
+
+/* tiles */
+const TILES=[["cafe","Cafés","cafe-bulbs"],["street","Street food","momos"],["gem","Hidden gems","river"],["school","Schools","fri"],["shop","Shopping","bazaar"],["place","Places","monastery"]];
+$("#tiles").innerHTML=TILES.map(([k,l,i])=>{const c=k==="gem"?GEMS.length:k==="school"?SCHOOLS.length:PLACES.filter(p=>p.c===k).length;
+  return `<button class="tile ph" data-tile="${k}" style="--h:${hue(i)}">${phIn(i,600,l)}<span class="t"><b>${l}</b><small>${c} listed</small></span></button>`}).join("");
+$("#tiles").onclick=e=>{const t=e.target.closest("[data-tile]");if(!t)return;const k=t.dataset.tile;
+  if(k==="gem")return $("#gems").scrollIntoView();if(k==="school")return $("#schools").scrollIntoView();
+  S.cat=k;S.limit=PAGE();renderChips();render();$("#explore").scrollIntoView()};
+
+/* card */
+const card=(p,wide)=>`<article class="card${wide?" wide":""}" data-place="${p.id}" tabindex="0">
+  <div style="position:relative">${ph(p.img,800,p.n)}<div class="tags"><span class="tag">${CATS[p.c].replace(/s$/,"")}</span>${p.f?'<span class="tag gold">Featured</span>':""}</div>
+  <button class="save${saved().has(p.id)?" on":""}" data-save="${p.id}" aria-label="Save ${esc(p.n)}">${heart}</button></div>
+  <div><div class="row"><span>${p.a}</span><span>${p.p}</span></div><h3>${p.n}</h3><p class="d">${p.d}</p></div></article>`;
+
+/* picks slider */
+const picks=[...PLACES.filter(p=>p.f),...PLACES.filter(p=>!p.f&&p.c==="cafe"),PLACES[7]];
+$("#picks").innerHTML=`<div class="track">${picks.map(p=>card(p)).join("")}</div>${sliderControls()}`;
+
+/* directory */
+const PAGE=()=>innerWidth<700?5:innerWidth<1000?6:9;
+const S={cat:"all",area:"",price:"",q:"",limit:PAGE()};
+function renderChips(){$("#chips").innerHTML=[["all","All"],["cafe","Cafés"],["street","Street food"],["shop","Shopping"],["place","Places"],["saved","Saved"]]
+  .map(([k,l])=>`<button class="chip" data-c="${k}" aria-pressed="${S.cat===k}">${l}</button>`).join("")}
+$("#chips").onclick=e=>{const b=e.target.closest("[data-c]");if(!b)return;S.cat=b.dataset.c;S.limit=PAGE();renderChips();render()};
+$("#area").innerHTML=`<option value="">All neighbourhoods</option>`+AREAS.map(a=>`<option>${a}</option>`).join("");
+$("#area").onchange=e=>{S.area=e.target.value;S.limit=PAGE();render()};
+$("#price").onchange=e=>{S.price=e.target.value;S.limit=PAGE();render()};
+function render(){
+  const q=S.q.toLowerCase(),sv=saved();
+  const list=PLACES.filter(p=>(S.cat==="all"||(S.cat==="saved"?sv.has(p.id):p.c===S.cat))&&(!S.area||p.a===S.area)&&(!S.price||p.p===S.price)
+    &&(!q||[p.n,p.d,p.a,CATS[p.c]].join(" ").toLowerCase().includes(q))).sort((a,b)=>(b.f||0)-(a.f||0));
+  $("#count").textContent=`${list.length} ${list.length===1?"place":"places"}${S.area?" in "+S.area:" across Dehradun"}${S.q?` matching “${S.q}”`:""}`;
+  const shown=list.slice(0,S.limit);
+  $("#grid").innerHTML=list.length?shown.map((p,i)=>card(p,true).replace('class="card wide"',`class="card wide" style="animation-delay:${Math.min(i%PAGE(),8)*.06}s"`)).join("")
+   :`<div class="empty">${S.cat==="saved"?"You haven’t saved any places yet. Tap the heart on any card.":`No places match yet. Know one? <a href="#" data-biz="list">Add it to the Index</a>.`}</div>`;
+  const left=list.length-shown.length;
+  $("#moreRow").hidden=left<=0;
+  $("#moreBtn").textContent=`Show ${Math.min(left,PAGE())} more of ${left}`;
+}
+$("#moreBtn").onclick=()=>{S.limit+=PAGE();render()};
+document.addEventListener("doon:sync",()=>{if(S.cat==="saved")render()});
+function search(q,cat){
+  if(cat==="school"||(/school|boarding/i.test(q)&&cat==="all")){$("#schools").scrollIntoView();return}
+  S.q=q;S.cat=cat||"all";S.area="";$("#area").value="";S.limit=PAGE();renderChips();render();$("#explore").scrollIntoView()}
+$("#finder").onsubmit=e=>{e.preventDefault();search($("#fQ").value.trim(),$("#fCat").value)};
+
+/* gems */
+$("#gemSlider").innerHTML=`<div class="track">${GEMS.map((g,i)=>`<div class="gem ph" data-gem="${i}" tabindex="0" style="--h:${hue(g.img)}">${phIn(g.img,900,g.n)}<span class="t"><span class="alt">${g.alt}</span><h3>${g.n}</h3><p>${g.d}</p></span></div>`).join("")}</div>${sliderControls()}`;
+
+/* hoods */
+$("#hoods").innerHTML=HOODS.map(h=>{const c=PLACES.filter(p=>p.a===h.n).length;
+  return `<div class="hood ph" data-hood="${h.n}" tabindex="0" style="--h:${hue(h.img)}">${phIn(h.img,1000,h.n)}<span class="t"><span><b>${h.n}</b><small>${h.d} · ${c} listed</small></span><span class="go">→</span></span></div>`}).join("");
+$("#hoods").onclick=e=>{const b=e.target.closest("[data-hood]");if(!b)return;S.area=b.dataset.hood;S.cat="all";S.q="";$("#area").value=S.area;S.limit=PAGE();renderChips();render();$("#explore").scrollIntoView()};
+$("#hoods").onkeydown=e=>{if(e.key==="Enter")e.target.click()};
+
+/* schools */
+$("#schoolFeature").innerHTML=phIn("fri",1200,"Heritage campus")+`<div class="cap"><p class="label" style="color:var(--brass-2)">Admissions guide</p><h3>Day school or boarding? How to choose in Dehradun</h3></div>`;
+$("#schoolFeature").style.setProperty("--h",PHOTOS.fri.h);
+let sf="All";
+function renderSchools(){
+  $("#schoolChips").innerHTML=["All","Boarding","Day","Girls","Boys","Co-ed"].map(k=>`<button class="chip" data-s="${k}" aria-pressed="${sf===k}">${k}</button>`).join("");
+  const l=SCHOOLS.filter(s=>sf==="All"||s.type.includes(sf)||s.g===sf);
+  $("#slist").innerHTML=l.map(s=>`<button class="srow" data-school="${esc(s.n)}"><h3>${s.n}</h3><span class="sub">${s.a} · ${s.d}</span><span class="pills"><span class="pill gold">${s.board}</span><span class="pill">${s.type}</span><span class="pill">${s.g}</span></span></button>`).join("")||`<div class="empty">No schools match this filter.</div>`}
+$("#schoolChips").onclick=e=>{const b=e.target.closest("[data-s]");if(!b)return;sf=b.dataset.s;renderSchools()};
+
+/* shop */
+$("#shopSlider").innerHTML=`<div class="track">${SHOP.map(s=>`<div class="prod"><div style="position:relative">${ph(s.img,700,s.n)}<button class="addq" data-add="${s.id}">Add to bag</button></div>
+  <div><p class="maker">${s.m}</p><h3>${s.n}</h3><p class="price">${inr(s.p)}</p></div></div>`).join("")}</div>${sliderControls()}`;
+
+/* journal */
+$("#postSlider").innerHTML=`<div class="track">${POSTS.map(p=>`<a class="post-card" href="post.html?p=${p.slug}">${ph(p.img,900,p.t)}
+  <div><p class="meta"><span class="cat">${p.cat}</span><span>·</span><span>${p.min} min read</span></p><h3 style="margin-top:8px">${p.t}</h3><p class="ex" style="margin-top:8px">${p.ex}</p></div></a>`).join("")}</div>${sliderControls()}`;
+
+/* business image */
+$("#bizImg").outerHTML=ph("cafe-plants",1400,"Warm café interior");
+
+renderChips();render();renderSchools();
+splitWords($("#heroTitle"));
+Doon.start({preloader:true,onReady(){playSplit($("#heroTitle"));go(0)}});
+})();
+</script>
+</body>
+</html>
