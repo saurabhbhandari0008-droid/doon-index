@@ -1,9 +1,14 @@
-/* Doon Dekho — bold city-guide system. Ink + porcelain + brass. Bricolage Grotesque display (bold, no italics), Manrope text. */
+/* Doon Dekho — Swiss-style city-guide system. Ink + porcelain + brass. Helvetica throughout (real Helvetica Neue on Apple, TeX Gyre Heros elsewhere), bold, no italics. */
+/* Helvetica everywhere: real Helvetica Neue where installed (Mac, iPhone), a free Helvetica-style copy elsewhere */
+@font-face{font-family:"Doon Helvetica";font-weight:300 500;font-style:normal;font-display:swap;
+  src:local("Helvetica Neue"),local("HelveticaNeue"),local("Helvetica"),url("/assets/fonts/heros-400.woff2") format("woff2")}
+@font-face{font-family:"Doon Helvetica";font-weight:600 900;font-style:normal;font-display:swap;
+  src:local("Helvetica Neue Bold"),local("HelveticaNeue-Bold"),local("Helvetica Bold"),local("Helvetica-Bold"),url("/assets/fonts/heros-700.woff2") format("woff2")}
 :root{
   --bg:#F7F6F3; --surface:#FFFFFF; --sunk:#EEECE7; --ink:#121418; --ink-2:#3B3F46; --muted:#7A7D84; --line:#E2DFD8;
   --brass:#A8823F; --brass-2:#C9A86A; --brass-soft:#EADFC8; --deep:#0E1013; --on-deep:#F3EFE7; --on-deep-2:rgba(243,239,231,.62);
-  --serif:"Bricolage Grotesque","Manrope","Helvetica Neue",Arial,sans-serif;
-  --sans:"Manrope","Helvetica Neue",Arial,sans-serif;
+  --serif:"Doon Helvetica","Helvetica Neue",Helvetica,Arial,sans-serif;
+  --sans:"Doon Helvetica","Helvetica Neue",Helvetica,Arial,sans-serif;
   --r:16px; --r-sm:10px;
   --shadow:0 1px 2px rgba(18,20,24,.04),0 18px 40px -18px rgba(18,20,24,.22);
   --ease:cubic-bezier(.2,.75,.15,1);
@@ -886,3 +891,35 @@ h3{letter-spacing:-.02em}
   .grid .card.wide.ad-card{display:block}
   .grid .card.wide.ad-card .ad-hit{display:grid}
 }
+
+
+/* =====================================================================
+   HELVETICA — Swiss styling: tight bold headlines, crisp corners, clean labels
+   ===================================================================== */
+:root{--r:10px;--r-sm:8px}
+body{font-weight:400;letter-spacing:-.003em}
+h1,h2,h3,h4{font-weight:700;letter-spacing:-.04em;line-height:1}
+h3{letter-spacing:-.025em;line-height:1.1}
+.hero h1{letter-spacing:-.05em;line-height:.94}
+.page-hero h1,.article-hero h1{letter-spacing:-.05em;line-height:.96}
+.sec-head h2{letter-spacing:-.045em}
+.logo{font-weight:700;letter-spacing:-.04em}
+.label{font-weight:700;letter-spacing:.16em}
+.tag,.ad-label,.pill{font-weight:700;letter-spacing:.08em}
+.btn,.chip,.icon-btn,.finder button,.finder select,.addq{font-weight:700;letter-spacing:-.005em}
+.marquee span{font-weight:700;letter-spacing:-.03em}
+.marquee span:nth-child(even){font-weight:400;color:var(--muted)}
+.quote blockquote{font-weight:700;letter-spacing:-.04em}
+.big-word{font-weight:700;letter-spacing:-.065em}
+.counter,.counter b{font-weight:700;letter-spacing:-.02em}
+.card h3,.post-card h3,.srow h3,.prow h3{font-weight:700}
+.meta,.maker,.row{letter-spacing:.02em}
+/* crisp corners suit Helvetica better than pills */
+.btn,.chip,.finder,.finder button,.selects select,.blog-search,.icon-btn,.addq,.qty,.share button,.news button{border-radius:8px}
+.finder{border-radius:12px}
+.finder button{border-radius:8px}
+.tile,.hood,.gem,.subtile,.card .ph,.post-card .ph,.prod .ph,.seccard .ph,.school-feature,.biz,.news,.feature-slider,.next-read,.ad-banner,.modal,.empty,.empty-cta,.lead .ph,.prow .ph{border-radius:var(--r)}
+.tag,.ad-label{border-radius:4px}
+.save,.x,.arrows button,.fs-nav button,.hood .go{border-radius:50%}
+.badge{border-radius:10px}
+@media (max-width:699px){.finder{border-radius:12px}}
