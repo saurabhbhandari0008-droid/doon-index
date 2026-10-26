@@ -35,7 +35,7 @@
           <p class="lede">From the momo cart at Ghanta Ghar to cafés hidden up Rajpur Road. Every place, vendor, school and story worth knowing in Dehradun.</p>
           <form class="finder" id="finder" role="search">
             <select id="fCat" aria-label="Category">
-              <option value="all">Everything</option><option value="cafe">Cafés</option><option value="street">Street food</option><option value="shop">Shopping</option><option value="place">Places</option><option value="school">Schools</option>
+              <option value="all">Everything</option><option value="food">Food &amp; Drink</option><option value="shopping">Shopping</option><option value="places">Places to visit</option><option value="school">Schools</option>
             </select>
             <input id="fQ" type="search" placeholder="Search momos, bakeries, Rajpur Road…" aria-label="Search">
             <button type="submit">Search</button>
@@ -61,6 +61,7 @@
     <div class="wrap">
       <div class="sec-head">
         <div><p class="label">Start here</p><h2>What are you <em>looking for?</em></h2></div>
+        <a class="link-more" href="explore.html">All categories</a>
       </div>
       <div class="tiles" id="tiles"></div>
     </div>
@@ -74,6 +75,7 @@
         <p>Places we keep going back to. Drag, swipe or use the arrows.</p>
       </div>
       <div class="slider s-3" id="picks"></div>
+      <div id="adHome1"></div>
     </div>
   </section>
 
@@ -82,7 +84,7 @@
     <div class="wrap">
       <div class="sec-head">
         <div><p class="label">The directory</p><h2>Where to eat, shop <em>&amp; wander</em></h2></div>
-        <p>Hand-picked by people who live here. Tap any place for timings, tips and directions.</p>
+        <p>Hand-picked by people who live here. Tap any place for timings, tips and directions, or <a href="explore.html" style="color:var(--brass);font-weight:700">browse every category</a>.</p>
       </div>
       <div class="toolbar">
         <div class="chips" id="chips" role="group" aria-label="Category"></div>
@@ -152,6 +154,7 @@
         <p>Small-batch goods from Dehradun’s farms, kitchens and makers. Delivered across India.</p>
       </div>
       <div class="slider s-4" id="shopSlider"></div>
+      <div id="adHome2"></div>
     </div>
   </section>
 
@@ -214,10 +217,10 @@
 <script src="assets/site.js"></script>
 <script>
 (function(){
-const {$,$$,ph,phIn,hue,inr,esc,saved,sliderControls,splitWords,playSplit,heart}=Doon;
+const {$,$$,ph,phIn,hue,inr,esc,saved,sliderControls,splitWords,playSplit,heart,card:dcard,ad,sectionOf,subOf,countSection}=Doon;
 
 /* hero slideshow */
-const DUR=5000;let cur=0,timer=null,paused=false;
+const DUR=3000;let cur=0,timer=null,paused=false;
 $("#slides").innerHTML=HERO_SLIDES.map((s,i)=>`<div class="slide${i?"":" on"}">${ph(s.img,2000,s.cap,"",i===0)}</div>`).join("");
 $("#slideTotal").textContent=String(HERO_SLIDES.length).padStart(2,"0");
 $("#dots").innerHTML=HERO_SLIDES.map((s,i)=>`<button aria-label="Show ${esc(s.cap)}" style="--dur:${DUR}ms"></button>`).join("");
@@ -238,28 +241,22 @@ addEventListener("scroll",()=>{const y=scrollY;if(y<innerHeight)$$(".slide .ph")
 const words=["Rajpur Road","Paltan Bazaar","Ghanta Ghar","Sahastradhara","Robber’s Cave","Clement Town","Dalanwala","Mussoorie Road","Chakrata Road","Selaqui"];
 $("#marq").innerHTML=[...words,...words].map(w=>`<span>${w}</span>`).join("");
 
-/* tiles */
-const TILES=[["cafe","Cafés","cafe-bulbs"],["street","Street food","momos"],["gem","Hidden gems","river"],["school","Schools","fri"],["shop","Shopping","bazaar"],["place","Places","monastery"]];
-$("#tiles").innerHTML=TILES.map(([k,l,i])=>{const c=k==="gem"?GEMS.length:k==="school"?SCHOOLS.length:PLACES.filter(p=>p.c===k).length;
-  return `<button class="tile ph" data-tile="${k}" style="--h:${hue(i)}">${phIn(i,600,l)}<span class="t"><b>${l}</b><small>${c} listed</small></span></button>`}).join("");
-$("#tiles").onclick=e=>{const t=e.target.closest("[data-tile]");if(!t)return;const k=t.dataset.tile;
-  if(k==="gem")return $("#gems").scrollIntoView();if(k==="school")return $("#schools").scrollIntoView();
-  S.cat=k;S.limit=PAGE();renderChips();render();$("#explore").scrollIntoView()};
+/* section tiles */
+$("#tiles").innerHTML=SECTIONS.map(x=>{const n=countSection(x);
+  return `<a class="tile ph" href="explore.html?c=${x.id}" style="--h:${hue(x.img)}">${phIn(x.img,700,x.name)}<span class="t"><b>${esc(x.name)}</b><small>${n?n+" listed":"New · be the first"}</small></span></a>`}).join("");
 
 /* card */
-const card=(p,wide)=>`<article class="card${wide?" wide":""}" data-place="${p.id}" tabindex="0">
-  <div style="position:relative">${ph(p.img,800,p.n)}<div class="tags"><span class="tag">${CATS[p.c].replace(/s$/,"")}</span>${p.f?'<span class="tag gold">Featured</span>':""}</div>
-  <button class="save${saved().has(p.id)?" on":""}" data-save="${p.id}" aria-label="Save ${esc(p.n)}">${heart}</button></div>
-  <div><div class="row"><span>${p.a}</span><span>${p.p}</span></div><h3>${p.n}</h3><p class="d">${p.d}</p></div></article>`;
+const card=(p,wide)=>dcard(p,{wide});
 
 /* picks slider */
-const picks=[...PLACES.filter(p=>p.f),...PLACES.filter(p=>!p.f&&p.c==="cafe"),PLACES[7]];
+const picks=[...PLACES.filter(p=>p.f),...PLACES.filter(p=>!p.f&&p.s==="cafes"),PLACES[7]];
+$("#adHome1").innerHTML=ad("banner");
 $("#picks").innerHTML=`<div class="track">${picks.map(p=>card(p)).join("")}</div>${sliderControls()}`;
 
 /* directory */
 const PAGE=()=>innerWidth<700?5:innerWidth<1000?6:9;
 const S={cat:"all",area:"",price:"",q:"",limit:PAGE()};
-function renderChips(){$("#chips").innerHTML=[["all","All"],["cafe","Cafés"],["street","Street food"],["shop","Shopping"],["place","Places"],["saved","Saved"]]
+function renderChips(){$("#chips").innerHTML=[["all","All"],["food","Food & Drink"],["shopping","Shopping"],["places","Places to visit"],["saved","Saved"]]
   .map(([k,l])=>`<button class="chip" data-c="${k}" aria-pressed="${S.cat===k}">${l}</button>`).join("")}
 $("#chips").onclick=e=>{const b=e.target.closest("[data-c]");if(!b)return;S.cat=b.dataset.c;S.limit=PAGE();renderChips();render()};
 $("#area").innerHTML=`<option value="">All neighbourhoods</option>`+AREAS.map(a=>`<option>${a}</option>`).join("");
@@ -267,11 +264,13 @@ $("#area").onchange=e=>{S.area=e.target.value;S.limit=PAGE();render()};
 $("#price").onchange=e=>{S.price=e.target.value;S.limit=PAGE();render()};
 function render(){
   const q=S.q.toLowerCase(),sv=saved();
-  const list=PLACES.filter(p=>(S.cat==="all"||(S.cat==="saved"?sv.has(p.id):p.c===S.cat))&&(!S.area||p.a===S.area)&&(!S.price||p.p===S.price)
-    &&(!q||[p.n,p.d,p.a,CATS[p.c]].join(" ").toLowerCase().includes(q))).sort((a,b)=>(b.f||0)-(a.f||0));
+  const list=PLACES.filter(p=>(S.cat==="all"||(S.cat==="saved"?sv.has(p.id):(sectionOf(p)||{}).id===S.cat))&&(!S.area||p.a===S.area)&&(!S.price||p.p===S.price)
+    &&(!q||[p.n,p.d,p.a,(subOf(p)||{}).name,(sectionOf(p)||{}).name].join(" ").toLowerCase().includes(q))).sort((a,b)=>(b.f||0)-(a.f||0));
   $("#count").textContent=`${list.length} ${list.length===1?"place":"places"}${S.area?" in "+S.area:" across Dehradun"}${S.q?` matching “${S.q}”`:""}`;
   const shown=list.slice(0,S.limit);
-  $("#grid").innerHTML=list.length?shown.map((p,i)=>card(p,true).replace('class="card wide"',`class="card wide" style="animation-delay:${Math.min(i%PAGE(),8)*.06}s"`)).join("")
+  const cards=shown.map((p,i)=>dcard(p,{wide:true,style:`animation-delay:${Math.min(i%PAGE(),8)*.06}s`}));
+  if(S.cat!=="saved"&&cards.length>=4)cards.splice(3,0,ad("infeed"));
+  $("#grid").innerHTML=list.length?cards.join("")
    :`<div class="empty">${S.cat==="saved"?"You haven’t saved any places yet. Tap the heart on any card.":`No places match yet. Know one? <a href="#" data-biz="list">Add it to the Index</a>.`}</div>`;
   const left=list.length-shown.length;
   $("#moreRow").hidden=left<=0;
@@ -313,6 +312,7 @@ $("#postSlider").innerHTML=`<div class="track">${POSTS.map(p=>`<a class="post-ca
 
 /* business image */
 $("#bizImg").outerHTML=ph("cafe-plants",1400,"Warm café interior");
+$("#adHome2").innerHTML=ad("banner");
 
 renderChips();render();renderSchools();
 splitWords($("#heroTitle"));

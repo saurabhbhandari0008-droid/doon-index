@@ -39,6 +39,7 @@
         <label class="blog-search"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><input id="bq" type="search" placeholder="Search stories" aria-label="Search stories"></label>
       </div>
       <div class="blog-grid" id="bgrid"></div>
+      <div id="blogAd"></div>
     </div>
   </section>
 
@@ -65,7 +66,7 @@ $("#fPrev").innerHTML=arrowL;$("#fNext").innerHTML=arrowR;
 const feat=POSTS.slice(0,4);let fi=0,ft;
 $("#fslides").innerHTML=feat.map((p,i)=>`<a class="fs${i?"":" on"}" href="post.html?p=${p.slug}" aria-hidden="${i?"true":"false"}" ${i?'tabindex="-1"':""}>${ph(p.img,1800,p.t,"",i===0)}
   <div class="fs-text"><p class="meta"><span class="cat">${p.cat}</span><span>·</span><span>${p.min} min read</span><span>·</span><span>${p.date}</span></p><h2>${p.t}</h2><p>${p.ex}</p></div></a>`).join("");
-function fgo(i){fi=(i+feat.length)%feat.length;$$(".fs").forEach((s,k)=>{s.classList.toggle("on",k===fi);s.setAttribute("aria-hidden",k!==fi);s.tabIndex=k===fi?0:-1});clearTimeout(ft);ft=setTimeout(()=>fgo(fi+1),5000)}
+function fgo(i){fi=(i+feat.length)%feat.length;$$(".fs").forEach((s,k)=>{s.classList.toggle("on",k===fi);s.setAttribute("aria-hidden",k!==fi);s.tabIndex=k===fi?0:-1});clearTimeout(ft);ft=setTimeout(()=>fgo(fi+1),3000)}
 $("#fPrev").onclick=()=>fgo(fi-1);$("#fNext").onclick=()=>fgo(fi+1);
 let tx=0;$("#fslider").addEventListener("touchstart",e=>tx=e.touches[0].clientX,{passive:true});
 $("#fslider").addEventListener("touchend",e=>{const d=e.changedTouches[0].clientX-tx;if(Math.abs(d)>50)fgo(fi+(d<0?1:-1))});
@@ -81,6 +82,7 @@ function grid(){const l=POSTS.filter(p=>(cat==="All"||p.cat===cat)&&(!q||(p.t+p.
 $("#bchips").onclick=e=>{const b=e.target.closest("[data-bc]");if(!b)return;cat=b.dataset.bc;chips();grid()};
 $("#bq").oninput=e=>{q=e.target.value.trim().toLowerCase();grid()};
 chips();grid();
+$("#blogAd").innerHTML=Doon.ad("banner");
 splitWords($("#blogTitle"));
 Doon.start({onReady(){playSplit($("#blogTitle"));fgo(0)}});
 })();

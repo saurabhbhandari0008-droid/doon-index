@@ -30,7 +30,7 @@ document.addEventListener("error",e=>{const i=e.target;if(i.tagName!=="IMG")retu
 /* ---------- nav + footer ---------- */
 const page=document.body.dataset.page||"home";
 const home=page==="home"?"":"index.html";
-const NAV=[["Explore",home+"#explore"],["Hidden Gems",home+"#gems"],["Neighbourhoods",home+"#areas"],["Schools",home+"#schools"],["Shop",home+"#shop"],["Journal","blog.html"],["For Business",home+"#business"]];
+const NAV=[["Explore","explore.html"],["Hidden Gems",home+"#gems"],["Neighbourhoods",home+"#areas"],["Schools",home+"#schools"],["Shop",home+"#shop"],["Journal","blog.html"],["For Business",home+"#business"]];
 const heart=`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-7.5-4.6-9.5-9.2C1 8.2 3.4 4.5 7 4.5c2 0 3.6 1.1 5 3 1.4-1.9 3-3 5-3 3.6 0 6 3.7 4.5 7.3C19.5 16.4 12 21 12 21z"/></svg>`;
 const arrowL=`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M15 5l-7 7 7 7"/></svg>`;
 const arrowR=`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 5l7 7-7 7"/></svg>`;
@@ -38,7 +38,7 @@ const navEl=$("#nav");
 if(navEl){
   navEl.className="nav"+(document.body.dataset.nav==="light"?" light":"");
   navEl.innerHTML=`<div class="wrap"><a class="logo" href="index.html">Doon <i>Dekho</i></a>
-  <nav class="links" aria-label="Main">${NAV.map(([l,h])=>`<a href="${h}"${page==="blog"&&l==="Journal"?' class="on"':""}>${l}</a>`).join("")}</nav>
+  <nav class="links" aria-label="Main">${NAV.map(([l,h])=>`<a href="${h}"${(page==="blog"&&l==="Journal")||(page==="explore"&&l==="Explore")?' class="on"':""}>${l}</a>`).join("")}</nav>
   <div class="actions"><button class="icon-btn" id="savedBtn" aria-label="Saved places">${heart}<span class="badge" id="savedCount">0</span></button>
   <button class="icon-btn" id="bagBtn" aria-label="Shopping bag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 8h14l-1.2 12H6.2L5 8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg><span class="badge" id="bagCount">0</span></button>
   <button class="icon-btn menu-btn" id="menuBtn" aria-label="Open menu">Menu</button></div></div>`;
@@ -55,17 +55,56 @@ const ico={home:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stro
  explore:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/></svg>`,
  journal:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3z"/><path d="M9 9h6M9 13h6"/></svg>`,
  bag:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M5 8h14l-1.2 12H6.2L5 8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>`};
-tb.innerHTML=`<a href="index.html#top"${page==="home"?' class="on"':""}>${ico.home}Home</a><a href="${home}#explore">${ico.explore}Explore</a><a href="blog.html"${page!=="home"?' class="on"':""}>${ico.journal}Journal</a>
+tb.innerHTML=`<a href="index.html#top"${page==="home"?' class="on"':""}>${ico.home}Home</a><a href="explore.html"${page==="explore"?' class="on"':""}>${ico.explore}Explore</a><a href="blog.html"${page==="blog"||page==="post"?' class="on"':""}>${ico.journal}Journal</a>
  <button id="tbSaved" type="button">${heart}Saved<span class="badge" data-count="saved">0</span></button><button id="tbBag" type="button">${ico.bag}Bag<span class="badge" data-count="bag">0</span></button>`;
 document.body.appendChild(tb);
 const footEl=$("#footer");
 if(footEl){footEl.className="site";footEl.innerHTML=`<div class="wrap">
   <div class="foot"><div><a class="logo" href="index.html">Doon <i>Dekho</i></a><p>An independent guide to Dehradun, made by people who live here.</p></div>
-  <div><h4>Explore</h4><ul><li><a href="${home}#explore">Cafés</a></li><li><a href="${home}#explore">Street food</a></li><li><a href="${home}#gems">Hidden gems</a></li><li><a href="${home}#areas">Neighbourhoods</a></li></ul></div>
+  <div><h4>Explore</h4><ul>${(window.SECTIONS||[]).slice(0,6).map(x=>`<li><a href="explore.html?c=${x.id}">${x.name}</a></li>`).join("")}<li><a href="explore.html">All categories</a></li></ul></div>
   <div><h4>Discover</h4><ul><li><a href="${home}#schools">Schools</a></li><li><a href="${home}#shop">Shop</a></li><li><a href="blog.html">Journal</a></li></ul></div>
   <div><h4>Business</h4><ul><li><a href="#" data-biz="list">Add your business</a></li><li><a href="#" data-biz="partner">Partner with us</a></li></ul></div></div>
   <div class="big-word" aria-hidden="true">Dehra<i>dun</i></div>
   <div class="legal"><span>© 2026 Doon Dekho · Dehradun, Uttarakhand</span><span>Prototype · photos via Unsplash · vendors and products are sample data</span></div></div>`}
+
+
+/* ---------- categories ---------- */
+const SUBMAP={};(window.SECTIONS||[]).forEach(sec=>sec.subs.forEach(sb=>SUBMAP[sb.id]={...sb,sec}));
+const subOf=p=>SUBMAP[p.s]||null;
+const sectionOf=p=>(SUBMAP[p.s]||{}).sec||null;
+const listFor=subId=>subId==="hidden-gems"?GEMS.map((g,i)=>({...g,gem:i,s:"hidden-gems"})):subId==="schools"?SCHOOLS.map(x=>({...x,school:1,s:"schools"})):PLACES.filter(p=>p.s===subId);
+const countFor=subId=>listFor(subId).length;
+const countSection=sec=>sec.subs.reduce((t,sb)=>t+countFor(sb.id),0);
+
+/* ---------- listing card (used on home + explore) ---------- */
+function card(p,o={}){
+  if(p.school)return `<article class="card${o.wide?" wide":""}"${o.style?` style="${o.style}"`:""}><div style="position:relative">${ph("fri",800,p.n)}<div class="tags"><span class="tag">School</span></div></div>
+   <div><div class="row"><span>${esc(p.a)}</span><span>${esc(p.board)}</span></div><h3><a class="stretch" href="#" data-school="${esc(p.n)}">${esc(p.n)}</a></h3><p class="d">${esc(p.type)} · ${esc(p.g)} · ${esc(p.d)}</p></div></article>`;
+  if(p.gem!==undefined)return `<article class="card${o.wide?" wide":""}"${o.style?` style="${o.style}"`:""}><div style="position:relative">${ph(p.img,800,p.n)}<div class="tags"><span class="tag">Hidden gem</span></div></div>
+   <div><div class="row"><span>${esc(p.alt)}</span><span>Free</span></div><h3><a class="stretch" href="#" data-gem="${p.gem}">${esc(p.n)}</a></h3><p class="d">${esc(p.d)}</p></div></article>`;
+  const sb=subOf(p);
+  return `<article class="card${o.wide?" wide":""}"${o.style?` style="${o.style}"`:""}>
+  <div style="position:relative">${ph(p.img,800,p.n)}<div class="tags"><span class="tag">${esc(sb?sb.name:"")}</span>${p.f?'<span class="tag gold">Featured</span>':""}</div>
+  <button class="save${saved.has(p.id)?" on":""}" data-save="${p.id}" aria-label="Save ${esc(p.n)}">${heart}</button></div>
+  <div><div class="row"><span>${esc(p.a)}</span><span>${esc(p.p)}</span></div><h3><a class="stretch" href="#" data-place="${p.id}">${esc(p.n)}</a></h3><p class="d">${esc(p.d)}</p></div></article>`;
+}
+
+/* ---------- ads: clearly marked, fixed size, no pop-ups ---------- */
+let adTurn=Math.floor(Math.random()*97);
+function pickAd(slot){const list=(window.ADS||[]).filter(a=>a.slots.includes(slot));if(!list.length)return null;
+  const paid=list.filter(a=>!a.house);const pool=paid.length?paid:list;return pool[(adTurn++)%pool.length]}
+function adLink(a,inner,cls){
+  if(a.action&&a.action.startsWith("biz:"))return `<a class="${cls}" href="#" data-biz="${a.action.slice(4)}">${inner}</a>`;
+  return `<a class="${cls}" href="${esc(a.url||"#")}" target="_blank" rel="sponsored noopener">${inner}</a>`;
+}
+function ad(slot){
+  const a=pickAd(slot==="infeed"?"infeed":slot==="article"?"article":"banner");if(!a)return "";
+  const label=a.house?"Advertise here":"Sponsored";
+  if(slot==="infeed")return `<article class="card wide ad-card" aria-label="Advertisement">${adLink(a,`<div style="position:relative">${ph(a.img,800,a.title)}<div class="tags"><span class="tag ad-tag">${label}</span></div></div>
+    <div><div class="row"><span>${esc(a.sponsor)}</span><span>Ad</span></div><h3>${esc(a.title)}</h3><p class="d">${esc(a.text)}</p><span class="ad-cta">${esc(a.cta)} →</span></div>`,"ad-hit")}</article>`;
+  return `<aside class="ad-banner${slot==="article"?" ad-article":""}" aria-label="Advertisement"><span class="ad-label">${label}</span>${adLink(a,`${ph(a.img,900,a.title)}
+    <div class="ad-body"><p class="ad-sponsor">${esc(a.sponsor)}</p><h3>${esc(a.title)}</h3><p>${esc(a.text)}</p><span class="btn ad-btn">${esc(a.cta)}</span></div>`,"ad-hit")}</aside>`;
+}
 
 /* ---------- toast + overlays ---------- */
 function toast(m){$$(".toast").forEach(t=>t.remove());const t=document.createElement("div");t.className="toast";t.textContent=m;document.body.appendChild(t);setTimeout(()=>t.remove(),2400)}
@@ -127,13 +166,14 @@ function bizModal(type){
    <div class="full"><button class="btn" type="submit">Send details</button></div></form></div></div>`)}
 
 document.addEventListener("click",e=>{
-  const t=e.target;
+  let t=e.target;
+  const cardEl=t.closest&&t.closest(".card");if(cardEl&&!t.closest("a,button")){const st=cardEl.querySelector(".stretch,.ad-hit");if(st){st.click();return}}
   if(t.closest("[data-close]")){closeLayer();return}
   const sv=t.closest("[data-save]");if(sv){e.preventDefault();e.stopPropagation();toggleSave(+sv.dataset.save);return}
   const sm=t.closest("[data-save-m]");if(sm){const id=+sm.dataset.saveM;toggleSave(id);sm.textContent=saved.has(id)?"Saved ✓":"Save place";return}
-  const pl=t.closest("[data-place]");if(pl){placeModal(PLACES.find(p=>p.id==pl.dataset.place));return}
-  const gm=t.closest("[data-gem]");if(gm){placeModal(GEMS[gm.dataset.gem],true);return}
-  const sc=t.closest("[data-school]");if(sc){schoolModal(SCHOOLS.find(s=>s.n===sc.dataset.school));return}
+  const pl=t.closest("[data-place]");if(pl){e.preventDefault();placeModal(PLACES.find(p=>p.id==pl.dataset.place));return}
+  const gm=t.closest("[data-gem]");if(gm){e.preventDefault();placeModal(GEMS[gm.dataset.gem],true);return}
+  const sc=t.closest("[data-school]");if(sc){e.preventDefault();schoolModal(SCHOOLS.find(s=>s.n===sc.dataset.school));return}
   const ad=t.closest("[data-add]");if(ad){addToBag(ad.dataset.add);ad.textContent="Added ✓";ad.classList.add("done");setTimeout(()=>{ad.textContent="Add to bag";ad.classList.remove("done")},1300);return}
   const inc=t.closest("[data-inc]"),dec=t.closest("[data-dec]");
   if(inc||dec){const k=(inc||dec).dataset[inc?"inc":"dec"];bag[k]=Math.max(0,(bag[k]||0)+(inc?1:-1));if(!bag[k])delete bag[k];sync();bagDrawer();return}
@@ -172,10 +212,10 @@ function initSlider(root){
   autoplay(track);
 }
 
-/* ---------- autoplay: every swipe row moves by itself every 5 seconds ----------
+/* ---------- autoplay: every swipe row moves by itself every 3 seconds ----------
    Pauses for 8 s after the visitor swipes, drags, clicks an arrow or uses the keyboard,
    while the row is off screen or the tab is hidden, and never runs with reduced motion. */
-const AUTO_MS=5000;
+const AUTO_MS=3000;
 function autoplay(row){
   if(!row||row.dataset.auto||RM)return;row.dataset.auto=1;
   let hold=0,visible=true;
@@ -236,7 +276,7 @@ function preloader(){
 }
 
 function autoRows(){$$(".tiles,.hoods").forEach(autoplay)}
-window.Doon={autoplay,$,$$,ph,phIn,hue,inr,esc,sync,saved:()=>saved,initSlider,sliderControls,splitWords,playSplit,toast,arrowL,arrowR,heart,
+window.Doon={autoplay,card,ad,SUBMAP,subOf,sectionOf,listFor,countFor,countSection,$,$$,ph,phIn,hue,inr,esc,sync,saved:()=>saved,initSlider,sliderControls,splitWords,playSplit,toast,arrowL,arrowR,heart,
   start(opts={}){const delay=opts.preloader?preloader()||0:0;sync();$$(".slider").forEach(initSlider);autoRows();initCursor();initMagnetic();
     setTimeout(()=>{initReveal();opts.onReady&&opts.onReady()},delay?delay-300:0)}};
 })();

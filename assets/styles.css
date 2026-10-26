@@ -782,3 +782,107 @@ h3{letter-spacing:-.02em}
 @media (max-width:699px){
   .hero::after{background:linear-gradient(180deg,rgba(7,8,10,.55) 0%,rgba(7,8,10,.5) 30%,rgba(7,8,10,.7) 60%,rgba(7,8,10,.92) 100%)}
 }
+
+/* =====================================================================
+   CATEGORIES + EXPLORE + ADS
+   ===================================================================== */
+.card{position:relative}
+.card h3 a{color:inherit}
+.card .stretch::after{content:"";position:absolute;inset:0;z-index:1}
+.card .save{z-index:3}
+
+/* section tiles on home: one big + eight small on desktop */
+.tiles{grid-template-columns:1.5fr repeat(4,1fr);grid-template-rows:repeat(2,230px)}
+.tiles .tile{aspect-ratio:auto}
+.tiles .tile:first-child{grid-row:span 2}
+.tiles .tile:first-child b{font-size:2rem}
+.tile small{display:block}
+@media (max-width:1179px){
+  .tiles{grid-template-columns:repeat(3,1fr);grid-template-rows:none}
+  .tiles .tile{aspect-ratio:4/3}
+  .tiles .tile:first-child{grid-row:auto}
+  .tiles .tile:first-child b{font-size:1.4rem}
+}
+@media (max-width:699px){
+  .tiles{grid-template-columns:none;grid-template-rows:none}
+  .tiles .tile{aspect-ratio:3/4}
+}
+
+/* ---------- ads ---------- */
+.ad-banner{position:relative;border:1px solid var(--line);border-radius:var(--r);background:var(--surface);overflow:hidden;margin-top:72px}
+.ad-banner .ad-hit{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);min-height:200px;color:inherit}
+.ad-banner .ph{height:100%;min-height:200px}
+.ad-banner .ph img{transition:transform 1s var(--ease)}
+.ad-banner:hover .ph img{transform:scale(1.04)}
+.ad-body{padding:28px 32px;display:grid;gap:8px;align-content:center}
+.ad-body h3{font-size:clamp(1.35rem,2.4vw,1.9rem)}
+.ad-body p{color:var(--ink-2);font-size:.93rem;max-width:52ch}
+.ad-body .ad-sponsor{font-size:.72rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.ad-btn{justify-self:start;margin-top:8px;padding:12px 22px;font-size:.85rem}
+.ad-label{position:absolute;top:12px;right:12px;z-index:2;font-size:.62rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;background:rgba(255,255,255,.94);color:#121418;padding:5px 9px;border-radius:6px}
+.ad-article{margin:2.2em 0}
+.ad-article .ad-hit{grid-template-columns:200px minmax(0,1fr);min-height:150px}
+.ad-article .ph{min-height:150px}
+.ad-article .ad-body{padding:20px 22px}
+.ad-article .ad-body h3{font-size:1.25rem}
+.ad-card .ad-hit{display:grid;gap:16px;color:inherit}
+.ad-card .ad-hit::after{content:"";position:absolute;inset:0;z-index:1}
+.ad-tag{background:#121418!important;color:#fff!important}
+.ad-cta{display:inline-block;margin-top:8px;font-weight:800;font-size:.85rem;color:var(--brass)}
+@media (max-width:699px){
+  .ad-banner{margin-top:56px}
+  .ad-banner .ad-hit,.ad-article .ad-hit{grid-template-columns:1fr;min-height:0}
+  .ad-banner .ph,.ad-article .ph{min-height:0;aspect-ratio:16/8;height:auto}
+  .ad-body,.ad-article .ad-body{padding:18px 18px 22px}
+  .ad-btn{width:100%;justify-content:center}
+  .grid .ad-card .ad-hit{grid-template-columns:112px minmax(0,1fr);gap:14px;align-items:center}
+  .grid .ad-card{padding:14px 0;border-bottom:1px solid var(--line)}
+  .grid .ad-card .ph{aspect-ratio:1;border-radius:12px}
+  .grid .ad-card .tags{top:6px;left:6px}
+  .grid .ad-card .tag{font-size:.55rem;padding:4px 6px}
+  .grid .ad-card h3{font-size:1.15rem}
+  .grid .ad-card p.d{font-size:.84rem}
+}
+
+/* ---------- explore pages ---------- */
+.crumbs-light{display:flex;gap:8px;flex-wrap:wrap;font-size:.82rem;font-weight:600;color:var(--muted);margin-bottom:18px}
+.crumbs-light a:hover{color:var(--brass)}
+.crumbs-light span[aria-current]{color:var(--ink)}
+.subgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:48px}
+.subtile{position:relative;border-radius:var(--r);aspect-ratio:4/3;color:#fff;display:flex;align-items:flex-end;padding:18px;overflow:hidden}
+.subtile::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 30%,rgba(7,8,10,.82))}
+.subtile img{position:absolute;inset:0}
+.subtile .art span{display:none}
+.subtile .t{position:relative;z-index:1;display:grid;gap:2px}
+.subtile b{font-family:var(--serif);font-weight:800;font-size:1.3rem;letter-spacing:-.02em;line-height:1.1}
+.subtile small{font-size:.76rem;opacity:.85;font-weight:600}
+.subtile:hover img{transform:scale(1.06)}
+.subtile.on{outline:3px solid var(--brass);outline-offset:3px}
+.secgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:48px}
+.seccard{display:grid;gap:14px;align-content:start}
+.seccard .ph{aspect-ratio:16/10;border-radius:var(--r)}
+.seccard:hover .ph img{transform:scale(1.05)}
+.seccard h3{font-size:1.6rem}
+.seccard p{color:var(--ink-2);font-size:.92rem}
+.seccard .subs{display:flex;flex-wrap:wrap;gap:6px}
+.seccard .subs a{border:1px solid var(--line);border-radius:999px;padding:5px 11px;font-size:.76rem;font-weight:700;background:var(--surface);position:relative;z-index:2}
+.seccard .subs a:hover{border-color:var(--ink)}
+.seccard{position:relative}
+.seccard .stretch::after{content:"";position:absolute;inset:0;z-index:1}
+.list-head{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;margin:72px 0 22px}
+.list-head h2{font-size:clamp(1.8rem,3.6vw,2.6rem)}
+.empty-cta{grid-column:1/-1;border:1px dashed var(--line);border-radius:var(--r);padding:44px 24px;text-align:center;display:grid;gap:12px;justify-items:center;background:var(--surface)}
+.empty-cta h3{font-size:1.6rem}
+.empty-cta p{color:var(--muted);max-width:46ch}
+@media (max-width:999px){.subgrid{grid-template-columns:repeat(2,1fr)}.secgrid{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:699px){
+  .subgrid{grid-template-columns:repeat(2,1fr);gap:10px;margin-top:28px}
+  .subtile{aspect-ratio:1;padding:12px}
+  .subtile b{font-size:1.02rem}
+  .secgrid{grid-template-columns:1fr;gap:30px;margin-top:30px}
+  .list-head{margin:48px 0 14px}
+}
+@media (max-width:699px){
+  .grid .card.wide.ad-card{display:block}
+  .grid .card.wide.ad-card .ad-hit{display:grid}
+}

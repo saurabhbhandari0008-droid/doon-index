@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Explore Dehradun · Doon Dekho</title>
+<meta name="description" content="Explore Dehradun by category: food, shopping, grooming, pets, fitness, education, places to visit, stays and services.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23121418'/%3E%3Ctext x='32' y='45' font-family='Arial,sans-serif' font-size='38' font-weight='800' text-anchor='middle' fill='%23C9A86A'%3ED%3C/text%3E%3C/svg%3E">
+<meta name="theme-color" content="#0E1013">
+<meta property="og:site_name" content="Doon Dekho">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Doon Dekho · The complete guide to Dehradun">
+<meta property="og:description" content="Cafés, street food, hidden gems, schools, shops and stories from the Doon Valley.">
+<meta property="og:image" content="https://images.unsplash.com/photo-1660791601899-f79f14cc427d?auto=format&fit=crop&w=1200&h=630&q=80">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://images.unsplash.com">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Manrope:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body data-page="explore" data-nav="light">
+<header id="nav"></header>
+
+<main>
+  <section class="page-hero">
+    <div class="wrap">
+      <nav class="crumbs-light" id="crumbs" aria-label="Breadcrumb"></nav>
+      <p class="label" id="exLabel">Explore</p>
+      <h1 id="exTitle">Explore Dehradun</h1>
+      <p id="exBlurb">Everything in the city, sorted the way you look for it.</p>
+      <div id="exTop"></div>
+      <div id="exAd1"></div>
+      <div id="exList"></div>
+      <div id="exAd2"></div>
+    </div>
+  </section>
+</main>
+<footer id="footer"></footer>
+
+<script src="assets/data.js"></script>
+<script src="assets/site.js"></script>
+<script>
+(function(){
+const {$,$$,ph,phIn,hue,esc,card,ad,SUBMAP,listFor,countFor,countSection}=Doon;
+const q=new URLSearchParams(location.search);
+const sec=SECTIONS.find(x=>x.id===q.get("c"));
+const sub=sec&&sec.subs.find(x=>x.id===q.get("s"));
+const PAGE=()=>innerWidth<700?6:innerWidth<1000?6:9;
+const plural=n=>n===1?"1 place":`${n} places`;
+
+function grid(items,{withAd=true,emptyName="this category"}={}){
+  if(!items.length)return `<div class="grid"><div class="empty-cta"><h3>No listings yet</h3><p>We’re adding ${esc(emptyName.toLowerCase())} in Dehradun right now. Own one? Be the first on Doon Dekho, listing is free.</p><button class="btn" data-biz="list" type="button">Get listed</button></div></div>`;
+  const html=items.map((p,i)=>card(p,{wide:true,style:`animation-delay:${Math.min(i,8)*.05}s`}));
+  if(withAd&&items.length>=3)html.splice(Math.min(3,html.length),0,ad("infeed"));
+  return `<div class="grid">${html.join("")}</div>`;
+}
+const tile=(x,href,on)=>`<a class="subtile ph${on?" on":""}" href="${href}" style="--h:${hue(x.img)}">${phIn(x.img,600,x.name)}<span class="t"><b>${esc(x.name)}</b><small>${x.count?plural(x.count):"Be the first to list"}</small></span></a>`;
+
+if(!sec){
+  /* all sections */
+  $("#crumbs").innerHTML=`<a href="index.html">Home</a><span>/</span><span aria-current="page">Explore</span>`;
+  $("#exTop").innerHTML=`<div class="secgrid">${SECTIONS.map(x=>`<article class="seccard">${ph(x.img,900,x.name)}
+    <div><p class="meta"><span class="cat">${plural(countSection(x))}</span><span>·</span><span>${x.subs.length} categories</span></p>
+    <h3 style="margin-top:8px"><a class="stretch" href="explore.html?c=${x.id}">${esc(x.name)}</a></h3><p style="margin-top:6px">${esc(x.blurb)}</p></div>
+    <div class="subs">${x.subs.map(sb=>`<a href="explore.html?c=${x.id}&s=${sb.id}">${esc(sb.name)}</a>`).join("")}</div></article>`).join("")}</div>`;
+  $("#exAd1").innerHTML=ad("banner");
+}else{
+  document.title=`${sub?sub.name+" in Dehradun":sec.name+" in Dehradun"} · Doon Dekho`;
+  $("#crumbs").innerHTML=`<a href="index.html">Home</a><span>/</span><a href="explore.html">Explore</a><span>/</span>${sub?`<a href="explore.html?c=${sec.id}">${esc(sec.name)}</a><span>/</span><span aria-current="page">${esc(sub.name)}</span>`:`<span aria-current="page">${esc(sec.name)}</span>`}`;
+  $("#exLabel").textContent=sub?sec.name:"Explore";
+  $("#exTitle").innerHTML=sub?`${esc(sub.name)} <em>in Dehradun</em>`:`${esc(sec.name)} <em>in Dehradun</em>`;
+  $("#exBlurb").textContent=sec.blurb;
+  const subs=sec.subs.map(sb=>({...sb,count:countFor(sb.id)}));
+  $("#exTop").innerHTML=`<div class="subgrid">${subs.map(sb=>tile(sb,`explore.html?c=${sec.id}&s=${sb.id}`,sub&&sb.id===sub.id)).join("")}</div>`;
+  $("#exAd1").innerHTML=ad("banner");
+  let limit=PAGE();
+  const items=sub?listFor(sub.id):sec.subs.flatMap(sb=>listFor(sb.id));
+  items.sort((a,b)=>(b.f||0)-(a.f||0));
+  function renderList(){
+    const shown=items.slice(0,limit),left=items.length-shown.length;
+    $("#exList").innerHTML=`<div class="list-head"><div><p class="label">${sub?"All listings":"Everything in "+esc(sec.name)}</p><h2 style="margin-top:10px">${sub?esc(sub.name):"All "+esc(sec.name.toLowerCase())}</h2></div><p class="count" style="margin:0">${plural(items.length)}</p></div>
+      ${grid(shown,{emptyName:sub?sub.name:sec.name})}
+      ${left>0?`<div class="more-row"><button class="btn line" id="exMore" type="button">Show ${Math.min(left,PAGE())} more of ${left}</button></div>`:""}`;
+    const m=$("#exMore");if(m)m.onclick=()=>{limit+=PAGE();renderList()};
+  }
+  renderList();
+  if(items.length>=6)$("#exAd2").innerHTML=ad("banner");
+}
+document.addEventListener("doon:sync",()=>{});
+Doon.start({});
+})();
+</script>
+</body>
+</html>

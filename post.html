@@ -59,12 +59,14 @@ $("#ahero").innerHTML=`${ph(P.img,2000,P.t,"",true)}<div class="wrap"><p class="
 addEventListener("scroll",()=>{const y=scrollY;if(y<innerHeight){const p=$("#ahero .ph");if(p)p.style.transform=`translateY(${y*.35}px)`}},{passive:true});
 
 let hn=0;const heads=[];
-$("#abody").innerHTML=P.body.map(b=>{
+const blocks=P.body.map(b=>{
   if(b.h){const id="s"+(++hn);heads.push([id,b.h]);return `<h2 id="${id}">${b.h}</h2>`}
   if(b.q)return `<blockquote>${b.q}</blockquote>`;
   if(b.tip)return `<p class="tip"><b>Local tip ·</b> ${b.tip}</p>`;
   if(b.img)return `<figure class="figure clip">${ph(b.img,1400,b.cap)}<figcaption>${b.cap}</figcaption></figure>`;
-  return `<p>${b.p}</p>`}).join("");
+  return `<p>${b.p}</p>`});
+if(blocks.length>4)blocks.splice(3,0,Doon.ad("article"));
+$("#abody").innerHTML=blocks.join("");
 $("#toc").innerHTML=heads.length?`<p class="label">In this story</p>${heads.map(([id,t])=>`<a href="#${id}">${t}</a>`).join("")}<div class="share"><button id="copyLink">Copy link</button></div>`:"";
 $("#aside").innerHTML=`<p class="label">Plan your visit</p><h4>Save the places from this story</h4><p>Find every spot in the directory with timings, tips and directions.</p><a class="btn" href="index.html#explore">Open the directory</a>`;
 const cl=$("#copyLink");if(cl)cl.onclick=()=>{navigator.clipboard?.writeText(location.href).then(()=>toast("Link copied"),()=>toast("Copy the link from the address bar"))};

@@ -41,7 +41,22 @@ window.PHOTOS = {
   "rice":           {u:"1568347355280-d33fdf77d42a", h:48},
   "honey":          {u:"1587049352851-8d4e89133924", h:40},
   "honey-2":        {u:"1613548058193-1cd24c1bebcf", h:44},
-  "cups":           {u:"1560228022-f1a3298022e9", h:200}
+  "cups":           {u:"1560228022-f1a3298022e9", h:200},
+  "barber":         {u:"1503951914875-452162b0f3f1", h:25},
+  "barbershop":     {u:"1781455793310-8427c96454c7", h:30},
+  "salon":          {u:"1634449571010-02389ed0f9b0", h:330},
+  "salon-2":        {u:"1761839256791-6a93f89fb8b0", h:300},
+  "dog":            {u:"1552053831-71594a27632d", h:45},
+  "dog-2":          {u:"1534361960057-19889db9621e", h:100},
+  "corgi":          {u:"1772606270537-6eb199b55aed", h:50},
+  "yoga":           {u:"1518611012118-696072aa579a", h:160},
+  "gym":            {u:"1554284126-aa88f22d8b74", h:220},
+  "run":            {u:"1607962837359-5e7e89f86776", h:120},
+  "hotel-room":     {u:"1702255489644-392758161f1f", h:30},
+  "bedroom":        {u:"1765464184843-105e144bd54b", h:40},
+  "cabin":          {u:"1595368062392-a189a24c0cf8", h:200},
+  "tailor":         {u:"1633655442356-ab2dbc69c772", h:20},
+  "sewing":         {u:"1536867520774-5b4f2628a69b", h:210}
 };
 
 window.HERO_SLIDES = [
@@ -55,21 +70,21 @@ window.AREAS = ["Rajpur Road","Paltan Bazaar","Clock Tower","Chakrata Road","Sah
 window.CATS = {cafe:"Cafés",street:"Street food",shop:"Shopping",place:"Places",school:"Schools",gem:"Hidden gems"};
 
 window.PLACES = [
- {id:1,n:"Ellora’s Melting Moments",c:"cafe",a:"Rajpur Road",p:"₹₹",img:"bakery",f:1,d:"A decades-old Dehradun bakery, loved for its rusks, cheese straws and plum cake. Locals carry boxes of it to relatives across the country.",best:"Morning",tip:"Buy the rusks to take home and the cheese straws to eat right away."},
- {id:2,n:"Kalsang Friends Corner",c:"cafe",a:"Rajpur Road",p:"₹₹",img:"momos-2",d:"Tibetan kitchen serving thukpa, thenthuk, shapta and steamed momos. Busy on weekend evenings.",best:"Dinner",tip:"Order the thenthuk on a cold evening."},
- {id:3,n:"Ghanta Ghar momo cart",c:"street",a:"Clock Tower",p:"₹",img:"momos",f:1,d:"Steamed and fried momos with a sharp red chutney, served from a cart near the Clock Tower.",best:"Evening",tip:"Ask for the chutney on the side if you don’t like it hot."},
- {id:4,n:"Paltan Bazaar bun-tikki",c:"street",a:"Paltan Bazaar",p:"₹",img:"food-stall",d:"Soft bun, crisp aloo tikki, onions and green chutney. The classic Paltan Bazaar evening snack.",best:"After 6 pm",tip:"Carry change. Most thelas take cash or UPI."},
- {id:5,n:"Paltan Bazaar",c:"shop",a:"Paltan Bazaar",p:"₹",img:"bazaar",d:"The old market that runs down from the Clock Tower: woollens, spices, basmati, shoes and plenty of bargaining.",best:"Late afternoon",tip:"Park outside and walk in. The lanes are narrow."},
- {id:6,n:"Basmati & spice seller",c:"shop",a:"Paltan Bazaar",p:"₹",img:"rice",d:"Loose Doon basmati, pahadi dals, rajma and whole spices sold by weight.",best:"Morning",tip:"Ask which batch is from this year’s harvest."},
- {id:7,n:"Hillside garden café",c:"cafe",a:"Mussoorie Road",p:"₹₹₹",img:"cafe-plants",d:"Wood-fired pizza, coffee and valley views from a terraced garden on the way up to the hills.",best:"Sunset",tip:"Book a terrace table on weekends."},
- {id:8,n:"Riverside Maggi point",c:"street",a:"Sahastradhara Road",p:"₹",img:"street-cook",d:"Masala Maggi, bread pakoda and cutting chai by the water.",best:"Monsoon",tip:"Go on a weekday. Weekends get crowded."},
- {id:9,n:"Forest Research Institute",c:"place",a:"Chakrata Road",p:"Entry fee",img:"fri",f:1,d:"A grand colonial-era building set in a huge forest campus, with museums on forestry and wood. One of the city’s most photographed landmarks.",best:"Morning",tip:"Give yourself two hours. The campus is bigger than it looks."},
- {id:10,n:"Mindrolling Monastery",c:"place",a:"Clement Town",p:"Free",img:"monastery",d:"A tall stupa, prayer halls and quiet gardens in Clement Town, with a small Tibetan market outside.",best:"Late afternoon",tip:"Climb to the upper floors of the stupa for the view."},
- {id:11,n:"Sahastradhara",c:"place",a:"Sahastradhara Road",p:"Free",img:"sahastradhara",d:"Sulphur springs, caves and a ropeway, about 14 km from the city centre.",best:"Before noon",tip:"Wear footwear that can get wet."},
- {id:12,n:"Book & record café",c:"cafe",a:"Dalanwala",p:"₹₹",img:"cafe-reading",d:"Second-hand books, filter coffee and long afternoons in old Dalanwala.",best:"Weekday afternoon",tip:"Ask about the reading nook upstairs."},
- {id:13,n:"Rajpur Road roastery",c:"cafe",a:"Rajpur Road",p:"₹₹",img:"cafe-signs",d:"Specialty coffee, pour-overs and all-day breakfast near Dilaram Chowk.",best:"Breakfast",tip:"Try the cold brew in summer."},
- {id:14,n:"Doon woollens market",c:"shop",a:"Clock Tower",p:"₹₹",img:"cups",d:"Hand-knit sweaters, caps and shawls from hill cooperatives. Best stock arrives in October.",best:"Winter",tip:"Check the knitting at the seams before you buy."},
- {id:15,n:"Clement Town Tibetan market",c:"shop",a:"Clement Town",p:"₹",img:"cafe-benches",d:"Prayer flags, singing bowls, incense and small cafés near the monastery.",best:"Evening",tip:"Pair it with a monastery visit."}
+ {id:1,s:"bakeries",n:"Ellora’s Melting Moments",c:"cafe",a:"Rajpur Road",p:"₹₹",img:"bakery",f:1,d:"A decades-old Dehradun bakery, loved for its rusks, cheese straws and plum cake. Locals carry boxes of it to relatives across the country.",best:"Morning",tip:"Buy the rusks to take home and the cheese straws to eat right away."},
+ {id:2,s:"restaurants",n:"Kalsang Friends Corner",c:"cafe",a:"Rajpur Road",p:"₹₹",img:"momos-2",d:"Tibetan kitchen serving thukpa, thenthuk, shapta and steamed momos. Busy on weekend evenings.",best:"Dinner",tip:"Order the thenthuk on a cold evening."},
+ {id:3,s:"street-food",n:"Ghanta Ghar momo cart",c:"street",a:"Clock Tower",p:"₹",img:"momos",f:1,d:"Steamed and fried momos with a sharp red chutney, served from a cart near the Clock Tower.",best:"Evening",tip:"Ask for the chutney on the side if you don’t like it hot."},
+ {id:4,s:"street-food",n:"Paltan Bazaar bun-tikki",c:"street",a:"Paltan Bazaar",p:"₹",img:"food-stall",d:"Soft bun, crisp aloo tikki, onions and green chutney. The classic Paltan Bazaar evening snack.",best:"After 6 pm",tip:"Carry change. Most thelas take cash or UPI."},
+ {id:5,s:"markets",n:"Paltan Bazaar",c:"shop",a:"Paltan Bazaar",p:"₹",img:"bazaar",d:"The old market that runs down from the Clock Tower: woollens, spices, basmati, shoes and plenty of bargaining.",best:"Late afternoon",tip:"Park outside and walk in. The lanes are narrow."},
+ {id:6,s:"local-produce",n:"Basmati & spice seller",c:"shop",a:"Paltan Bazaar",p:"₹",img:"rice",d:"Loose Doon basmati, pahadi dals, rajma and whole spices sold by weight.",best:"Morning",tip:"Ask which batch is from this year’s harvest."},
+ {id:7,s:"cafes",n:"Hillside garden café",c:"cafe",a:"Mussoorie Road",p:"₹₹₹",img:"cafe-plants",d:"Wood-fired pizza, coffee and valley views from a terraced garden on the way up to the hills.",best:"Sunset",tip:"Book a terrace table on weekends."},
+ {id:8,s:"street-food",n:"Riverside Maggi point",c:"street",a:"Sahastradhara Road",p:"₹",img:"street-cook",d:"Masala Maggi, bread pakoda and cutting chai by the water.",best:"Monsoon",tip:"Go on a weekday. Weekends get crowded."},
+ {id:9,s:"attractions",n:"Forest Research Institute",c:"place",a:"Chakrata Road",p:"Entry fee",img:"fri",f:1,d:"A grand colonial-era building set in a huge forest campus, with museums on forestry and wood. One of the city’s most photographed landmarks.",best:"Morning",tip:"Give yourself two hours. The campus is bigger than it looks."},
+ {id:10,s:"spiritual",n:"Mindrolling Monastery",c:"place",a:"Clement Town",p:"Free",img:"monastery",d:"A tall stupa, prayer halls and quiet gardens in Clement Town, with a small Tibetan market outside.",best:"Late afternoon",tip:"Climb to the upper floors of the stupa for the view."},
+ {id:11,s:"nature",n:"Sahastradhara",c:"place",a:"Sahastradhara Road",p:"Free",img:"sahastradhara",d:"Sulphur springs, caves and a ropeway, about 14 km from the city centre.",best:"Before noon",tip:"Wear footwear that can get wet."},
+ {id:12,s:"cafes",n:"Book & record café",c:"cafe",a:"Dalanwala",p:"₹₹",img:"cafe-reading",d:"Second-hand books, filter coffee and long afternoons in old Dalanwala.",best:"Weekday afternoon",tip:"Ask about the reading nook upstairs."},
+ {id:13,s:"cafes",n:"Rajpur Road roastery",c:"cafe",a:"Rajpur Road",p:"₹₹",img:"cafe-signs",d:"Specialty coffee, pour-overs and all-day breakfast near Dilaram Chowk.",best:"Breakfast",tip:"Try the cold brew in summer."},
+ {id:14,s:"clothing",n:"Doon woollens market",c:"shop",a:"Clock Tower",p:"₹₹",img:"cups",d:"Hand-knit sweaters, caps and shawls from hill cooperatives. Best stock arrives in October.",best:"Winter",tip:"Check the knitting at the seams before you buy."},
+ {id:15,s:"markets",n:"Clement Town Tibetan market",c:"shop",a:"Clement Town",p:"₹",img:"cafe-benches",d:"Prayer flags, singing bowls, incense and small cafés near the monastery.",best:"Evening",tip:"Pair it with a monastery visit."}
 ];
 
 window.GEMS = [
@@ -185,4 +200,74 @@ window.POSTS = [
    {q:"Buy them on the branch, eat them the same day."},
    {tip:"Ask the orchard owner which trees are the oldest. They usually give the best fruit."}
   ]}
+];
+
+/* ---------------------------------------------------------------------
+   SECTIONS → SUB-CATEGORIES
+   Every place above has s:"<sub-category id>". Add new sub-categories here
+   and they appear on the Explore pages automatically.
+   --------------------------------------------------------------------- */
+window.SECTIONS = [
+ {id:"food",name:"Food & Drink",img:"momos",blurb:"Street carts, bakeries, cafés and family kitchens. This is where Dehradun eats.",subs:[
+   {id:"street-food",name:"Street food",img:"food-stall"},
+   {id:"cafes",name:"Cafés",img:"cafe-bulbs"},
+   {id:"bakeries",name:"Bakeries & desserts",img:"bakery"},
+   {id:"restaurants",name:"Restaurants & dhabas",img:"momos-2"}]},
+ {id:"shopping",name:"Shopping",img:"bazaar",blurb:"Old bazaars, pahadi produce, woollens and small shops worth the detour.",subs:[
+   {id:"markets",name:"Markets & bazaars",img:"bazaar"},
+   {id:"local-produce",name:"Pahadi & local produce",img:"rice"},
+   {id:"clothing",name:"Clothing & woollens",img:"tailor"},
+   {id:"books-gifts",name:"Books & gifts",img:"cafe-reading"}]},
+ {id:"grooming",name:"Grooming & Beauty",img:"salon",blurb:"Salons, barbers, spas and makeup artists across the city.",subs:[
+   {id:"salons",name:"Salons",img:"salon-2"},
+   {id:"barbers",name:"Barbers",img:"barber"},
+   {id:"spas",name:"Spas & wellness",img:"salon"},
+   {id:"makeup",name:"Makeup artists",img:"barbershop"}]},
+ {id:"pets",name:"For Pets",img:"dog",blurb:"Pet shops, vets, groomers and cafés that welcome your dog.",subs:[
+   {id:"pet-shops",name:"Pet shops",img:"corgi"},
+   {id:"vets",name:"Vets & pet clinics",img:"dog-2"},
+   {id:"pet-grooming",name:"Pet grooming",img:"dog"},
+   {id:"pet-friendly",name:"Pet-friendly cafés",img:"cafe-plants"}]},
+ {id:"health",name:"Health & Fitness",img:"yoga",blurb:"Gyms, yoga studios and the best places to run in the valley.",subs:[
+   {id:"gyms",name:"Gyms",img:"gym"},
+   {id:"yoga",name:"Yoga & meditation",img:"yoga"},
+   {id:"running",name:"Running & sports",img:"run"}]},
+ {id:"education",name:"Education",img:"fri",blurb:"Schools, coaching centres and quiet places to study.",subs:[
+   {id:"schools",name:"Schools",img:"fri"},
+   {id:"coaching",name:"Coaching & tuition",img:"corridor"},
+   {id:"libraries",name:"Libraries & study spaces",img:"cafe-reading"}]},
+ {id:"places",name:"Places to Visit",img:"monastery",blurb:"Landmarks, temples, rivers and the hidden spots locals love.",subs:[
+   {id:"attractions",name:"Landmarks",img:"fri"},
+   {id:"hidden-gems",name:"Hidden gems",img:"river"},
+   {id:"spiritual",name:"Temples & monasteries",img:"monastery"},
+   {id:"nature",name:"Nature & waterfalls",img:"sahastradhara"}]},
+ {id:"stays",name:"Stays",img:"hotel-room",blurb:"Hotels, homestays and PGs for visitors and students.",subs:[
+   {id:"hotels",name:"Hotels",img:"hotel-room"},
+   {id:"homestays",name:"Homestays",img:"cabin"},
+   {id:"pg-hostels",name:"PGs & hostels",img:"bedroom"}]},
+ {id:"services",name:"Services",img:"tailor",blurb:"Tailors, repairs, photographers and event planners you can trust.",subs:[
+   {id:"tailors",name:"Tailors",img:"tailor"},
+   {id:"home-services",name:"Home services & repairs",img:"sewing"},
+   {id:"events",name:"Events & photographers",img:"cafe-signs"}]}
+];
+
+/* ---------------------------------------------------------------------
+   ADS
+   Ad spaces appear on the home page, Explore pages, Journal and articles.
+   Each space shows one ad from this list whose "slots" include that space:
+     banner  = wide strip between sections
+     infeed  = a card mixed into listings (looks like a listing, marked Sponsored)
+     article = strip inside blog articles
+   When nobody has paid for a space, the "house" ads below invite businesses
+   to advertise. To add a paid ad, copy one and change it, for example:
+   {id:"cafe-xyz", slots:["banner","infeed"], sponsor:"Café XYZ", title:"20% off this weekend",
+    text:"Rajpur Road · Open 9 am to 11 pm", cta:"See the offer", url:"https://instagram.com/cafexyz", img:"cafe-latte"},
+   --------------------------------------------------------------------- */
+window.ADS = [
+ {id:"house-advertise",house:true,slots:["banner","article"],sponsor:"Doon Dekho",title:"Put your business in front of Dehradun",
+  text:"Banner and featured spots for cafés, salons, shops, schools and events. Seen by locals and visitors every day.",cta:"Advertise with us",action:"biz:partner",img:"cafe-plants"},
+ {id:"house-listed",house:true,slots:["banner","infeed","article"],sponsor:"Doon Dekho",title:"Run a café, salon or shop?",
+  text:"Get your business on Doon Dekho and get found by people searching in your area.",cta:"Get listed",action:"biz:list",img:"barbershop"},
+ {id:"house-pets",house:true,slots:["infeed"],sponsor:"Doon Dekho",title:"Pet shop or vet in Dehradun?",
+  text:"Be one of the first in our new For Pets section.",cta:"Get listed",action:"biz:list",img:"corgi"}
 ];
