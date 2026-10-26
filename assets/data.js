@@ -1,4 +1,4 @@
-/* The Doon Index — content.
+/* Doon Dekho — content.
    Every photo has a key (e.g. "bazaar").
    TO USE YOUR OWN PHOTO: save it as images/<key>.jpg (e.g. images/bazaar.jpg)
    and add the key to LOCAL_PHOTOS below, e.g. ["bazaar","momos"].

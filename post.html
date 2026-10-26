@@ -3,19 +3,19 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Journal · The Doon Index</title>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23121418'/%3E%3Ctext x='32' y='45' font-family='Georgia,serif' font-size='38' font-style='italic' text-anchor='middle' fill='%23C9A86A'%3ED%3C/text%3E%3C/svg%3E">
+<title>Journal · Doon Dekho</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23121418'/%3E%3Ctext x='32' y='45' font-family='Arial,sans-serif' font-size='38' font-weight='800' text-anchor='middle' fill='%23C9A86A'%3ED%3C/text%3E%3C/svg%3E">
 <meta name="theme-color" content="#0E1013">
-<meta property="og:site_name" content="The Doon Index">
+<meta property="og:site_name" content="Doon Dekho">
 <meta property="og:type" content="website">
-<meta property="og:title" content="The Doon Index · The complete guide to Dehradun">
+<meta property="og:title" content="Doon Dekho · The complete guide to Dehradun">
 <meta property="og:description" content="Cafés, street food, hidden gems, schools, shops and stories from the Doon Valley.">
 <meta property="og:image" content="https://images.unsplash.com/photo-1660791601899-f79f14cc427d?auto=format&fit=crop&w=1200&h=630&q=80">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://images.unsplash.com">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;1,6..96,400&family=Manrope:wght@400;600;700;800&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Manrope:wght@400;500;600;700;800&display=swap">
 <link rel="stylesheet" href="assets/styles.css">
 </head>
 <body data-page="post">
@@ -29,7 +29,7 @@
       <aside class="toc" id="toc" aria-label="In this story"></aside>
       <article>
         <div class="body" id="abody"></div>
-        <div class="author"><div class="av">D</div><div><b>The Doon Index</b><span>Written and photographed in Dehradun</span></div></div>
+        <div class="author"><div class="av">D</div><div><b>Doon Dekho</b><span>Written and photographed in Dehradun</span></div></div>
       </article>
       <aside class="aside-card" id="aside"></aside>
     </div>
@@ -51,7 +51,7 @@ const {$,$$,ph,phIn,hue,esc,sliderControls,splitWords,playSplit,toast}=Doon;
 const slug=new URLSearchParams(location.search).get("p")||location.hash.slice(1);
 const idx=Math.max(0,POSTS.findIndex(p=>p.slug===slug));
 const P=POSTS[idx];
-document.title=`${P.t} · The Doon Index`;
+document.title=`${P.t} · Doon Dekho`;
 
 $("#ahero").style.setProperty("--h",hue(P.img));
 $("#ahero").innerHTML=`${ph(P.img,2000,P.t,"",true)}<div class="wrap"><p class="crumbs"><a href="index.html">Home</a><span>/</span><a href="blog.html">Journal</a><span>/</span><span>${P.cat}</span></p>

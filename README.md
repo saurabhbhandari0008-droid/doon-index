@@ -1,4 +1,4 @@
-# The Doon Index
+# Doon Dekho
 
 The complete guide to Dehradun: cafés, street food, hidden gems, schools, shops and stories.
 
