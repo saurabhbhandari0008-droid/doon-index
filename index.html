@@ -217,7 +217,7 @@
 const {$,$$,ph,phIn,hue,inr,esc,saved,sliderControls,splitWords,playSplit,heart}=Doon;
 
 /* hero slideshow */
-const DUR=6500;let cur=0,timer=null,paused=false;
+const DUR=5000;let cur=0,timer=null,paused=false;
 $("#slides").innerHTML=HERO_SLIDES.map((s,i)=>`<div class="slide${i?"":" on"}">${ph(s.img,2000,s.cap,"",i===0)}</div>`).join("");
 $("#slideTotal").textContent=String(HERO_SLIDES.length).padStart(2,"0");
 $("#dots").innerHTML=HERO_SLIDES.map((s,i)=>`<button aria-label="Show ${esc(s.cap)}" style="--dur:${DUR}ms"></button>`).join("");
@@ -229,8 +229,7 @@ function go(i){cur=(i+HERO_SLIDES.length)%HERO_SLIDES.length;
   clearTimeout(timer);if(!paused)timer=setTimeout(()=>go(cur+1),DUR)}
 $("#dots").onclick=e=>{const b=e.target.closest("button");if(b)go([...b.parentNode.children].indexOf(b))};
 const hero=$(".hero");
-hero.addEventListener("mouseenter",()=>{paused=true;hero.classList.add("paused");clearTimeout(timer)});
-hero.addEventListener("mouseleave",()=>{paused=false;hero.classList.remove("paused");timer=setTimeout(()=>go(cur+1),2500)});
+document.addEventListener("visibilitychange",()=>{if(!document.hidden)go(cur)});
 let tx=0;hero.addEventListener("touchstart",e=>tx=e.touches[0].clientX,{passive:true});
 hero.addEventListener("touchend",e=>{const dx=e.changedTouches[0].clientX-tx;if(Math.abs(dx)>50&&!e.target.closest("form"))go(cur+(dx<0?1:-1))});
 addEventListener("scroll",()=>{const y=scrollY;if(y<innerHeight)$$(".slide .ph").forEach(p=>p.style.transform=`translateY(${y*.3}px)`)},{passive:true});

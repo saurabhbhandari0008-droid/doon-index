@@ -169,6 +169,28 @@ function initSlider(root){
   addEventListener("pointerup",()=>{if(!down)return;down=false;if(track.classList.contains("drag")){
     track.classList.remove("drag");const s=step();track.scrollTo({left:Math.round(track.scrollLeft/s)*s,behavior:"smooth"})}});
   track.addEventListener("click",e=>{if(moved>6){e.stopPropagation();e.preventDefault();moved=0}},true);
+  autoplay(track);
+}
+
+/* ---------- autoplay: every swipe row moves by itself every 5 seconds ----------
+   Pauses for 8 s after the visitor swipes, drags, clicks an arrow or uses the keyboard,
+   while the row is off screen or the tab is hidden, and never runs with reduced motion. */
+const AUTO_MS=5000;
+function autoplay(row){
+  if(!row||row.dataset.auto||RM)return;row.dataset.auto=1;
+  let hold=0,visible=true;
+  const gap=()=>parseFloat(getComputedStyle(row).columnGap)||16;
+  const step=()=>{const c=row.children[0];return c?c.getBoundingClientRect().width+gap():300};
+  const pause=()=>{hold=Date.now()+8000};
+  ["pointerdown","touchstart","wheel","keydown","focusin"].forEach(ev=>row.addEventListener(ev,pause,{passive:true}));
+  const ctl=row.parentElement&&row.parentElement.querySelector(".arrows");if(ctl)ctl.addEventListener("click",pause);
+  if("IntersectionObserver" in window)new IntersectionObserver(es=>{visible=es[0].isIntersecting},{threshold:.25}).observe(row);
+  setInterval(()=>{
+    if(document.hidden||!visible||Date.now()<hold||row.classList.contains("drag"))return;
+    const max=row.scrollWidth-row.clientWidth;if(max<8)return;
+    if(row.scrollLeft>=max-8)row.scrollTo({left:0,behavior:"smooth"});
+    else row.scrollBy({left:step(),behavior:"smooth"});
+  },AUTO_MS);
 }
 function sliderControls(){return `<div class="s-ctrl"><div class="s-prog"><i></i></div><div class="arrows"><button data-prev aria-label="Previous">${arrowL}</button><button data-next aria-label="Next">${arrowR}</button></div></div>`}
 
@@ -213,7 +235,8 @@ function preloader(){
   return 1300;
 }
 
-window.Doon={$,$$,ph,phIn,hue,inr,esc,sync,saved:()=>saved,initSlider,sliderControls,splitWords,playSplit,toast,arrowL,arrowR,heart,
-  start(opts={}){const delay=opts.preloader?preloader()||0:0;sync();$$(".slider").forEach(initSlider);initCursor();initMagnetic();
+function autoRows(){$$(".tiles,.hoods").forEach(autoplay)}
+window.Doon={autoplay,$,$$,ph,phIn,hue,inr,esc,sync,saved:()=>saved,initSlider,sliderControls,splitWords,playSplit,toast,arrowL,arrowR,heart,
+  start(opts={}){const delay=opts.preloader?preloader()||0:0;sync();$$(".slider").forEach(initSlider);autoRows();initCursor();initMagnetic();
     setTimeout(()=>{initReveal();opts.onReady&&opts.onReady()},delay?delay-300:0)}};
 })();

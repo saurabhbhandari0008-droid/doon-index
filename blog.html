@@ -65,12 +65,11 @@ $("#fPrev").innerHTML=arrowL;$("#fNext").innerHTML=arrowR;
 const feat=POSTS.slice(0,4);let fi=0,ft;
 $("#fslides").innerHTML=feat.map((p,i)=>`<a class="fs${i?"":" on"}" href="post.html?p=${p.slug}" aria-hidden="${i?"true":"false"}" ${i?'tabindex="-1"':""}>${ph(p.img,1800,p.t,"",i===0)}
   <div class="fs-text"><p class="meta"><span class="cat">${p.cat}</span><span>·</span><span>${p.min} min read</span><span>·</span><span>${p.date}</span></p><h2>${p.t}</h2><p>${p.ex}</p></div></a>`).join("");
-function fgo(i){fi=(i+feat.length)%feat.length;$$(".fs").forEach((s,k)=>{s.classList.toggle("on",k===fi);s.setAttribute("aria-hidden",k!==fi);s.tabIndex=k===fi?0:-1});clearTimeout(ft);ft=setTimeout(()=>fgo(fi+1),7000)}
+function fgo(i){fi=(i+feat.length)%feat.length;$$(".fs").forEach((s,k)=>{s.classList.toggle("on",k===fi);s.setAttribute("aria-hidden",k!==fi);s.tabIndex=k===fi?0:-1});clearTimeout(ft);ft=setTimeout(()=>fgo(fi+1),5000)}
 $("#fPrev").onclick=()=>fgo(fi-1);$("#fNext").onclick=()=>fgo(fi+1);
 let tx=0;$("#fslider").addEventListener("touchstart",e=>tx=e.touches[0].clientX,{passive:true});
 $("#fslider").addEventListener("touchend",e=>{const d=e.changedTouches[0].clientX-tx;if(Math.abs(d)>50)fgo(fi+(d<0?1:-1))});
-$("#fslider").addEventListener("mouseenter",()=>clearTimeout(ft));
-$("#fslider").addEventListener("mouseleave",()=>{ft=setTimeout(()=>fgo(fi+1),3500)});
+
 
 /* grid */
 const cats=["All",...new Set(POSTS.map(p=>p.cat))];let cat="All",q="";
