@@ -769,3 +769,16 @@ h3{letter-spacing:-.02em}
   .sec-head h2{font-size:clamp(1.95rem,9vw,2.5rem)}
 }
 @media (min-width:1600px){.hero h1{font-size:8rem}}
+
+/* stronger shade behind text on bright photos */
+.hero::after{background:
+  linear-gradient(90deg,rgba(7,8,10,.62) 0%,rgba(7,8,10,.25) 55%,rgba(7,8,10,0) 100%),
+  linear-gradient(180deg,rgba(7,8,10,.55) 0%,rgba(7,8,10,.2) 26%,rgba(7,8,10,.45) 52%,rgba(7,8,10,.88) 100%)}
+.article-hero::after{background:
+  linear-gradient(90deg,rgba(7,8,10,.55) 0%,rgba(7,8,10,.15) 60%,rgba(7,8,10,0) 100%),
+  linear-gradient(180deg,rgba(7,8,10,.5) 0%,rgba(7,8,10,.25) 35%,rgba(7,8,10,.9) 100%)}
+.feature-slider::after{background:linear-gradient(180deg,rgba(0,0,0,.1) 20%,rgba(0,0,0,.88))}
+.hero h1,.hero .lede,.hero .label,.article-hero h1,.article-hero .dek,.fs-text h2,.fs-text p,.slide-cap{text-shadow:0 2px 18px rgba(0,0,0,.45)}
+@media (max-width:699px){
+  .hero::after{background:linear-gradient(180deg,rgba(7,8,10,.55) 0%,rgba(7,8,10,.5) 30%,rgba(7,8,10,.7) 60%,rgba(7,8,10,.92) 100%)}
+}
