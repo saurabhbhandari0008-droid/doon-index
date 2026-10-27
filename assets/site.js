@@ -65,7 +65,7 @@ if(footEl){footEl.className="site";footEl.innerHTML=`<div class="wrap">
   <div><h4>Discover</h4><ul><li><a href="${home}#schools">Schools</a></li><li><a href="${home}#shop">Shop</a></li><li><a href="blog.html">Journal</a></li></ul></div>
   <div><h4>Business</h4><ul><li><a href="#" data-biz="list">Add your business</a></li><li><a href="#" data-biz="partner">Partner with us</a></li></ul></div></div>
   <div class="big-word" aria-hidden="true">Dehra<i>dun</i></div>
-  <div class="legal"><span>© 2026 Doon Dekho · Dehradun, Uttarakhand</span><span>Prototype · photos via Unsplash · vendors and products are sample data</span></div></div>`}
+  <div class="legal"><span>© 2026 Doon Dekho · Dehradun, Uttarakhand</span><span>Photos via Unsplash · listings marked Unverified are from public sources · shop products are samples</span></div></div>`}
 
 
 /* ---------- categories ---------- */
@@ -86,7 +86,7 @@ function card(p,o={}){
   return `<article class="card${o.wide?" wide":""}"${o.style?` style="${o.style}"`:""}>
   <div style="position:relative">${ph(p.img,800,p.n)}<div class="tags"><span class="tag">${esc(sb?sb.name:"")}</span>${p.f?'<span class="tag gold">Featured</span>':""}</div>
   <button class="save${saved.has(p.id)?" on":""}" data-save="${p.id}" aria-label="Save ${esc(p.n)}">${heart}</button></div>
-  <div><div class="row"><span>${esc(p.a)}</span><span>${esc(p.p)}</span></div><h3><a class="stretch" href="#" data-place="${p.id}">${esc(p.n)}</a></h3><p class="d">${esc(p.d)}</p></div></article>`;
+  <div><div class="row"><span>${esc(p.a)}</span><span>${p.u?"Unverified":esc(p.p)}</span></div><h3><a class="stretch" href="#" data-place="${p.id}">${esc(p.n)}</a></h3><p class="d">${esc(p.d)}</p></div></article>`;
 }
 
 /* ---------- ads: clearly marked, fixed size, no pop-ups ---------- */
@@ -130,12 +130,17 @@ function toggleSave(id){saved.has(id)?saved.delete(id):saved.add(id);sync();toas
 function addToBag(id){bag[id]=(bag[id]||0)+1;sync()}
 
 function placeModal(p,isGem){
+  const sb=isGem?null:subOf(p),sec=sb?sb.sec:null;
+  const kind=isGem?"Hidden gem":(sb?sb.name:"Place");
+  const dir=p.g?`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(p.n+" Dehradun")}&query_place_id=${p.g}`:maps(p.n);
+  const facts=p.u?[["Area",isGem?p.alt.split("·")[0]:p.a],["Category",kind],["Section",sec?sec.name:"Dehradun"],["Status","Not yet verified"]]
+    :[["Area",isGem?p.alt.split("·")[0]:p.a],["Budget",p.p||"Free"],["Best time",p.best||"Any time"],["Type",isGem?"Outdoors":kind]];
   openLayer(`<div class="modal" role="dialog" aria-modal="true" aria-label="${esc(p.n)}"><button class="x" data-close aria-label="Close">✕</button>
   ${ph(p.img,1600,p.n)}
-  <div class="mbody"><p class="label">${isGem?"Hidden gem":CATS[p.c]}${p.f?" · Featured":""}</p><h2>${p.n}</h2><p>${p.d}</p>
-  <div class="facts"><div><small>Area</small><b>${isGem?p.alt.split("·")[0]:p.a}</b></div><div><small>Budget</small><b>${p.p||"Free"}</b></div><div><small>Best time</small><b>${p.best}</b></div><div><small>Type</small><b>${isGem?"Outdoors":CATS[p.c].replace(/s$/,"")}</b></div></div>
-  <p class="tip"><b>Local tip ·</b> ${p.tip}</p>
-  <div class="btn-row"><a class="btn" href="${maps(p.n)}" target="_blank" rel="noopener">Get directions</a>${isGem?(p.post?`<a class="btn line" href="post.html?p=${p.post}">Read the guide</a>`:""):`<button class="btn line" data-save-m="${p.id}">${saved.has(p.id)?"Saved ✓":"Save place"}</button>`}</div></div></div>`)}
+  <div class="mbody"><p class="label">${esc(kind)}${p.f?" · Featured":""}${p.u?" · Not yet verified":""}</p><h2>${esc(p.n)}</h2><p>${esc(p.d)}</p>
+  <div class="facts">${facts.map(([k,v])=>`<div><small>${k}</small><b>${esc(v)}</b></div>`).join("")}</div>
+  ${p.u?`<p class="tip"><b>Is this your business?</b> Claim this listing to add photos, timings, your menu and offers. It's free.</p>`:`<p class="tip"><b>Local tip ·</b> ${esc(p.tip)}</p>`}
+  <div class="btn-row"><a class="btn" href="${dir}" target="_blank" rel="noopener">Get directions</a>${isGem?(p.post?`<a class="btn line" href="post.html?p=${p.post}">Read the guide</a>`:""):`<button class="btn line" data-save-m="${p.id}">${saved.has(p.id)?"Saved ✓":"Save place"}</button>`}${p.u?`<button class="btn line" data-biz="list">Claim this listing</button>`:""}</div></div></div>`)}
 function schoolModal(s){
   openLayer(`<div class="modal" role="dialog" aria-modal="true" aria-label="${esc(s.n)}"><button class="x" data-close aria-label="Close">✕</button>
   ${ph("fri",1600,s.n)}<div class="mbody"><p class="label">School · ${s.type}</p><h2>${s.n}</h2><p>${s.d}</p>

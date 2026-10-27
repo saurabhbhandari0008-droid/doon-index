@@ -247,7 +247,7 @@ $("#tiles").innerHTML=SECTIONS.map(x=>{const n=countSection(x);
 const card=(p,wide)=>dcard(p,{wide});
 
 /* picks slider */
-const picks=[...PLACES.filter(p=>p.f),...PLACES.filter(p=>!p.f&&p.s==="cafes"),PLACES[7]];
+const picks=[...PLACES.filter(p=>p.f),...PLACES.filter(p=>!p.u&&!p.f&&["cafes","bakeries","restaurants","nature","attractions"].includes(p.s))].slice(0,8);
 $("#adHome1").innerHTML=ad("banner");
 $("#picks").innerHTML=`<div class="track">${picks.map(p=>card(p)).join("")}</div>${sliderControls()}`;
 
