@@ -1118,3 +1118,46 @@ html{-webkit-tap-highlight-color:transparent}
   .more-row .btn{width:100%}
 }
 @media (max-width:699px){.type-chips{flex-wrap:nowrap!important;overflow-x:auto}.type-chips .chip{padding:8px 14px;font-size:.8rem}}
+
+/* ===== Explore phone: calmer layout ===== */
+.sort-ic{display:none}
+@media (hover:none){
+  .card:hover h3,.post-card:hover h3{color:inherit}
+  .card:hover .ph img,.seccard:hover .ph img{transform:none}
+  .catcard:hover{transform:none;box-shadow:none;border-color:var(--line)}
+}
+@media (max-width:699px){
+  .page-hero.ex-compact{padding-top:calc(86px + env(safe-area-inset-top,0px));padding-bottom:20px}
+  .page-hero.ex-compact .crumbs-light{flex-wrap:nowrap;overflow:hidden;white-space:nowrap;font-size:.74rem;margin-bottom:12px;gap:6px}
+  .page-hero.ex-compact .crumbs-light > *{flex:none}
+  .page-hero.ex-compact .crumbs-light span[aria-current]{flex:1 1 auto;min-width:0;overflow:hidden;text-overflow:ellipsis}
+  .page-hero.ex-compact h1{font-size:1.85rem;line-height:1.08;margin-top:0;letter-spacing:-.025em}
+  .page-hero.ex-compact h1 em{display:block;font-size:.5em;letter-spacing:-.005em;margin-top:6px;line-height:1.2}
+  .page-hero.ex-compact h1 + p{font-size:.84rem;margin-top:8px;-webkit-line-clamp:1}
+  .subnav-in{height:56px}
+  .ex-body{padding:18px 0 56px}
+  /* tools: search + round sort button, small count line */
+  .ex-tools{margin-top:26px;gap:10px}
+  #exTop:empty ~ #exList .ex-tools{margin-top:0}
+  .ex-head{order:3}
+  .ex-head h2{display:none}
+  .ex-head .count{font-size:.76rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+  .ex-ctrl{order:1}
+  .type-chips{order:2;margin-bottom:0}
+  .ex-tools{display:flex;flex-direction:column}
+  .ex-search{border-radius:14px;background:var(--sunk);border-color:transparent}
+  .ex-search input{padding:12px 0}
+  .ex-sort{position:relative;width:46px;height:46px;flex:none;padding:0;border-radius:14px;justify-content:center;background:var(--sunk);border-color:transparent;color:var(--ink)}
+  .ex-sort .sort-ic{display:block;width:19px;height:19px}
+  .ex-sort select{position:absolute;inset:0;opacity:0;max-width:none;width:100%;font-size:16px}
+  #exGrid{margin-top:4px}
+  /* listing rows: lighter, two-line titles */
+  .grid .card.wide{grid-template-columns:92px minmax(0,1fr);gap:14px;padding:16px 0;align-items:start}
+  .grid .card.wide .ph{border-radius:14px}
+  .grid .card.wide .row{font-size:.68rem;letter-spacing:.02em;gap:8px}
+  .grid .card.wide h3{font-size:1.02rem;line-height:1.28;letter-spacing:-.01em;margin-top:3px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .grid .card.wide p.d{font-size:.8rem;line-height:1.45;color:var(--muted);margin-top:5px}
+  .grid .card.wide .save{width:28px;height:28px;top:5px;right:5px}
+  .grid .card.wide .save svg{width:13px;height:13px}
+  .grid .card.wide:last-child{border-bottom:0}
+}

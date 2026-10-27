@@ -163,16 +163,16 @@ if(!sec){
     $("#crumbs").innerHTML=`<a href="index.html">Home</a><span>/</span><a href="explore.html">Explore</a><span>/</span>${cur?`<a href="explore.html?c=${sec.id}" data-sub-link="">${esc(sec.name)}</a><span>/</span><span aria-current="page">${esc(cur.name)}</span>`:`<span aria-current="page">${esc(sec.name)}</span>`}`;
     $("#exLabel").textContent=cur?sec.name:"Explore";
     $("#exTitle").innerHTML=`${esc(name)} <em>in Dehradun</em>`;
-    $("#exBlurb").textContent=cur?`${cur.count} listed in Dehradun, with directions${edu?" and the type of each institution marked":", tips and timings"}. Tap any card for details.`:sec.blurb;
-    $$(".spill",bar).forEach(b=>{const on=b.dataset.sub===(cur?cur.id:"");b.setAttribute("aria-selected",on);b.classList.toggle("on",on);if(on)b.scrollIntoView({block:"nearest",inline:"center",behavior:push?"smooth":"auto"})});
+    $("#exBlurb").textContent=cur?(innerWidth<700?`${plural(cur.count)} · tap a card for details`:`${cur.count} listed in Dehradun, with directions${edu?" and the type of each institution marked":", tips and timings"}. Tap any card for details.`):sec.blurb;
+    $$(".spill",bar).forEach(b=>{const on=b.dataset.sub===(cur?cur.id:"");b.setAttribute("aria-selected",on);b.classList.toggle("on",on);if(on){const tgt=Math.max(0,b.offsetLeft-pills.offsetLeft-(b.dataset.sub?44:0));pills.scrollTo({left:tgt,behavior:push?"smooth":"auto"})}});
     setTimeout(fade,350);
     $("#exTop").innerHTML=cur?"":overview();
     $("#exAd1").innerHTML=cur?"":ad(edu?"edu":"banner");
     const typeChips=isEduTyped()?`<div class="chips type-chips" role="group" aria-label="Institution type">${[["all","All types"],["gov","Government"],["private","Private"],["deemed","Deemed"]].map(([k,l])=>`<button class="chip" data-tf="${k}" aria-pressed="${k==="all"}">${l}</button>`).join("")}</div>`:"";
     $("#exList").innerHTML=`<div class="ex-tools">
       <div class="ex-head"><h2>${cur?esc(cur.name):"Everything in "+esc(sec.name.toLowerCase())}</h2><p class="count" id="exCount"></p></div>
-      <div class="ex-ctrl"><label class="ex-search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><input id="exQ" type="search" placeholder="Search ${esc(name.toLowerCase())} by name or area" autocomplete="off"></label>
-      <label class="ex-sort"><span>Sort</span><select id="exSort"><option value="rec">Top picks</option><option value="az">A to Z</option></select></label></div>
+      <div class="ex-ctrl"><label class="ex-search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><input id="exQ" type="search" placeholder="${innerWidth<700?"Search by name or area":`Search ${esc(name.toLowerCase())} by name or area`}" autocomplete="off"></label>
+      <label class="ex-sort" title="Sort"><svg class="sort-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 4v16M3.5 16.5L7 20l3.5-3.5M17 20V4M13.5 7.5L17 4l3.5 3.5"/></svg><span>Sort</span><select id="exSort" aria-label="Sort listings"><option value="rec">Top picks</option><option value="az">A to Z</option></select></label></div>
       ${typeChips}</div><div id="exGrid" class="in"></div>`;
     renderList(false);
     if(push)history.pushState({sub:cur?cur.id:""},"",`explore.html?c=${sec.id}${cur?"&s="+cur.id:""}`);
