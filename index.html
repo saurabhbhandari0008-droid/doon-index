@@ -227,7 +227,7 @@ function go(i){cur=(i+HERO_SLIDES.length)%HERO_SLIDES.length;
   $$(".slide").forEach((s,k)=>s.classList.toggle("on",k===cur));
   $$("#dots button").forEach((d,k)=>{d.classList.remove("on");d.classList.toggle("done",k<cur);if(k===cur){void d.offsetWidth;d.classList.add("on")}});
   $("#slideNum").textContent=String(cur+1).padStart(2,"0");
-  const s=HERO_SLIDES[cur];$("#slideCap").innerHTML=`<b>${s.cap}</b> · ${s.sub}`;
+  const s=HERO_SLIDES[cur];const pc=PHOTOS[s.img]||{};$("#slideCap").innerHTML=`<b>${s.cap}</b> · ${s.sub}${pc.credit?`<a class="cr" href="${pc.link}" target="_blank" rel="noopener">Photo: ${esc(pc.credit)} · ${esc(pc.lic)}</a>`:""}`;
   clearTimeout(timer);if(!paused)timer=setTimeout(()=>go(cur+1),DUR)}
 $("#dots").onclick=e=>{const b=e.target.closest("button");if(b)go([...b.parentNode.children].indexOf(b))};
 const hero=$(".hero");

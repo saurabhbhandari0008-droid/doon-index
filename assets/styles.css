@@ -959,3 +959,11 @@ h3{letter-spacing:-.01em;line-height:1.15}
 .course-chips span{border:1px solid var(--line);border-radius:6px;padding:5px 10px;font-size:.8rem;font-weight:700;background:var(--bg)}
 .enq{margin-top:4px;padding:18px;border:1px solid var(--line);border-radius:10px;background:var(--bg)}
 @media (max-width:699px){.grid .card.wide .adm-badge{left:6px;bottom:6px;font-size:.5rem;padding:3px 5px}.gallery{grid-template-columns:repeat(3,1fr);gap:6px}}
+
+.photo-credit{font-size:.72rem;color:var(--muted);margin:-6px 0 2px}
+.photo-credit a{text-decoration:underline}
+.slide-cap .cr{display:block;font-size:.68rem;opacity:.7;margin-top:2px}
+.credits-table{width:100%;border-collapse:collapse;font-size:.88rem}
+.credits-table th,.credits-table td{text-align:left;padding:10px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+.credits-table th{font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.credits-table a{text-decoration:underline}

@@ -15,7 +15,12 @@ function phIn(key,w=900,alt="",eager=false){
   const local=(window.LOCAL_PHOTOS||[]).includes(key);
   const attrs=eager?'fetchpriority="high"':'loading="lazy"';
   let src,extra="";
-  if(local){src=`images/${key}.jpg`;if(p.u)extra=` data-fb="${UNS(p.u,w)}"`}
+  if(p.src){const sizes=[500,960,1280,1920].filter(x=>x<p.mw);
+    if(/\/1280px-/.test(p.src)&&sizes.length){src=p.src.replace("/1280px-",`/${sizes.find(x=>x>=Math.min(w,1280))||sizes[sizes.length-1]}px-`);
+      extra=` srcset="${sizes.map(x=>p.src.replace("/1280px-",`/${x}px-`)+" "+x+"w").join(", ")}" sizes="${w>=1600?"100vw":w>=1000?"(max-width:700px) 100vw, 70vw":w>=700?"(max-width:700px) 85vw, 35vw":"(max-width:700px) 45vw, 20vw"}"`}
+    else src=p.src;
+    extra+=` title="Photo: ${esc(p.credit)} · ${esc(p.lic)}"`}
+  else if(local){src=`images/${key}.jpg`;if(p.u)extra=` data-fb="${UNS(p.u,w)}"`}
   else if(p.u){const ws=[400,700,1000,1400,2000].filter(x=>x<=w*1.6);if(!ws.length)ws.push(w);
     src=UNS(p.u,w);extra=` srcset="${ws.map(x=>UNS(p.u,x)+" "+x+"w").join(", ")}" sizes="${w>=1600?"100vw":w>=1000?"(max-width:700px) 100vw, 70vw":w>=700?"(max-width:700px) 85vw, 35vw":"(max-width:700px) 45vw, 20vw"}"`}
   else return `<div class="art" aria-hidden="true"><span>${init}</span></div>`;
@@ -23,6 +28,8 @@ function phIn(key,w=900,alt="",eager=false){
 }
 const hue=key=>(PHOTOS[key]||{h:38}).h;
 function ph(key,w=900,alt="",cls="",eager=false){return `<div class="ph ${cls}" style="--h:${hue(key)}">${phIn(key,w,alt,eager)}</div>`}
+function credit(key){const p=PHOTOS[key];if(!p||!p.credit)return "";
+  return `<p class="photo-credit">Photo: ${esc(p.credit)} · <a href="${esc(p.link)}" target="_blank" rel="noopener">${esc(p.lic)}, via Wikimedia Commons</a></p>`}
 document.addEventListener("load",e=>{if(e.target.tagName==="IMG")e.target.classList.add("ok")},true);
 document.addEventListener("error",e=>{const i=e.target;if(i.tagName!=="IMG")return;
   if(i.dataset.fb){const f=i.dataset.fb;i.removeAttribute("data-fb");i.src=f}else i.remove()},true);
@@ -65,7 +72,7 @@ if(footEl){footEl.className="site";footEl.innerHTML=`<div class="wrap">
   <div><h4>Discover</h4><ul><li><a href="${home}#schools">Schools</a></li><li><a href="${home}#shop">Shop</a></li><li><a href="blog.html">Journal</a></li></ul></div>
   <div><h4>Business</h4><ul><li><a href="#" data-biz="list">Add your business</a></li><li><a href="#" data-biz="partner">Partner with us</a></li></ul></div></div>
   <div class="big-word" aria-hidden="true">Dehra<i>dun</i></div>
-  <div class="legal"><span>© 2026 Doon Dekho · Dehradun, Uttarakhand</span><span>Photos via Unsplash · listings marked Unverified are from public sources · shop products are samples</span></div></div>`}
+  <div class="legal"><span>© 2026 Doon Dekho · Dehradun, Uttarakhand</span><span><a href="credits.html" style="text-decoration:underline">Photo credits</a> · listings marked Unverified are from public sources · shop products are samples</span></div></div>`}
 
 
 /* ---------- categories ---------- */
@@ -78,7 +85,7 @@ const countSection=sec=>sec.subs.reduce((t,sb)=>t+countFor(sb.id),0);
 
 /* ---------- listing card (used on home + explore) ---------- */
 function card(p,o={}){
-  if(p.school)return `<article class="card${o.wide?" wide":""}"${o.style?` style="${o.style}"`:""}><div style="position:relative">${ph("fri",800,p.n)}<div class="tags"><span class="tag">School</span></div></div>
+  if(p.school)return `<article class="card${o.wide?" wide":""}"${o.style?` style="${o.style}"`:""}><div style="position:relative">${ph(p.img||"fri",800,p.n)}<div class="tags"><span class="tag">School</span></div></div>
    <div><div class="row"><span>${esc(p.a)}</span><span>${esc(p.board)}</span></div><h3><a class="stretch" href="#" data-school="${esc(p.n)}">${esc(p.n)}</a></h3><p class="d">${esc(p.type)} · ${esc(p.g)} · ${esc(p.d)}</p></div></article>`;
   if(p.gem!==undefined)return `<article class="card${o.wide?" wide":""}"${o.style?` style="${o.style}"`:""}><div style="position:relative">${ph(p.img,800,p.n)}<div class="tags"><span class="tag">Hidden gem</span></div></div>
    <div><div class="row"><span>${esc(p.alt)}</span><span>Free</span></div><h3><a class="stretch" href="#" data-gem="${p.gem}">${esc(p.n)}</a></h3><p class="d">${esc(p.d)}</p></div></article>`;
@@ -141,7 +148,7 @@ function eduModal(p){
   const courses=(p.courses||[]).length?`<div class="course-chips">${p.courses.map(c=>`<span>${esc(c)}</span>`).join("")}</div>`:"";
   openLayer(`<div class="modal" role="dialog" aria-modal="true" aria-label="${esc(p.n)}"><button class="x" data-close aria-label="Close">✕</button>
   ${ph(p.img,1600,p.n)}
-  <div class="mbody"><p class="label">${p.f?"Featured · ":""}${esc(sb?sb.name:"Education")}${p.gov?" · Government":""}</p><h2>${esc(p.n)}</h2>
+  <div class="mbody">${credit(p.img)}<p class="label">${p.f?"Featured · ":""}${esc(sb?sb.name:"Education")}${p.gov?" · Government":""}</p><h2>${esc(p.n)}</h2>
   ${p.adm?`<p class="adm-line">${esc(p.adm)}</p>`:""}
   <div class="facts">${facts.map(([k,v])=>`<div><small>${k}</small><b>${esc(v)}</b></div>`).join("")}</div>
   ${gallery}
@@ -172,13 +179,13 @@ function placeModal(p,isGem){
     :[["Area",isGem?p.alt.split("·")[0]:p.a],["Budget",p.p||"Free"],["Best time",p.best||"Any time"],["Type",isGem?"Outdoors":kind]];
   openLayer(`<div class="modal" role="dialog" aria-modal="true" aria-label="${esc(p.n)}"><button class="x" data-close aria-label="Close">✕</button>
   ${ph(p.img,1600,p.n)}
-  <div class="mbody"><p class="label">${esc(kind)}${p.f?" · Featured":""}${p.u?" · Not yet verified":""}</p><h2>${esc(p.n)}</h2><p>${esc(p.d)}</p>
+  <div class="mbody">${credit(p.img)}<p class="label">${esc(kind)}${p.f?" · Featured":""}${p.u?" · Not yet verified":""}</p><h2>${esc(p.n)}</h2><p>${esc(p.d)}</p>
   <div class="facts">${facts.map(([k,v])=>`<div><small>${k}</small><b>${esc(v)}</b></div>`).join("")}</div>
   ${p.u?`<p class="tip"><b>Is this your business?</b> Claim this listing to add photos, timings, your menu and offers. It's free.</p>`:`<p class="tip"><b>Local tip ·</b> ${esc(p.tip)}</p>`}
   <div class="btn-row"><a class="btn" href="${dir}" target="_blank" rel="noopener">Get directions</a>${isGem?(p.post?`<a class="btn line" href="post.html?p=${p.post}">Read the guide</a>`:""):`<button class="btn line" data-save-m="${p.id}">${saved.has(p.id)?"Saved ✓":"Save place"}</button>`}${p.u?`<button class="btn line" data-biz="list">Claim this listing</button>`:""}</div></div></div>`)}
 function schoolModal(s){
   openLayer(`<div class="modal" role="dialog" aria-modal="true" aria-label="${esc(s.n)}"><button class="x" data-close aria-label="Close">✕</button>
-  ${ph("fri",1600,s.n)}<div class="mbody"><p class="label">School · ${s.type}</p><h2>${s.n}</h2><p>${s.d}</p>
+  ${ph(s.img||"fri",1600,s.n)}<div class="mbody">${credit(s.img)}<p class="label">School · ${s.type}</p><h2>${s.n}</h2><p>${s.d}</p>
   <div class="facts"><div><small>Area</small><b>${s.a}</b></div><div><small>Board</small><b>${s.board}</b></div><div><small>Type</small><b>${s.type}</b></div><div><small>For</small><b>${s.g}</b></div></div>
   <p class="tip"><b>Before you visit ·</b> Ask for the full annual fee in writing and request a campus tour during term time.</p>
   <div class="btn-row"><a class="btn" href="${maps(s.n)}" target="_blank" rel="noopener">Get directions</a><a class="btn line" href="post.html?p=choosing-school-dehradun">Read our school guide</a></div></div></div>`)}
@@ -318,7 +325,7 @@ function preloader(){
 }
 
 function autoRows(){$$(".tiles,.hoods").forEach(autoplay)}
-window.Doon={autoplay,card,ad,SUBMAP,subOf,sectionOf,listFor,countFor,countSection,$,$$,ph,phIn,hue,inr,esc,sync,saved:()=>saved,initSlider,sliderControls,splitWords,playSplit,toast,arrowL,arrowR,heart,
+window.Doon={credit,autoplay,card,ad,SUBMAP,subOf,sectionOf,listFor,countFor,countSection,$,$$,ph,phIn,hue,inr,esc,sync,saved:()=>saved,initSlider,sliderControls,splitWords,playSplit,toast,arrowL,arrowR,heart,
   start(opts={}){const delay=opts.preloader?preloader()||0:0;sync();$$(".slider").forEach(initSlider);autoRows();initCursor();initMagnetic();
     setTimeout(()=>{initReveal();opts.onReady&&opts.onReady()},delay?delay-300:0)}};
 })();
