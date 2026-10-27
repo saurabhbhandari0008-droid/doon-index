@@ -123,6 +123,12 @@ const layer=document.createElement("div");document.body.appendChild(layer);
 const scrim=document.createElement("div");scrim.className="scrim";scrim.hidden=true;document.body.appendChild(scrim);
 function openLayer(html){layer.innerHTML=html;scrim.hidden=false;document.body.style.overflow="hidden";const f=layer.querySelector("button,input");f&&f.focus({preventScroll:true})}
 function closeLayer(){layer.innerHTML="";scrim.hidden=true;document.body.style.overflow=""}
+/* phone: drag a bottom sheet down to close it */
+(function(){let y0=null,dy=0,el=null;
+  layer.addEventListener("touchstart",e=>{el=e.target.closest(".modal");if(!el||innerWidth>699||el.scrollTop>2){el=null;return}y0=e.touches[0].clientY;dy=0;el.style.transition="none"},{passive:true});
+  layer.addEventListener("touchmove",e=>{if(!el)return;dy=e.touches[0].clientY-y0;if(dy>0&&el.scrollTop<=0){el.style.transform=`translateY(${dy}px)`}else{dy=0;el.style.transform=""}},{passive:true});
+  layer.addEventListener("touchend",()=>{if(!el)return;el.style.transition="transform .3s cubic-bezier(.2,.8,.2,1)";if(dy>110){el.style.transform="translateY(100%)";setTimeout(closeLayer,260)}else el.style.transform="";el=null},{passive:true});
+})();
 scrim.onclick=closeLayer;
 document.addEventListener("keydown",e=>{if(e.key==="Escape")closeLayer()});
 const maps=q=>`https://www.google.com/maps/search/${encodeURIComponent(q+" Dehradun")}`;

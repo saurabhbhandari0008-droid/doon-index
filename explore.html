@@ -172,7 +172,7 @@ if(!sec){
     $("#exList").innerHTML=`<div class="ex-tools">
       <div class="ex-head"><h2>${cur?esc(cur.name):"Everything in "+esc(sec.name.toLowerCase())}</h2><p class="count" id="exCount"></p></div>
       <div class="ex-ctrl"><label class="ex-search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><input id="exQ" type="search" placeholder="Search ${esc(name.toLowerCase())} by name or area" autocomplete="off"></label>
-      <label class="ex-sort"><span>Sort</span><select id="exSort"><option value="rec">Recommended</option><option value="az">A to Z</option></select></label></div>
+      <label class="ex-sort"><span>Sort</span><select id="exSort"><option value="rec">Top picks</option><option value="az">A to Z</option></select></label></div>
       ${typeChips}</div><div id="exGrid" class="in"></div>`;
     renderList(false);
     if(push)history.pushState({sub:cur?cur.id:""},"",`explore.html?c=${sec.id}${cur?"&s="+cur.id:""}`);

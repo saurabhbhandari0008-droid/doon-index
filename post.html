@@ -26,6 +26,7 @@
     <div class="article">
       <aside class="toc" id="toc" aria-label="In this story"></aside>
       <article>
+        <label class="toc-m" id="tocM" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h10"/></svg><span id="tocMt">In this story</span><select id="tocMs" aria-label="Jump to a section"></select><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></label>
         <div class="body" id="abody"></div>
         <div class="author"><div class="av">D</div><div><b>Doon Dekho</b><span>Written and photographed in Dehradun</span></div></div>
       </article>
@@ -78,6 +79,10 @@ $("#abody").innerHTML=blocks.join("");
 $("#toc").innerHTML=heads.length?`<p class="label">In this story</p>${heads.map(([id,t])=>`<a href="#${id}">${t}</a>`).join("")}<div class="share"><button id="copyLink">Copy link</button></div>`:"";
 $("#aside").innerHTML=`<p class="label">Plan your visit</p><h4>Save the places from this story</h4><p>Find every spot in the directory with timings, tips and directions.</p><a class="btn" href="${P.sec?`explore.html?c=${P.sec}${P.sub?`&s=${P.sub}`:""}`:"explore.html"}">Open the directory</a>`;
 if(PHOTOS[P.img]&&PHOTOS[P.img].credit)$("#aside").insertAdjacentHTML("beforeend",`<div style="margin-top:14px">${Doon.credit(P.img).replace("<p ","<p style=\"margin:0\" ")}</div>`);
+if(heads.length>2){const tm=$("#tocM"),ts=$("#tocMs");tm.hidden=false;
+  ts.innerHTML=`<option value="" disabled selected>In this story</option>`+heads.map(([id,t])=>`<option value="${id}">${t.replace(/<[^>]+>/g,"")}</option>`).join("");
+  ts.onchange=()=>{const el=document.getElementById(ts.value);if(el)scrollTo({top:el.getBoundingClientRect().top+scrollY-130,behavior:"smooth"})};
+  if("IntersectionObserver" in window){const io2=new IntersectionObserver(es=>es.forEach(en=>{if(en.isIntersecting){const h=heads.find(x=>x[0]===en.target.id);if(h){$("#tocMt").textContent=h[1].replace(/<[^>]+>/g,"");ts.value=h[0]}}}),{rootMargin:"-25% 0px -65% 0px"});heads.forEach(([id])=>io2.observe(document.getElementById(id)))}}
 const cl=$("#copyLink");if(cl)cl.onclick=()=>{navigator.clipboard?.writeText(location.href).then(()=>toast("Link copied"),()=>toast("Copy the link from the address bar"))};
 if(heads.length&&"IntersectionObserver" in window){const io=new IntersectionObserver(es=>es.forEach(en=>{if(en.isIntersecting)$$("#toc a").forEach(a=>a.classList.toggle("on",a.getAttribute("href")==="#"+en.target.id))}),{rootMargin:"-30% 0px -60% 0px"});heads.forEach(([id])=>io.observe(document.getElementById(id)))}
 
