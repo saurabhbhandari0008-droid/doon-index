@@ -923,3 +923,20 @@ h3{letter-spacing:-.025em;line-height:1.1}
 .save,.x,.arrows button,.fs-nav button,.hood .go{border-radius:50%}
 .badge{border-radius:10px}
 @media (max-width:699px){.finder{border-radius:12px}}
+
+/* =====================================================================
+   HELVETICA SPACING FIX — no touching letters, no clipped descenders
+   ===================================================================== */
+h1,h2,h3,h4{letter-spacing:-.02em;line-height:1.08}
+h3{letter-spacing:-.01em;line-height:1.15}
+.hero h1{letter-spacing:-.025em;line-height:1.04}
+.page-hero h1,.article-hero h1{letter-spacing:-.025em;line-height:1.05}
+.sec-head h2{letter-spacing:-.022em;line-height:1.08}
+.logo{letter-spacing:-.02em}
+.quote blockquote{letter-spacing:-.02em;line-height:1.12}
+.big-word{letter-spacing:-.035em;line-height:.95}
+.marquee span{letter-spacing:-.01em}
+.tile b,.hood b,.subtile b{letter-spacing:-.01em;line-height:1.15}
+.gem h3,.seccard h3,.ad-body h3,.biz-body h2,.news h2,.list-head h2{letter-spacing:-.02em;line-height:1.1}
+/* word-reveal animation: give each word room above and below so "y", "g", "p" are never cut */
+.split .w{padding:.06em .02em .22em;margin:-.06em -.02em -.22em}
