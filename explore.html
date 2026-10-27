@@ -35,6 +35,7 @@
   </section>
 </main>
 <footer id="footer"></footer>
+<form name="enquiry" data-netlify="true" netlify-honeypot="bot-field" hidden><input name="bot-field"><input name="institution"><input name="name"><input name="phone"><input name="who"><input name="course"><textarea name="message"></textarea></form>
 
 <script src="assets/data.js"></script>
 <script src="assets/site.js"></script>
@@ -71,7 +72,7 @@ if(!sec){
   $("#exBlurb").textContent=sec.blurb;
   const subs=sec.subs.map(sb=>({...sb,count:countFor(sb.id)}));
   $("#exTop").innerHTML=`<div class="subgrid">${subs.map(sb=>tile(sb,`explore.html?c=${sec.id}&s=${sb.id}`,sub&&sb.id===sub.id)).join("")}</div>`;
-  $("#exAd1").innerHTML=ad("banner");
+  $("#exAd1").innerHTML=ad(sec.id==="education"?"edu":"banner");
   let limit=PAGE();
   const items=sub?listFor(sub.id):sec.subs.flatMap(sb=>listFor(sb.id));
   items.sort((a,b)=>(b.f||0)-(a.f||0));
@@ -89,7 +90,7 @@ if(!sec){
     $$("[data-tf]").forEach(b=>b.onclick=()=>{tf=b.dataset.tf;limit=PAGE();renderList()});
   }
   renderList();
-  if(items.length>=6)$("#exAd2").innerHTML=ad("banner");
+  if(items.length>=6)$("#exAd2").innerHTML=ad(sec.id==="education"?"edu":"banner");
 }
 document.addEventListener("doon:sync",()=>{});
 Doon.start({});

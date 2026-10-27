@@ -416,6 +416,8 @@ window.ADS = [
   text:"Banner and featured spots for cafés, salons, shops, schools and events. Seen by locals and visitors every day.",cta:"Advertise with us",action:"biz:partner",img:"cafe-plants"},
  {id:"house-listed",house:true,slots:["banner","infeed","article"],sponsor:"Doon Dekho",title:"Run a café, salon or shop?",
   text:"Get your business on Doon Dekho and get found by people searching in your area.",cta:"Get listed",action:"biz:list",img:"barbershop"},
+ {id:"house-admissions",house:true,slots:["edu"],sponsor:"Doon Dekho",title:"Admissions season: reach Dehradun’s parents and students",
+  text:"Feature your school, college or coaching centre with an Admissions Open badge, enquiry form and banner across the Education section.",cta:"See admission packages",action:"biz:partner",img:"corridor"},
  {id:"house-pets",house:true,slots:["infeed"],sponsor:"Doon Dekho",title:"Pet shop or vet in Dehradun?",
   text:"Be one of the first in our new For Pets section.",cta:"Get listed",action:"biz:list",img:"corgi"}
 ];

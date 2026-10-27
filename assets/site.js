@@ -83,8 +83,8 @@ function card(p,o={}){
   if(p.gem!==undefined)return `<article class="card${o.wide?" wide":""}"${o.style?` style="${o.style}"`:""}><div style="position:relative">${ph(p.img,800,p.n)}<div class="tags"><span class="tag">Hidden gem</span></div></div>
    <div><div class="row"><span>${esc(p.alt)}</span><span>Free</span></div><h3><a class="stretch" href="#" data-gem="${p.gem}">${esc(p.n)}</a></h3><p class="d">${esc(p.d)}</p></div></article>`;
   const sb=subOf(p);
-  if(p.t)return `<article class="card${o.wide?" wide":""} edu"${o.style?` style="${o.style}"`:""}>
-  <div style="position:relative">${ph(p.img,800,p.n)}<div class="tags"><span class="tag${p.gov?" gov":""}">${esc(p.t.split(" · ")[0])}</span></div>
+  if(p.t)return `<article class="card${o.wide?" wide":""} edu${p.f?" featured":""}"${o.style?` style="${o.style}"`:""}>
+  <div style="position:relative">${ph(p.img,800,p.n)}<div class="tags">${p.f?'<span class="tag gold">Featured</span>':""}<span class="tag${p.gov?" gov":""}">${esc(p.t.split(" · ")[0])}</span></div>${p.adm?`<span class="adm-badge">${esc(p.adm)}</span>`:""}
   <button class="save${saved.has(p.id)?" on":""}" data-save="${p.id}" aria-label="Save ${esc(p.n)}">${heart}</button></div>
   <div><div class="row"><span>${esc(p.a)}</span><span>${p.est?"Est. "+esc(p.est):""}</span></div><h3><a class="stretch" href="#" data-place="${p.id}">${esc(p.n)}</a></h3><p class="d"><b class="edu-type">${esc(p.t)}</b> · ${esc(p.d)}</p></div></article>`;
   return `<article class="card${o.wide?" wide":""}"${o.style?` style="${o.style}"`:""}>
@@ -102,7 +102,7 @@ function adLink(a,inner,cls){
   return `<a class="${cls}" href="${esc(a.url||"#")}" target="_blank" rel="sponsored noopener">${inner}</a>`;
 }
 function ad(slot){
-  const a=pickAd(slot==="infeed"?"infeed":slot==="article"?"article":"banner");if(!a)return "";
+  const a=pickAd(slot==="infeed"?"infeed":slot==="article"?"article":slot==="edu"?"edu":"banner");if(!a)return "";
   const label=a.house?"Advertise here":"Sponsored";
   if(slot==="infeed")return `<article class="card wide ad-card" aria-label="Advertisement">${adLink(a,`<div style="position:relative">${ph(a.img,800,a.title)}<div class="tags"><span class="tag ad-tag">${label}</span></div></div>
     <div><div class="row"><span>${esc(a.sponsor)}</span><span>Ad</span></div><h3>${esc(a.title)}</h3><p class="d">${esc(a.text)}</p><span class="ad-cta">${esc(a.cta)} →</span></div>`,"ad-hit")}</article>`;
@@ -137,14 +137,32 @@ function eduModal(p){
   const sb=subOf(p);
   const dir=p.g?`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(p.n+" Dehradun")}&query_place_id=${p.g}`:maps(p.n);
   const facts=[["Type",p.t],["Established",p.est||"—"],["Area",p.a],["Category",sb?sb.name:"Education"]];
+  const gallery=(p.photos||[]).length?`<div class="gallery">${p.photos.map(k=>ph(k,600,p.n)).join("")}</div>`:"";
+  const courses=(p.courses||[]).length?`<div class="course-chips">${p.courses.map(c=>`<span>${esc(c)}</span>`).join("")}</div>`:"";
   openLayer(`<div class="modal" role="dialog" aria-modal="true" aria-label="${esc(p.n)}"><button class="x" data-close aria-label="Close">✕</button>
   ${ph(p.img,1600,p.n)}
-  <div class="mbody"><p class="label">${esc(sb?sb.name:"Education")}${p.gov?" · Government":""}</p><h2>${esc(p.n)}</h2>
+  <div class="mbody"><p class="label">${p.f?"Featured · ":""}${esc(sb?sb.name:"Education")}${p.gov?" · Government":""}</p><h2>${esc(p.n)}</h2>
+  ${p.adm?`<p class="adm-line">${esc(p.adm)}</p>`:""}
   <div class="facts">${facts.map(([k,v])=>`<div><small>${k}</small><b>${esc(v)}</b></div>`).join("")}</div>
-  <div><p class="label" style="color:var(--muted);margin-bottom:6px">Courses &amp; focus</p><p>${esc(p.d)}</p></div>
-  <p class="tip"><b>Admissions ·</b> Courses, fees and dates change every year. Always confirm on the official website before applying.</p>
-  <div class="btn-row">${p.web?`<a class="btn" href="${esc(p.web)}" target="_blank" rel="noopener">Official website</a>`:""}<a class="btn${p.web?" line":""}" href="${dir}" target="_blank" rel="noopener">Get directions</a><button class="btn line" data-save-m="${p.id}">${saved.has(p.id)?"Saved ✓":"Save"}</button>${p.gov?"":`<button class="btn line" data-biz="list">Update details</button>`}</div>
-  ${p.gov?"":`<p style="font-size:.8rem;color:var(--muted)">Represent this institution? Use “Update details” to add courses, admission dates and photos.</p>`}</div></div>`)}
+  ${gallery}
+  <div><p class="label" style="color:var(--muted);margin-bottom:6px">Courses &amp; focus</p><p>${esc(p.d)}</p>${courses}</div>
+  <p class="tip"><b>Admissions ·</b> Courses, fees and dates change every year. Always confirm with the institution before applying.</p>
+  <div class="btn-row">${p.gov?"":`<button class="btn" data-enquire="${p.id}">Enquire now</button>`}${p.web?`<a class="btn${p.gov?"":" line"}" href="${esc(p.web)}" target="_blank" rel="noopener">Official website</a>`:""}${p.phone?`<a class="btn line" href="tel:${esc(p.phone.replace(/\s/g,""))}">Call ${esc(p.phone)}</a>`:""}<a class="btn line" href="${dir}" target="_blank" rel="noopener">Get directions</a><button class="btn line" data-save-m="${p.id}">${saved.has(p.id)?"Saved ✓":"Save"}</button></div>
+  <div id="enqBox"></div>
+  ${p.gov||p.f?"":`<p style="font-size:.8rem;color:var(--muted)">Represent this institution? <a href="#" data-biz="list" style="color:var(--brass);font-weight:700">Update your details or get Featured</a>.</p>`}</div></div>`)}
+function enquiryForm(p){
+  const box=$("#enqBox");if(!box)return;
+  box.innerHTML=`<form class="form enq" id="enqForm" name="enquiry"><input type="hidden" name="form-name" value="enquiry"><input type="hidden" name="institution" value="${esc(p.n)}">
+   <p hidden><label>Leave empty<input name="bot-field"></label></p>
+   <p class="full" style="font-weight:700">Send an enquiry to ${esc(p.n)}</p>
+   <label for="e1">Your name<input id="e1" name="name" required autocomplete="name"></label>
+   <label for="e2">Phone or WhatsApp<input id="e2" name="phone" required inputmode="tel" autocomplete="tel" placeholder="+91"></label>
+   <label for="e3">I am a<select id="e3" name="who"><option>Student</option><option>Parent</option><option>Other</option></select></label>
+   <label for="e4">Interested in<input id="e4" name="course" placeholder="e.g. BBA, Class 6, CDS coaching"></label>
+   <label for="e5" class="full">Message (optional)<textarea id="e5" name="message" rows="2"></textarea></label>
+   <div class="full"><button class="btn" type="submit">Send enquiry</button><p style="font-size:.76rem;color:var(--muted);margin-top:8px">Your details are shared only with this institution so they can contact you.</p></div></form>`;
+  $("#e1").focus();
+}
 function placeModal(p,isGem){
   if(!isGem&&p.t)return eduModal(p);
   const sb=isGem?null:subOf(p),sec=sb?sb.sec:null;
@@ -200,6 +218,7 @@ document.addEventListener("click",e=>{
   const inc=t.closest("[data-inc]"),dec=t.closest("[data-dec]");
   if(inc||dec){const k=(inc||dec).dataset[inc?"inc":"dec"];bag[k]=Math.max(0,(bag[k]||0)+(inc?1:-1));if(!bag[k])delete bag[k];sync();bagDrawer();return}
   if(t.closest("[data-checkout]")){closeLayer();toast("Checkout will connect to Razorpay on the live site");return}
+  const eq=t.closest("[data-enquire]");if(eq){enquiryForm(PLACES.find(p=>p.id==eq.dataset.enquire));eq.remove();return}
   const bz=t.closest("[data-biz]");if(bz){e.preventDefault();bizModal(bz.dataset.biz);return}
   if(t.closest("#bagBtn,#tbBag")){bagDrawer();return}
   if(t.closest("#savedBtn,#tbSaved")){savedDrawer();return}
@@ -210,6 +229,7 @@ document.addEventListener("keydown",e=>{if(e.key==="Enter"&&e.target.matches("[d
 function send(form){if(location.protocol==="file:")return;
   try{fetch("/",{method:"POST",headers:{"Content-Type":"application/x-www-form-urlencoded"},body:new URLSearchParams(new FormData(form)).toString()}).catch(()=>{})}catch(err){}}
 document.addEventListener("submit",e=>{
+  if(e.target.id==="enqForm"){e.preventDefault();send(e.target);const n=e.target.institution.value;$("#enqBox").innerHTML=`<p class="tip"><b>Enquiry sent.</b> ${esc(n)} will contact you soon.</p>`;toast("Enquiry sent");return}
   if(e.target.id==="bizForm"){e.preventDefault();const f=e.target,n=$("#b1").value.trim();send(f);closeLayer();toast(`Thanks! We’ll be in touch about ${n}.`)}
   if(e.target.matches("[data-news]")){e.preventDefault();send(e.target);const ok=e.target.parentElement.querySelector(".ok");if(ok)ok.hidden=false;e.target.reset()}
 });
