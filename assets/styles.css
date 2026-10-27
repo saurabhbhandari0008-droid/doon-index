@@ -470,6 +470,19 @@ footer.site{padding-block:90px calc(48px + env(safe-area-inset-bottom,0px))}
 .body .figure{margin:2.2em 0}
 .body .figure .ph{aspect-ratio:16/10;border-radius:var(--r)}
 .body .figure figcaption{font-size:.82rem;color:var(--muted);margin-top:10px}
+.body .figure .photo-credit{margin:4px 0 0}
+.body h3{font-size:clamp(1.25rem,2vw,1.5rem);color:var(--ink);margin-top:1.8em;letter-spacing:-.015em;line-height:1.2}
+.body b{color:var(--ink);font-weight:700}
+.body .list{list-style:none;padding:0;display:grid;gap:.7em}
+.body .list li{position:relative;padding-left:1.5em}
+.body .list li::before{content:"";position:absolute;left:.15em;top:.72em;width:7px;height:7px;border-radius:50%;background:var(--brass)}
+.body .faq{display:grid;gap:10px}
+.body .faq details{border:1px solid var(--line);border-radius:12px;background:var(--card,transparent);padding:0 18px}
+.body .faq summary{cursor:pointer;list-style:none;font-weight:700;color:var(--ink);padding:16px 28px 16px 0;position:relative;line-height:1.35}
+.body .faq summary::-webkit-details-marker{display:none}
+.body .faq summary::after{content:"+";position:absolute;right:0;top:12px;font-size:1.4rem;color:var(--brass)}
+.body .faq details[open] summary::after{content:"–"}
+.body .faq details p{margin:0 0 16px;font-size:1rem}
 .author{display:flex;gap:16px;align-items:center;margin-top:56px;padding-top:28px;border-top:1px solid var(--line)}
 .author .av{width:56px;height:56px;border-radius:50%;background:var(--ink);color:var(--bg);display:grid;place-items:center;font-family:var(--serif);font-size:1.4rem}
 .author b{display:block}

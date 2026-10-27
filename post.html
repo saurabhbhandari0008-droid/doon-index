@@ -49,7 +49,10 @@ const {$,$$,ph,phIn,hue,esc,sliderControls,splitWords,playSplit,toast}=Doon;
 const slug=new URLSearchParams(location.search).get("p")||location.hash.slice(1);
 const idx=Math.max(0,POSTS.findIndex(p=>p.slug===slug));
 const P=POSTS[idx];
-document.title=`${P.t} · Doon Dekho`;
+document.title=`${P.seo||P.t} · Doon Dekho`;
+if(P.desc){const md=document.querySelector('meta[name="description"]')||document.head.appendChild(Object.assign(document.createElement("meta"),{name:"description"}));md.content=P.desc;
+  const og=document.querySelector('meta[property="og:description"]');if(og)og.content=P.desc}
+const ogt=document.querySelector('meta[property="og:title"]');if(ogt)ogt.content=P.seo||P.t;
 
 $("#ahero").style.setProperty("--h",hue(P.img));
 $("#ahero").innerHTML=`${ph(P.img,2000,P.t,"",true)}<div class="wrap"><p class="crumbs"><a href="index.html">Home</a><span>/</span><a href="blog.html">Journal</a><span>/</span><span>${P.cat}</span></p>
@@ -61,12 +64,20 @@ const blocks=P.body.map(b=>{
   if(b.h){const id="s"+(++hn);heads.push([id,b.h]);return `<h2 id="${id}">${b.h}</h2>`}
   if(b.q)return `<blockquote>${b.q}</blockquote>`;
   if(b.tip)return `<p class="tip"><b>Local tip ·</b> ${b.tip}</p>`;
-  if(b.img)return `<figure class="figure clip">${ph(b.img,1400,b.cap)}<figcaption>${b.cap}</figcaption></figure>`;
+  if(b.img)return `<figure class="figure clip">${ph(b.img,1400,b.cap)}<figcaption>${b.cap}</figcaption>${Doon.credit(b.img)}</figure>`;
+  if(b.h3)return `<h3>${b.h3}</h3>`;
+  if(b.ul)return `<ul class="list">${b.ul.map(x=>`<li>${x}</li>`).join("")}</ul>`;
+  if(b.faq)return `<div class="faq">${b.faq.map(([q,a],i)=>`<details${i?"":" open"}><summary>${q}</summary><p>${a}</p></details>`).join("")}</div>`;
+  if(b.cta)return `<p>${b.p}</p><p><a class="btn" href="${b.cta.href}">${b.cta.label}</a></p>`;
   return `<p>${b.p}</p>`});
+const faqs=P.body.filter(b=>b.faq).flatMap(b=>b.faq);
+if(faqs.length){const s=document.createElement("script");s.type="application/ld+json";const strip=t=>t.replace(/<[^>]+>/g,"");
+  s.textContent=JSON.stringify({"@context":"https://schema.org","@graph":[{"@type":"BlogPosting",headline:P.seo||P.t,description:P.desc||P.ex,datePublished:new Date(P.date).toISOString().slice(0,10),publisher:{"@type":"Organization",name:"Doon Dekho"}},{"@type":"FAQPage",mainEntity:faqs.map(([q,a])=>({"@type":"Question",name:strip(q),acceptedAnswer:{"@type":"Answer",text:strip(a)}}))}]});document.head.appendChild(s)}
 if(blocks.length>4)blocks.splice(3,0,Doon.ad("article"));
 $("#abody").innerHTML=blocks.join("");
 $("#toc").innerHTML=heads.length?`<p class="label">In this story</p>${heads.map(([id,t])=>`<a href="#${id}">${t}</a>`).join("")}<div class="share"><button id="copyLink">Copy link</button></div>`:"";
-$("#aside").innerHTML=`<p class="label">Plan your visit</p><h4>Save the places from this story</h4><p>Find every spot in the directory with timings, tips and directions.</p><a class="btn" href="index.html#explore">Open the directory</a>`;
+$("#aside").innerHTML=`<p class="label">Plan your visit</p><h4>Save the places from this story</h4><p>Find every spot in the directory with timings, tips and directions.</p><a class="btn" href="${P.sec?`explore.html?c=${P.sec}${P.sub?`&s=${P.sub}`:""}`:"explore.html"}">Open the directory</a>`;
+if(PHOTOS[P.img]&&PHOTOS[P.img].credit)$("#aside").insertAdjacentHTML("beforeend",`<div style="margin-top:14px">${Doon.credit(P.img).replace("<p ","<p style=\"margin:0\" ")}</div>`);
 const cl=$("#copyLink");if(cl)cl.onclick=()=>{navigator.clipboard?.writeText(location.href).then(()=>toast("Link copied"),()=>toast("Copy the link from the address bar"))};
 if(heads.length&&"IntersectionObserver" in window){const io=new IntersectionObserver(es=>es.forEach(en=>{if(en.isIntersecting)$$("#toc a").forEach(a=>a.classList.toggle("on",a.getAttribute("href")==="#"+en.target.id))}),{rootMargin:"-30% 0px -60% 0px"});heads.forEach(([id])=>io.observe(document.getElementById(id)))}
 
