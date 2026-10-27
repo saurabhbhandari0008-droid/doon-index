@@ -75,12 +75,18 @@ if(!sec){
   let limit=PAGE();
   const items=sub?listFor(sub.id):sec.subs.flatMap(sb=>listFor(sb.id));
   items.sort((a,b)=>(b.f||0)-(a.f||0));
+  let tf="all";
+  const isEdu=sec.id==="education"&&(!sub||!["coaching","libraries","schools"].includes(sub.id));
+  const match=(p,k)=>k==="gov"?!!p.gov:k==="deemed"?/deemed/i.test(p.t||""):!p.gov;
   function renderList(){
-    const shown=items.slice(0,limit),left=items.length-shown.length;
-    $("#exList").innerHTML=`<div class="list-head"><div><p class="label">${sub?"All listings":"Everything in "+esc(sec.name)}</p><h2 style="margin-top:10px">${sub?esc(sub.name):"All "+esc(sec.name.toLowerCase())}</h2></div><p class="count" style="margin:0">${plural(items.length)}</p></div>
-      ${grid(shown,{emptyName:sub?sub.name:sec.name})}
+    const pool=isEdu&&tf!=="all"?items.filter(p=>match(p,tf)):items;
+    const shown=pool.slice(0,limit),left=pool.length-shown.length;
+    const chips=isEdu?`<div class="type-chips" role="group" aria-label="Institution type">${[["all","All"],["gov","Government"],["private","Private"],["deemed","Deemed"]].map(([k,l])=>`<button class="chip" data-tf="${k}" aria-pressed="${tf===k}">${l}</button>`).join("")}</div>`:"";
+    $("#exList").innerHTML=`<div class="list-head"><div><p class="label">${sub?"All listings":"Everything in "+esc(sec.name)}</p><h2 style="margin-top:10px">${sub?esc(sub.name):"All "+esc(sec.name.toLowerCase())}</h2></div><p class="count" style="margin:0">${sec.id==="education"&&isEdu?(pool.length===1?"1 institution":pool.length+" institutions"):plural(pool.length)}</p></div>
+      ${chips}${grid(shown,{emptyName:sub?sub.name:sec.name,withAd:sec.id!=="education"})}
       ${left>0?`<div class="more-row"><button class="btn line" id="exMore" type="button">Show ${Math.min(left,PAGE())} more of ${left}</button></div>`:""}`;
     const m=$("#exMore");if(m)m.onclick=()=>{limit+=PAGE();renderList()};
+    $$("[data-tf]").forEach(b=>b.onclick=()=>{tf=b.dataset.tf;limit=PAGE();renderList()});
   }
   renderList();
   if(items.length>=6)$("#exAd2").innerHTML=ad("banner");

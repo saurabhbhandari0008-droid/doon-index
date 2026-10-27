@@ -940,3 +940,9 @@ h3{letter-spacing:-.01em;line-height:1.15}
 .gem h3,.seccard h3,.ad-body h3,.biz-body h2,.news h2,.list-head h2{letter-spacing:-.02em;line-height:1.1}
 /* word-reveal animation: give each word room above and below so "y", "g", "p" are never cut */
 .split .w{padding:.06em .02em .22em;margin:-.06em -.02em -.22em}
+
+
+/* education: institution type badges */
+.tag.gov{background:#1F5C45!important;color:#fff!important}
+.edu-type{font-weight:700;color:var(--ink)}
+.type-chips{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 18px}

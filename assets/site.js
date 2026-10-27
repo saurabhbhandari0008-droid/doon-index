@@ -83,6 +83,10 @@ function card(p,o={}){
   if(p.gem!==undefined)return `<article class="card${o.wide?" wide":""}"${o.style?` style="${o.style}"`:""}><div style="position:relative">${ph(p.img,800,p.n)}<div class="tags"><span class="tag">Hidden gem</span></div></div>
    <div><div class="row"><span>${esc(p.alt)}</span><span>Free</span></div><h3><a class="stretch" href="#" data-gem="${p.gem}">${esc(p.n)}</a></h3><p class="d">${esc(p.d)}</p></div></article>`;
   const sb=subOf(p);
+  if(p.t)return `<article class="card${o.wide?" wide":""} edu"${o.style?` style="${o.style}"`:""}>
+  <div style="position:relative">${ph(p.img,800,p.n)}<div class="tags"><span class="tag${p.gov?" gov":""}">${esc(p.t.split(" · ")[0])}</span></div>
+  <button class="save${saved.has(p.id)?" on":""}" data-save="${p.id}" aria-label="Save ${esc(p.n)}">${heart}</button></div>
+  <div><div class="row"><span>${esc(p.a)}</span><span>${p.est?"Est. "+esc(p.est):""}</span></div><h3><a class="stretch" href="#" data-place="${p.id}">${esc(p.n)}</a></h3><p class="d"><b class="edu-type">${esc(p.t)}</b> · ${esc(p.d)}</p></div></article>`;
   return `<article class="card${o.wide?" wide":""}"${o.style?` style="${o.style}"`:""}>
   <div style="position:relative">${ph(p.img,800,p.n)}<div class="tags"><span class="tag">${esc(sb?sb.name:"")}</span>${p.f?'<span class="tag gold">Featured</span>':""}</div>
   <button class="save${saved.has(p.id)?" on":""}" data-save="${p.id}" aria-label="Save ${esc(p.n)}">${heart}</button></div>
@@ -129,7 +133,20 @@ function sync(){store.set("doon_saved",[...saved]);store.set("doon_bag",bag);
 function toggleSave(id){saved.has(id)?saved.delete(id):saved.add(id);sync();toast(saved.has(id)?"Saved to your list":"Removed from saved")}
 function addToBag(id){bag[id]=(bag[id]||0)+1;sync()}
 
+function eduModal(p){
+  const sb=subOf(p);
+  const dir=p.g?`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(p.n+" Dehradun")}&query_place_id=${p.g}`:maps(p.n);
+  const facts=[["Type",p.t],["Established",p.est||"—"],["Area",p.a],["Category",sb?sb.name:"Education"]];
+  openLayer(`<div class="modal" role="dialog" aria-modal="true" aria-label="${esc(p.n)}"><button class="x" data-close aria-label="Close">✕</button>
+  ${ph(p.img,1600,p.n)}
+  <div class="mbody"><p class="label">${esc(sb?sb.name:"Education")}${p.gov?" · Government":""}</p><h2>${esc(p.n)}</h2>
+  <div class="facts">${facts.map(([k,v])=>`<div><small>${k}</small><b>${esc(v)}</b></div>`).join("")}</div>
+  <div><p class="label" style="color:var(--muted);margin-bottom:6px">Courses &amp; focus</p><p>${esc(p.d)}</p></div>
+  <p class="tip"><b>Admissions ·</b> Courses, fees and dates change every year. Always confirm on the official website before applying.</p>
+  <div class="btn-row">${p.web?`<a class="btn" href="${esc(p.web)}" target="_blank" rel="noopener">Official website</a>`:""}<a class="btn${p.web?" line":""}" href="${dir}" target="_blank" rel="noopener">Get directions</a><button class="btn line" data-save-m="${p.id}">${saved.has(p.id)?"Saved ✓":"Save"}</button>${p.gov?"":`<button class="btn line" data-biz="list">Update details</button>`}</div>
+  ${p.gov?"":`<p style="font-size:.8rem;color:var(--muted)">Represent this institution? Use “Update details” to add courses, admission dates and photos.</p>`}</div></div>`)}
 function placeModal(p,isGem){
+  if(!isGem&&p.t)return eduModal(p);
   const sb=isGem?null:subOf(p),sec=sb?sb.sec:null;
   const kind=isGem?"Hidden gem":(sb?sb.name:"Place");
   const dir=p.g?`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(p.n+" Dehradun")}&query_place_id=${p.g}`:maps(p.n);
