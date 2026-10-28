@@ -78,6 +78,10 @@ if(footEl){footEl.className="site";footEl.innerHTML=`<div class="wrap">
 /* ---------- categories ---------- */
 const SUBMAP={};(window.SECTIONS||[]).forEach(sec=>sec.subs.forEach(sb=>SUBMAP[sb.id]={...sb,sec}));
 const subOf=p=>SUBMAP[p.s]||null;
+/* place page URLs: must match slugify + dedupe in tools/build.mjs */
+const slugify=t=>String(t).normalize("NFKD").replace(/[\u0300-\u036f]/g,"").toLowerCase().replace(/&/g," and ").replace(/[’'.]/g,"").replace(/[^a-z0-9]+/g,"-").replace(/^-+|-+$/g,"");
+const PLACE_URL={};{const used=new Set();(window.PLACES||[]).filter(p=>!p.u).forEach(p=>{let s=slugify(p.n);if(used.has(s))s=slugify(p.n+" "+p.a);if(used.has(s))s+="-"+p.id;used.add(s);PLACE_URL[p.id]="/place/"+s+"/"})}
+const placeURL=p=>PLACE_URL[p.id]||"#";
 const sectionOf=p=>(SUBMAP[p.s]||{}).sec||null;
 const listFor=subId=>subId==="hidden-gems"?GEMS.map((g,i)=>({...g,gem:i,s:"hidden-gems"})):subId==="schools"?SCHOOLS.map(x=>({...x,school:1,s:"schools"})):PLACES.filter(p=>p.s===subId);
 const countFor=subId=>listFor(subId).length;
@@ -93,11 +97,11 @@ function card(p,o={}){
   if(p.t)return `<article class="card${o.wide?" wide":""} edu${p.f?" featured":""}"${o.style?` style="${o.style}"`:""}>
   <div style="position:relative">${ph(p.img,800,p.n)}<div class="tags">${p.f?'<span class="tag gold">Featured</span>':""}<span class="tag${p.gov?" gov":""}">${esc(p.t.split(" · ")[0])}</span></div>${p.adm?`<span class="adm-badge">${esc(p.adm)}</span>`:""}
   <button class="save${saved.has(p.id)?" on":""}" data-save="${p.id}" aria-label="Save ${esc(p.n)}">${heart}</button></div>
-  <div><div class="row"><span>${esc(p.a)}</span><span>${p.est?"Est. "+esc(p.est):""}</span></div><h3><a class="stretch" href="#" data-place="${p.id}">${esc(p.n)}</a></h3><p class="d"><b class="edu-type">${esc(p.t)}</b> · ${esc(p.d)}</p></div></article>`;
+  <div><div class="row"><span>${esc(p.a)}</span><span>${p.est?"Est. "+esc(p.est):""}</span></div><h3><a class="stretch" href="${placeURL(p)}" data-place="${p.id}">${esc(p.n)}</a></h3><p class="d"><b class="edu-type">${esc(p.t)}</b> · ${esc(p.d)}</p></div></article>`;
   return `<article class="card${o.wide?" wide":""}"${o.style?` style="${o.style}"`:""}>
   <div style="position:relative">${ph(p.img,800,p.n)}<div class="tags"><span class="tag">${esc(sb?sb.name:"")}</span>${p.f?'<span class="tag gold">Featured</span>':""}</div>
   <button class="save${saved.has(p.id)?" on":""}" data-save="${p.id}" aria-label="Save ${esc(p.n)}">${heart}</button></div>
-  <div><div class="row"><span>${esc(p.a)}</span><span>${p.u?"Unverified":esc(p.p)}</span></div><h3><a class="stretch" href="#" data-place="${p.id}">${esc(p.n)}</a></h3><p class="d">${esc(p.d)}</p></div></article>`;
+  <div><div class="row"><span>${esc(p.a)}</span><span>${p.u?"Unverified":esc(p.p)}</span></div><h3><a class="stretch" href="${placeURL(p)}" data-place="${p.id}">${esc(p.n)}</a></h3><p class="d">${esc(p.d)}</p></div></article>`;
 }
 
 /* ---------- ads: clearly marked, fixed size, no pop-ups ---------- */
@@ -337,7 +341,7 @@ function preloader(){
 }
 
 function autoRows(){$$(".tiles,.hoods").forEach(autoplay)}
-window.Doon={credit,autoplay,card,ad,SUBMAP,subOf,sectionOf,listFor,countFor,countSection,$,$$,ph,phIn,hue,inr,esc,sync,saved:()=>saved,initSlider,sliderControls,splitWords,playSplit,toast,arrowL,arrowR,heart,
+window.Doon={credit,placeURL,slugify,autoplay,card,ad,SUBMAP,subOf,sectionOf,listFor,countFor,countSection,$,$$,ph,phIn,hue,inr,esc,sync,saved:()=>saved,initSlider,sliderControls,splitWords,playSplit,toast,arrowL,arrowR,heart,
   start(opts={}){const delay=opts.preloader?preloader()||0:0;sync();$$(".slider").forEach(initSlider);autoRows();initCursor();initMagnetic();
     setTimeout(()=>{initReveal();opts.onReady&&opts.onReady()},delay?delay-300:0)}};
 })();

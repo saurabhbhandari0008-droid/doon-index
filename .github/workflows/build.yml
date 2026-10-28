@@ -1,0 +1,41 @@
+# Runs tools/build.mjs on every push, so blog/, explore/, place/ pages, head tags and
+# sitemap.xml are always rebuilt from assets/data.js. If anything changed, the result is
+# committed back to the same branch, and Cloudflare Pages deploys that commit.
+name: Build site
+
+on:
+  push:
+    branches: ["**"]
+    paths-ignore:
+      - "sitemap.xml"
+      - "tools/lastmod.json"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: build-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Build pages
+        run: node tools/build.mjs
+      - name: Commit rebuilt pages
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            git config user.name "doondekho-bot"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add -A
+            git commit -m "Rebuild pages and sitemap"
+            git push
+          else
+            echo "Pages already up to date."
+          fi
