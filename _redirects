@@ -1,0 +1,5 @@
+# Send the .com (and www) to the main .in address
+https://doondekho.com/*      https://doondekho.in/:splat  301!
+http://doondekho.com/*       https://doondekho.in/:splat  301!
+https://www.doondekho.com/*  https://doondekho.in/:splat  301!
+http://www.doondekho.com/*   https://doondekho.in/:splat  301!

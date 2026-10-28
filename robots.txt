@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /featured-example.html
+
+Sitemap: https://doondekho.in/sitemap.xml
