@@ -588,7 +588,7 @@ window.NEW_POSTS = [
 {
 "p": "Every place in this guide is listed on Doon Dekho with directions. Browse Explore → Food & Drink → Street food and save your favourites to plan your own food walk.",
 "cta": {
-"href": "explore.html?c=food&s=street-food",
+"href": "/explore/food/street-food/",
 "label": "Browse Street food"
 }
 }
@@ -740,7 +740,7 @@ window.NEW_POSTS = [
 {
 "p": "All the cafés in this guide are listed on Doon Dekho with directions. Open Explore → Food & Drink → Cafés to see them on one page and save your favourites.",
 "cta": {
-"href": "explore.html?c=food&s=cafes",
+"href": "/explore/food/cafes/",
 "label": "Browse Cafés"
 }
 }
@@ -900,7 +900,7 @@ window.NEW_POSTS = [
 {
 "p": "Open Explore → Places to Visit → Nature & waterfalls for directions to every spot in this guide. Planning a full trip? See our list of things to do in Dehradun.",
 "cta": {
-"href": "explore.html?c=places&s=nature",
+"href": "/explore/places/nature/",
 "label": "Browse Nature spots"
 }
 }
@@ -1054,7 +1054,7 @@ window.NEW_POSTS = [
 {
 "p": "Every place on this list is on Doon Dekho with directions. Start at Explore and pick a section.",
 "cta": {
-"href": "explore.html?c=places&s=attractions",
+"href": "/explore/places/attractions/",
 "label": "Browse Attractions"
 }
 }
@@ -1205,7 +1205,7 @@ window.NEW_POSTS = [
 {
 "p": "Browse Explore → Shopping to see every market and shop in this guide with directions.",
 "cta": {
-"href": "explore.html?c=shopping&s=markets",
+"href": "/explore/shopping/markets/",
 "label": "Browse Markets"
 }
 }
@@ -1340,7 +1340,7 @@ window.NEW_POSTS = [
 {
 "p": "Open Explore → Places to Visit → Temples & monasteries for directions to each temple. For more ideas, see our list of things to do in Dehradun.",
 "cta": {
-"href": "explore.html?c=places&s=spiritual",
+"href": "/explore/places/spiritual/",
 "label": "Browse Spiritual places"
 }
 }
@@ -1463,7 +1463,7 @@ window.NEW_POSTS = [
 {
 "p": "Save every stop in this itinerary on Doon Dekho and open directions with one tap.",
 "cta": {
-"href": "explore.html?c=places&s=attractions",
+"href": "/explore/places/attractions/",
 "label": "Browse Attractions"
 }
 }
@@ -1579,7 +1579,7 @@ window.NEW_POSTS = [
 {
 "p": "Open Explore → Food & Drink → Bakeries & desserts for directions to every bakery in this guide. Looking for more to take home? See our Dehradun shopping guide.",
 "cta": {
-"href": "explore.html?c=food&s=bakeries",
+"href": "/explore/food/bakeries/",
 "label": "Browse Bakeries"
 }
 }
@@ -1714,7 +1714,7 @@ window.NEW_POSTS = [
 {
 "p": "Open Explore → For Pets to see every pet shop, vet and groomer in Dehradun with directions. Own a pet business? Get listed for free.",
 "cta": {
-"href": "explore.html?c=pets&s=pet-shops",
+"href": "/explore/pets/pet-shops/",
 "label": "Browse Pet shops & vets"
 }
 }
@@ -1863,7 +1863,7 @@ window.NEW_POSTS = [
 {
 "p": "Open Explore → Education and Explore → Stays to see coaching centres, libraries and PGs with directions. Run a PG, library or coaching centre? Get listed for free.",
 "cta": {
-"href": "explore.html?c=education&s=coaching",
+"href": "/explore/education/coaching/",
 "label": "Browse Coaching & libraries"
 }
 }

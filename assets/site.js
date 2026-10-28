@@ -36,15 +36,15 @@ document.addEventListener("error",e=>{const i=e.target;if(i.tagName!=="IMG")retu
 
 /* ---------- nav + footer ---------- */
 const page=document.body.dataset.page||"home";
-const home=page==="home"?"":"index.html";
-const NAV=[["Explore","explore.html"],["Hidden Gems",home+"#gems"],["Neighbourhoods",home+"#areas"],["Schools",home+"#schools"],["Shop",home+"#shop"],["Journal","blog.html"],["For Business",home+"#business"]];
+const home=page==="home"?"":"/";
+const NAV=[["Explore","/explore/"],["Hidden Gems",home+"#gems"],["Neighbourhoods",home+"#areas"],["Schools",home+"#schools"],["Shop",home+"#shop"],["Journal","/blog/"],["For Business",home+"#business"]];
 const heart=`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-7.5-4.6-9.5-9.2C1 8.2 3.4 4.5 7 4.5c2 0 3.6 1.1 5 3 1.4-1.9 3-3 5-3 3.6 0 6 3.7 4.5 7.3C19.5 16.4 12 21 12 21z"/></svg>`;
 const arrowL=`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M15 5l-7 7 7 7"/></svg>`;
 const arrowR=`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 5l7 7-7 7"/></svg>`;
 const navEl=$("#nav");
 if(navEl){
   navEl.className="nav"+(document.body.dataset.nav==="light"?" light":"");
-  navEl.innerHTML=`<div class="wrap"><a class="logo" href="index.html">Doon <i>Dekho</i></a>
+  navEl.innerHTML=`<div class="wrap"><a class="logo" href="/">Doon <i>Dekho</i></a>
   <nav class="links" aria-label="Main">${NAV.map(([l,h])=>`<a href="${h}"${(page==="blog"&&l==="Journal")||(page==="explore"&&l==="Explore")?' class="on"':""}>${l}</a>`).join("")}</nav>
   <div class="actions"><button class="icon-btn" id="savedBtn" aria-label="Saved places">${heart}<span class="badge" id="savedCount">0</span></button>
   <button class="icon-btn" id="bagBtn" aria-label="Shopping bag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 8h14l-1.2 12H6.2L5 8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg><span class="badge" id="bagCount">0</span></button>
@@ -62,17 +62,17 @@ const ico={home:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stro
  explore:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/></svg>`,
  journal:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3z"/><path d="M9 9h6M9 13h6"/></svg>`,
  bag:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M5 8h14l-1.2 12H6.2L5 8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>`};
-tb.innerHTML=`<a href="index.html#top"${page==="home"?' class="on"':""}>${ico.home}Home</a><a href="explore.html"${page==="explore"?' class="on"':""}>${ico.explore}Explore</a><a href="blog.html"${page==="blog"||page==="post"?' class="on"':""}>${ico.journal}Journal</a>
+tb.innerHTML=`<a href="/#top"${page==="home"?' class="on"':""}>${ico.home}Home</a><a href="/explore/"${page==="explore"?' class="on"':""}>${ico.explore}Explore</a><a href="/blog/"${page==="blog"||page==="post"?' class="on"':""}>${ico.journal}Journal</a>
  <button id="tbSaved" type="button">${heart}Saved<span class="badge" data-count="saved">0</span></button><button id="tbBag" type="button">${ico.bag}Bag<span class="badge" data-count="bag">0</span></button>`;
 document.body.appendChild(tb);
 const footEl=$("#footer");
 if(footEl){footEl.className="site";footEl.innerHTML=`<div class="wrap">
-  <div class="foot"><div><a class="logo" href="index.html">Doon <i>Dekho</i></a><p>An independent guide to Dehradun, made by people who live here.</p></div>
-  <div><h4>Explore</h4><ul>${(window.SECTIONS||[]).slice(0,6).map(x=>`<li><a href="explore.html?c=${x.id}">${x.name}</a></li>`).join("")}<li><a href="explore.html">All categories</a></li></ul></div>
-  <div><h4>Discover</h4><ul><li><a href="${home}#schools">Schools</a></li><li><a href="${home}#shop">Shop</a></li><li><a href="blog.html">Journal</a></li></ul></div>
+  <div class="foot"><div><a class="logo" href="/">Doon <i>Dekho</i></a><p>An independent guide to Dehradun, made by people who live here.</p></div>
+  <div><h4>Explore</h4><ul>${(window.SECTIONS||[]).slice(0,6).map(x=>`<li><a href="/explore/${x.id}/">${x.name}</a></li>`).join("")}<li><a href="/explore/">All categories</a></li></ul></div>
+  <div><h4>Discover</h4><ul><li><a href="${home}#schools">Schools</a></li><li><a href="${home}#shop">Shop</a></li><li><a href="/blog/">Journal</a></li></ul></div>
   <div><h4>Business</h4><ul><li><a href="#" data-biz="list">Add your business</a></li><li><a href="#" data-biz="partner">Partner with us</a></li></ul></div></div>
   <div class="big-word" aria-hidden="true">Dehra<i>dun</i></div>
-  <div class="legal"><span>© 2026 Doon Dekho · Dehradun, Uttarakhand</span><span><a href="credits.html" style="text-decoration:underline">Photo credits</a> · listings marked Unverified are from public sources · shop products are samples</span></div></div>`}
+  <div class="legal"><span>© 2026 Doon Dekho · Dehradun, Uttarakhand</span><span><a href="/credits" style="text-decoration:underline">Photo credits</a> · listings marked Unverified are from public sources · shop products are samples</span></div></div>`}
 
 
 /* ---------- categories ---------- */
@@ -188,13 +188,13 @@ function placeModal(p,isGem){
   <div class="mbody">${credit(p.img)}<p class="label">${esc(kind)}${p.f?" · Featured":""}${p.u?" · Not yet verified":""}</p><h2>${esc(p.n)}</h2><p>${esc(p.d)}</p>
   <div class="facts">${facts.map(([k,v])=>`<div><small>${k}</small><b>${esc(v)}</b></div>`).join("")}</div>
   ${p.u?`<p class="tip"><b>Is this your business?</b> Claim this listing to add photos, timings, your menu and offers. It's free.</p>`:`<p class="tip"><b>Local tip ·</b> ${esc(p.tip)}</p>`}
-  <div class="btn-row"><a class="btn" href="${dir}" target="_blank" rel="noopener">Get directions</a>${isGem?(p.post?`<a class="btn line" href="post.html?p=${p.post}">Read the guide</a>`:""):`<button class="btn line" data-save-m="${p.id}">${saved.has(p.id)?"Saved ✓":"Save place"}</button>`}${p.u?`<button class="btn line" data-biz="list">Claim this listing</button>`:""}</div></div></div>`)}
+  <div class="btn-row"><a class="btn" href="${dir}" target="_blank" rel="noopener">Get directions</a>${isGem?(p.post?`<a class="btn line" href="/blog/${p.post}/">Read the guide</a>`:""):`<button class="btn line" data-save-m="${p.id}">${saved.has(p.id)?"Saved ✓":"Save place"}</button>`}${p.u?`<button class="btn line" data-biz="list">Claim this listing</button>`:""}</div></div></div>`)}
 function schoolModal(s){
   openLayer(`<div class="modal" role="dialog" aria-modal="true" aria-label="${esc(s.n)}"><button class="x" data-close aria-label="Close">✕</button>
   ${ph(s.img||"fri",1600,s.n)}<div class="mbody">${credit(s.img)}<p class="label">School · ${s.type}</p><h2>${s.n}</h2><p>${s.d}</p>
   <div class="facts"><div><small>Area</small><b>${s.a}</b></div><div><small>Board</small><b>${s.board}</b></div><div><small>Type</small><b>${s.type}</b></div><div><small>For</small><b>${s.g}</b></div></div>
   <p class="tip"><b>Before you visit ·</b> Ask for the full annual fee in writing and request a campus tour during term time.</p>
-  <div class="btn-row"><a class="btn" href="${maps(s.n)}" target="_blank" rel="noopener">Get directions</a><a class="btn line" href="post.html?p=choosing-school-dehradun">Read our school guide</a></div></div></div>`)}
+  <div class="btn-row"><a class="btn" href="${maps(s.n)}" target="_blank" rel="noopener">Get directions</a><a class="btn line" href="/blog/choosing-school-dehradun/">Read our school guide</a></div></div></div>`)}
 function bagDrawer(){
   const ids=Object.keys(bag).filter(k=>bag[k]>0);const total=ids.reduce((t,k)=>t+(SHOP.find(s=>s.id===k)?.p||0)*bag[k],0);
   openLayer(`<aside class="drawer" aria-label="Your bag"><header><h3>Your bag</h3><button class="x" data-close aria-label="Close">✕</button></header>

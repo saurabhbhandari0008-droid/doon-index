@@ -5,18 +5,21 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Doon Dekho · The complete guide to Dehradun</title>
 <meta name="description" content="The complete guide to Dehradun: cafés, street food, hidden gems, schools, shops and stories from the Doon Valley.">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23121418'/%3E%3Ctext x='32' y='45' font-family='Arial,sans-serif' font-size='38' font-weight='800' text-anchor='middle' fill='%23C9A86A'%3ED%3C/text%3E%3C/svg%3E">
-<meta name="theme-color" content="#0E1013">
+<link rel="canonical" href="https://doondekho.in/">
 <meta property="og:site_name" content="Doon Dekho">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Doon Dekho · The complete guide to Dehradun">
-<meta property="og:description" content="Cafés, street food, hidden gems, schools, shops and stories from the Doon Valley.">
-<meta property="og:image" content="https://images.unsplash.com/photo-1660791601899-f79f14cc427d?auto=format&fit=crop&w=1200&h=630&q=80">
+<meta property="og:description" content="The complete guide to Dehradun: cafés, street food, hidden gems, schools, shops and stories from the Doon Valley.">
+<meta property="og:url" content="https://doondekho.in/">
+<meta property="og:image" content="https://images.unsplash.com/photo-1660791601899-f79f14cc427d?auto=format&amp;fit=crop&amp;w=1200&amp;h=630&amp;q=80">
 <meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Doon Dekho","url":"https://doondekho.in/"}</script>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23121418'/%3E%3Ctext x='32' y='45' font-family='Arial,sans-serif' font-size='38' font-weight='800' text-anchor='middle' fill='%23C9A86A'%3ED%3C/text%3E%3C/svg%3E">
+<meta name="theme-color" content="#0E1013">
 <link rel="preload" as="image" href="https://images.unsplash.com/photo-1660791601899-f79f14cc427d?auto=format&fit=crop&w=2000&q=70" imagesrcset="https://images.unsplash.com/photo-1660791601899-f79f14cc427d?auto=format&fit=crop&w=700&q=70 700w, https://images.unsplash.com/photo-1660791601899-f79f14cc427d?auto=format&fit=crop&w=1400&q=70 1400w, https://images.unsplash.com/photo-1660791601899-f79f14cc427d?auto=format&fit=crop&w=2000&q=70 2000w" imagesizes="100vw" fetchpriority="high">
 <link rel="preconnect" href="https://images.unsplash.com">
 <link rel="preload" href="/assets/fonts/heros-700.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="assets/styles.css">
+<link rel="stylesheet" href="/assets/styles.css">
 </head>
 <body data-page="home">
 <header id="nav"></header>
@@ -59,7 +62,7 @@
     <div class="wrap">
       <div class="sec-head">
         <div><p class="label">Start here</p><h2>What are you <em>looking for?</em></h2></div>
-        <a class="link-more" href="explore.html">All categories</a>
+        <a class="link-more" href="/explore/">All categories</a>
       </div>
       <div class="tiles" id="tiles"></div>
     </div>
@@ -82,7 +85,7 @@
     <div class="wrap">
       <div class="sec-head">
         <div><p class="label">The directory</p><h2>Where to eat, shop <em>&amp; wander</em></h2></div>
-        <p>Hand-picked by people who live here. Tap any place for timings, tips and directions, or <a href="explore.html" style="color:var(--brass);font-weight:700">browse every category</a>.</p>
+        <p>Hand-picked by people who live here. Tap any place for timings, tips and directions, or <a href="/explore/" style="color:var(--brass);font-weight:700">browse every category</a>.</p>
       </div>
       <div class="toolbar">
         <div class="chips" id="chips" role="group" aria-label="Category"></div>
@@ -135,7 +138,7 @@
         <p>Dehradun is home to some of India’s best-known boarding and day schools. Compare board, type and area in one place.</p>
       </div>
       <div class="school-wrap">
-        <a class="school-feature ph" href="post.html?p=choosing-school-dehradun" id="schoolFeature"></a>
+        <a class="school-feature ph" href="/blog/choosing-school-dehradun/" id="schoolFeature"></a>
         <div>
           <div class="chips" id="schoolChips" style="margin-bottom:22px"></div>
           <div id="slist"></div>
@@ -161,7 +164,7 @@
     <div class="wrap">
       <div class="sec-head">
         <div><p class="label">The journal</p><h2>Stories from <em>the valley</em></h2></div>
-        <a class="link-more" href="blog.html">Read the journal</a>
+        <a class="link-more" href="/blog/">Read the journal</a>
       </div>
       <div class="slider s-3" id="postSlider"></div>
     </div>
@@ -207,8 +210,8 @@
 <footer id="footer"></footer>
 
 
-<script src="assets/data.js"></script>
-<script src="assets/site.js"></script>
+<script src="/assets/data.js"></script>
+<script src="/assets/site.js"></script>
 <script>
 (function(){
 const {$,$$,ph,phIn,hue,inr,esc,saved,sliderControls,splitWords,playSplit,heart,card:dcard,ad,sectionOf,subOf,countSection}=Doon;
@@ -237,7 +240,7 @@ $("#marq").innerHTML=[...words,...words].map(w=>`<span>${w}</span>`).join("");
 
 /* section tiles */
 $("#tiles").innerHTML=SECTIONS.map(x=>{const n=countSection(x);
-  return `<a class="tile ph" href="explore.html?c=${x.id}" style="--h:${hue(x.img)}">${phIn(x.img,700,x.name)}<span class="t"><b>${esc(x.name)}</b><small>${n?n+" listed":"New · be the first"}</small></span></a>`}).join("");
+  return `<a class="tile ph" href="/explore/${x.id}/" style="--h:${hue(x.img)}">${phIn(x.img,700,x.name)}<span class="t"><b>${esc(x.name)}</b><small>${n?n+" listed":"New · be the first"}</small></span></a>`}).join("");
 
 /* card */
 const card=(p,wide)=>dcard(p,{wide});
@@ -301,7 +304,7 @@ $("#shopSlider").innerHTML=`<div class="track">${SHOP.map(s=>`<div class="prod">
   <div><p class="maker">${s.m}</p><h3>${s.n}</h3><p class="price">${inr(s.p)}</p></div></div>`).join("")}</div>${sliderControls()}`;
 
 /* journal */
-$("#postSlider").innerHTML=`<div class="track">${POSTS.map(p=>`<a class="post-card" href="post.html?p=${p.slug}">${ph(p.img,900,p.t)}
+$("#postSlider").innerHTML=`<div class="track">${POSTS.map(p=>`<a class="post-card" href="/blog/${p.slug}/">${ph(p.img,900,p.t)}
   <div><p class="meta"><span class="cat">${p.cat}</span><span>·</span><span>${p.min} min read</span></p><h3 style="margin-top:8px">${p.t}</h3><p class="ex" style="margin-top:8px">${p.ex}</p></div></a>`).join("")}</div>${sliderControls()}`;
 
 /* business image */
