@@ -7,4 +7,4 @@ The complete guide to Dehradun: cafés, street food, hidden gems, schools, shops
 - Your own photos: `images/` (see `images/README.txt`)
 - Styles: `assets/styles.css`
 
-Every push to `main` deploys automatically on Netlify.
+Every push to `main` deploys automatically on Cloudflare Pages (project "doondekho"), live at https://doondekho.in.
