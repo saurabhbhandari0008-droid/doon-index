@@ -17,3 +17,8 @@ Running `node tools/build.mjs` yourself still works if you want to preview local
 - A place gets its own page at `/place/<slug>/` once it is verified (no `u:1`). Pages with a short description and no tip are kept out of Google (noindex) until they are filled in.
 - `tools/lastmod.json` records when each page's content last changed; the sitemap uses it. Don't edit it by hand.
 - Social profiles for the brand go in `SAME_AS` at the top of `tools/build.mjs`.
+
+## Writing posts
+New posts are drafted on a `drafts/week-of-<date>` branch and only merged into main after two checks:
+1. `node tools/style-check.mjs <slug>` must say PASS (it counts phrasing habits that read as machine-written; it is not an AI-detector score).
+2. An AI-detector score under 25%, checked in a detector such as GPTZero and recorded in the SEO Tracker's Content calendar tab. Posts at 25% or above are revised, not merged.
