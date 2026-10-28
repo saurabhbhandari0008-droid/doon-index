@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /featured-example.html
 
-Sitemap: https://doondekho.in/sitemap.xml
+Sitemap: https://doondekho.com/sitemap.xml
