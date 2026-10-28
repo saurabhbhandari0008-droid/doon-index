@@ -34,7 +34,7 @@
         <label class="toc-m" id="tocM" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h10"/></svg><span id="tocMt">In this story</span><select id="tocMs" aria-label="Jump to a section"></select><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></label>
         <div class="body" id="abody"></div>
         <div class="body" id="aplaces"></div>
-        <div class="author"><div class="av">D</div><div><b>Doon Dekho</b><span>Written and photographed in Dehradun</span></div></div>
+        <div class="author"><div class="av">S</div><div><b><a href="/about/">Saurabh</a></b><span>Born and raised in Dehradun · Doon Dekho</span></div></div>
       </article>
       <aside class="aside-card" id="aside"></aside>
     </div>
@@ -67,16 +67,17 @@ $("#ahero").innerHTML=`${ph(P.img,2000,P.t,"",true)}<div class="wrap"><p class="
 addEventListener("scroll",()=>{const y=scrollY;if(y<innerHeight){const p=$("#ahero .ph");if(p)p.style.transform=`translateY(${y*.35}px)`}},{passive:true});
 
 let hn=0;const heads=[];
+const _used=new Set(),L=h=>Doon.linkPlaces?Doon.linkPlaces(h,_used):h;
 const blocks=P.body.map(b=>{
   if(b.h){const id="s"+(++hn);heads.push([id,b.h]);return `<h2 id="${id}">${b.h}</h2>`}
   if(b.q)return `<blockquote>${b.q}</blockquote>`;
-  if(b.tip)return `<p class="tip"><b>Local tip ·</b> ${b.tip}</p>`;
+  if(b.tip)return `<p class="tip"><b>Local tip ·</b> ${L(b.tip)}</p>`;
   if(b.img)return `<figure class="figure clip">${ph(b.img,1400,b.cap)}<figcaption>${b.cap}</figcaption>${Doon.credit(b.img)}</figure>`;
   if(b.h3)return `<h3>${b.h3}</h3>`;
-  if(b.ul)return `<ul class="list">${b.ul.map(x=>`<li>${x}</li>`).join("")}</ul>`;
+  if(b.ul)return `<ul class="list">${b.ul.map(x=>`<li>${L(x)}</li>`).join("")}</ul>`;
   if(b.faq)return `<div class="faq">${b.faq.map(([q,a],i)=>`<details${i?"":" open"}><summary>${q}</summary><p>${a}</p></details>`).join("")}</div>`;
   if(b.cta)return `<p>${b.p}</p><p><a class="btn" href="${b.cta.href}">${b.cta.label}</a></p>`;
-  return `<p>${b.p}</p>`});
+  return `<p>${L(b.p)}</p>`});
 const faqs=P.body.filter(b=>b.faq).flatMap(b=>b.faq);
 if(faqs.length&&!document.querySelector('script[type="application/ld+json"]')){const s=document.createElement("script");s.type="application/ld+json";const strip=t=>t.replace(/<[^>]+>/g,"");
   s.textContent=JSON.stringify({"@context":"https://schema.org","@graph":[{"@type":"BlogPosting",headline:P.seo||P.t,description:P.desc||P.ex,datePublished:new Date(P.date).toISOString().slice(0,10),publisher:{"@type":"Organization",name:"Doon Dekho"}},{"@type":"FAQPage",mainEntity:faqs.map(([q,a])=>({"@type":"Question",name:strip(q),acceptedAnswer:{"@type":"Answer",text:strip(a)}}))}]});document.head.appendChild(s)}

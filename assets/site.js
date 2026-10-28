@@ -69,7 +69,7 @@ const footEl=$("#footer");
 if(footEl){footEl.className="site";footEl.innerHTML=`<div class="wrap">
   <div class="foot"><div><a class="logo" href="/">Doon <i>Dekho</i></a><p>An independent guide to Dehradun, made by people who live here.</p></div>
   <div><h4>Explore</h4><ul>${(window.SECTIONS||[]).slice(0,6).map(x=>`<li><a href="/explore/${x.id}/">${x.name}</a></li>`).join("")}<li><a href="/explore/">All categories</a></li></ul></div>
-  <div><h4>Discover</h4><ul><li><a href="${home}#schools">Schools</a></li><li><a href="${home}#shop">Shop</a></li><li><a href="/blog/">Journal</a></li></ul></div>
+  <div><h4>Discover</h4><ul><li><a href="${home}#schools">Schools</a></li><li><a href="${home}#shop">Shop</a></li><li><a href="/blog/">Journal</a></li><li><a href="/about/">About Doon Dekho</a></li></ul></div>
   <div><h4>Business</h4><ul><li><a href="#" data-biz="list">Add your business</a></li><li><a href="#" data-biz="partner">Partner with us</a></li></ul></div></div>
   <div class="big-word" aria-hidden="true">Dehra<i>dun</i></div>
   <div class="legal"><span>© 2026 Doon Dekho · Dehradun, Uttarakhand</span><span><a href="/credits" style="text-decoration:underline">Photo credits</a> · listings marked Unverified are from public sources · shop products are samples</span></div></div>`}
@@ -80,8 +80,16 @@ const SUBMAP={};(window.SECTIONS||[]).forEach(sec=>sec.subs.forEach(sb=>SUBMAP[s
 const subOf=p=>SUBMAP[p.s]||null;
 /* place page URLs: must match slugify + dedupe in tools/build.mjs */
 const slugify=t=>String(t).normalize("NFKD").replace(/[\u0300-\u036f]/g,"").toLowerCase().replace(/&/g," and ").replace(/[’'.]/g,"").replace(/[^a-z0-9]+/g,"-").replace(/^-+|-+$/g,"");
-const PLACE_URL={};{const used=new Set();(window.PLACES||[]).filter(p=>!p.u).forEach(p=>{let s=slugify(p.n);if(used.has(s))s=slugify(p.n+" "+p.a);if(used.has(s))s+="-"+p.id;used.add(s);PLACE_URL[p.id]="/place/"+s+"/"})}
+const PLACE_URL={},LINKABLE=[];{const used=new Set();const claim=(name,area,id)=>{let s=slugify(name);if(used.has(s))s=slugify(name+" "+area);if(used.has(s))s+="-"+id;used.add(s);const u="/place/"+s+"/";LINKABLE.push([name,u]);return u};
+(window.PLACES||[]).filter(p=>!p.u).forEach(p=>{PLACE_URL[p.id]=claim(p.n,p.a,p.id)});(window.GEMS||[]).forEach((g,i)=>claim(g.n,g.alt.split("·")[0],"g"+i))}
 const placeURL=p=>PLACE_URL[p.id]||"#";
+/* link the first mention of each place in a post to its page (same rules as tools/build.mjs) */
+const LINK_RE=LINKABLE.filter(([n])=>n.length>4).sort((a,b)=>b[0].length-a[0].length).map(([n,u])=>[new RegExp("(^|[^\\w])("+n.replace(/[.*+?^${}()|[\]\\]/g,"\\$&").replace(/[’']/g,"[’']")+")(?![\\w])","i"),u]);
+function linkPlaces(html,used){let depth=0;return String(html).split(/(<[^>]+>)/).map(seg=>{
+  if(seg.startsWith("<")){if(/^<a[\s>]/i.test(seg))depth++;else if(/^<\/a>/i.test(seg))depth--;return seg}
+  if(depth>0)return seg;
+  for(const [re,u] of LINK_RE){if(used.has(u))continue;if(re.test(seg)){used.add(u);seg=seg.replace(re,(m,pre,name)=>`${pre}<a class="in-link" href="${u}">${name}</a>`);break}}
+  return seg}).join("")}
 const sectionOf=p=>(SUBMAP[p.s]||{}).sec||null;
 const listFor=subId=>subId==="hidden-gems"?GEMS.map((g,i)=>({...g,gem:i,s:"hidden-gems"})):subId==="schools"?SCHOOLS.map(x=>({...x,school:1,s:"schools"})):PLACES.filter(p=>p.s===subId);
 const countFor=subId=>listFor(subId).length;
@@ -341,7 +349,7 @@ function preloader(){
 }
 
 function autoRows(){$$(".tiles,.hoods").forEach(autoplay)}
-window.Doon={credit,placeURL,slugify,autoplay,card,ad,SUBMAP,subOf,sectionOf,listFor,countFor,countSection,$,$$,ph,phIn,hue,inr,esc,sync,saved:()=>saved,initSlider,sliderControls,splitWords,playSplit,toast,arrowL,arrowR,heart,
+window.Doon={credit,placeURL,slugify,linkPlaces,autoplay,card,ad,SUBMAP,subOf,sectionOf,listFor,countFor,countSection,$,$$,ph,phIn,hue,inr,esc,sync,saved:()=>saved,initSlider,sliderControls,splitWords,playSplit,toast,arrowL,arrowR,heart,
   start(opts={}){const delay=opts.preloader?preloader()||0:0;sync();$$(".slider").forEach(initSlider);autoRows();initCursor();initMagnetic();
     setTimeout(()=>{initReveal();opts.onReady&&opts.onReady()},delay?delay-300:0)}};
 })();

@@ -15,7 +15,7 @@
 <meta property="og:image" content="https://images.unsplash.com/photo-1550918873-fa384ac606e6?auto=format&amp;fit=crop&amp;w=1200&amp;h=630&amp;q=80">
 <meta property="og:locale" content="en_IN">
 <meta name="twitter:card" content="summary_large_image">
-<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BlogPosting","headline":"Day School or Boarding? How to Choose a School in Dehradun","description":"Dehradun has some of India’s best-known schools. A simple way to compare boards, campuses and costs.","image":"https://images.unsplash.com/photo-1550918873-fa384ac606e6?auto=format&fit=crop&w=1200&h=630&q=80","datePublished":"2026-10-01","dateModified":"2026-10-01","mainEntityOfPage":"https://doondekho.in/blog/choosing-school-dehradun/","articleSection":"Schools","inLanguage":"en-IN","author":{"@type":"Organization","@id":"https://doondekho.in/#org","name":"Doon Dekho","url":"https://doondekho.in/"},"publisher":{"@type":"Organization","@id":"https://doondekho.in/#org","name":"Doon Dekho","url":"https://doondekho.in/"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://doondekho.in/"},{"@type":"ListItem","position":2,"name":"Journal","item":"https://doondekho.in/blog/"},{"@type":"ListItem","position":3,"name":"Day school or boarding? Choosing a school in Dehradun","item":"https://doondekho.in/blog/choosing-school-dehradun/"}]}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BlogPosting","headline":"Day School or Boarding? How to Choose a School in Dehradun","description":"Dehradun has some of India’s best-known schools. A simple way to compare boards, campuses and costs.","image":"https://images.unsplash.com/photo-1550918873-fa384ac606e6?auto=format&fit=crop&w=1200&h=630&q=80","datePublished":"2026-10-01","dateModified":"2026-10-01","mainEntityOfPage":"https://doondekho.in/blog/choosing-school-dehradun/","articleSection":"Schools","inLanguage":"en-IN","author":{"@type":"Person","@id":"https://doondekho.in/about/#saurabh","name":"Saurabh","url":"https://doondekho.in/about/","homeLocation":{"@type":"City","name":"Dehradun"},"worksFor":{"@id":"https://doondekho.in/#org"}},"publisher":{"@type":"Organization","@id":"https://doondekho.in/#org","name":"Doon Dekho","url":"https://doondekho.in/"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://doondekho.in/"},{"@type":"ListItem","position":2,"name":"Journal","item":"https://doondekho.in/blog/"},{"@type":"ListItem","position":3,"name":"Day school or boarding? Choosing a school in Dehradun","item":"https://doondekho.in/blog/choosing-school-dehradun/"}]}]}</script>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23121418'/%3E%3Ctext x='32' y='45' font-family='Arial,sans-serif' font-size='38' font-weight='800' text-anchor='middle' fill='%23C9A86A'%3ED%3C/text%3E%3C/svg%3E">
 <meta name="theme-color" content="#0E1013">
 <link rel="preconnect" href="https://images.unsplash.com">
@@ -43,7 +43,7 @@
 <p>Fee structures differ a lot. Ask for the full annual cost in writing, including boarding, uniforms, trips and activities.</p>
 <p class="tip"><b>Local tip ·</b> Talk to parents of current students. They will tell you what the brochure doesn’t.</p></div>
         <div class="body" id="aplaces"></div>
-        <div class="author"><div class="av">D</div><div><b>Doon Dekho</b><span>Written and photographed in Dehradun</span></div></div>
+        <div class="author"><div class="av">S</div><div><b><a href="/about/">Saurabh</a></b><span>Born and raised in Dehradun · Doon Dekho</span></div></div>
       </article>
       <aside class="aside-card" id="aside"></aside>
     </div>
@@ -76,16 +76,17 @@ $("#ahero").innerHTML=`${ph(P.img,2000,P.t,"",true)}<div class="wrap"><p class="
 addEventListener("scroll",()=>{const y=scrollY;if(y<innerHeight){const p=$("#ahero .ph");if(p)p.style.transform=`translateY(${y*.35}px)`}},{passive:true});
 
 let hn=0;const heads=[];
+const _used=new Set(),L=h=>Doon.linkPlaces?Doon.linkPlaces(h,_used):h;
 const blocks=P.body.map(b=>{
   if(b.h){const id="s"+(++hn);heads.push([id,b.h]);return `<h2 id="${id}">${b.h}</h2>`}
   if(b.q)return `<blockquote>${b.q}</blockquote>`;
-  if(b.tip)return `<p class="tip"><b>Local tip ·</b> ${b.tip}</p>`;
+  if(b.tip)return `<p class="tip"><b>Local tip ·</b> ${L(b.tip)}</p>`;
   if(b.img)return `<figure class="figure clip">${ph(b.img,1400,b.cap)}<figcaption>${b.cap}</figcaption>${Doon.credit(b.img)}</figure>`;
   if(b.h3)return `<h3>${b.h3}</h3>`;
-  if(b.ul)return `<ul class="list">${b.ul.map(x=>`<li>${x}</li>`).join("")}</ul>`;
+  if(b.ul)return `<ul class="list">${b.ul.map(x=>`<li>${L(x)}</li>`).join("")}</ul>`;
   if(b.faq)return `<div class="faq">${b.faq.map(([q,a],i)=>`<details${i?"":" open"}><summary>${q}</summary><p>${a}</p></details>`).join("")}</div>`;
   if(b.cta)return `<p>${b.p}</p><p><a class="btn" href="${b.cta.href}">${b.cta.label}</a></p>`;
-  return `<p>${b.p}</p>`});
+  return `<p>${L(b.p)}</p>`});
 const faqs=P.body.filter(b=>b.faq).flatMap(b=>b.faq);
 if(faqs.length&&!document.querySelector('script[type="application/ld+json"]')){const s=document.createElement("script");s.type="application/ld+json";const strip=t=>t.replace(/<[^>]+>/g,"");
   s.textContent=JSON.stringify({"@context":"https://schema.org","@graph":[{"@type":"BlogPosting",headline:P.seo||P.t,description:P.desc||P.ex,datePublished:new Date(P.date).toISOString().slice(0,10),publisher:{"@type":"Organization",name:"Doon Dekho"}},{"@type":"FAQPage",mainEntity:faqs.map(([q,a])=>({"@type":"Question",name:strip(q),acceptedAnswer:{"@type":"Answer",text:strip(a)}}))}]});document.head.appendChild(s)}

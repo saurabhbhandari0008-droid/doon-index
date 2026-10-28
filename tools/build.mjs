@@ -93,6 +93,22 @@ const urlOfItem = it => {
   return orig && PLACE_URL.has(orig) ? PLACE_URL.get(orig) : null;
 };
 
+/* Link the first mention of each place in a post to its page (same rules as assets/site.js linkPlaces). */
+const LINK_RE = [...PLACE_URL].map(([o, u]) => [o.n, u]).filter(([n]) => n.length > 4).sort((a, b) => b[0].length - a[0].length)
+  .map(([n, u]) => [new RegExp("(^|[^\\w])(" + n.replace(/[.*+?^${}()|[\]\\]/g, "\\$&").replace(/[’']/g, "[’']") + ")(?![\\w])", "i"), u]);
+function linkPlaces(html, used) {
+  let depth = 0;
+  return String(html).split(/(<[^>]+>)/).map(seg => {
+    if (seg.startsWith("<")) { if (/^<a[\s>]/i.test(seg)) depth++; else if (/^<\/a>/i.test(seg)) depth--; return seg; }
+    if (depth > 0) return seg;
+    for (const [re, u] of LINK_RE) {
+      if (used.has(u) || !re.test(seg)) continue;
+      used.add(u); seg = seg.replace(re, (m, pre, name) => `${pre}<a class="in-link" href="${u}">${name}</a>`); break;
+    }
+    return seg;
+  }).join("");
+}
+
 /* Replace the <head> SEO block of a template. */
 function seoHead(html, { title, desc, url, image, type = "website", ld, noindex = false }) {
   const tags = [
@@ -130,21 +146,24 @@ const fill = (html, id, inner) => {
 const urls = [];
 const add = (u, pri, d) => urls.push({ u, pri, d });
 const ORG = { "@type": "Organization", "@id": SITE + "/#org", name: "Doon Dekho", url: SITE + "/" };
+/* The person who writes the guide. Edit here; the About page and every post use it. */
+const AUTHOR = { "@type": "Person", "@id": SITE + "/about/#saurabh", name: "Saurabh", url: SITE + "/about/", homeLocation: { "@type": "City", name: "Dehradun" }, worksFor: { "@id": SITE + "/#org" } };
 
 /* ---- journal posts ---- */
 const postTpl = read("post.html");
 const placeLinked = new Map(); // place url -> posts mentioning it
 function bodyHTML(P) {
+  const used = new Set(), L = h => linkPlaces(h, used);
   return P.body.map(b => {
     if (b.h) return `<h2>${b.h}</h2>`;
     if (b.h3) return `<h3>${b.h3}</h3>`;
     if (b.q) return `<blockquote>${b.q}</blockquote>`;
-    if (b.tip) return `<p class="tip"><b>Local tip ·</b> ${b.tip}</p>`;
-    if (b.ul) return `<ul class="list">${b.ul.map(x => `<li>${x}</li>`).join("")}</ul>`;
+    if (b.tip) return `<p class="tip"><b>Local tip ·</b> ${L(b.tip)}</p>`;
+    if (b.ul) return `<ul class="list">${b.ul.map(x => `<li>${L(x)}</li>`).join("")}</ul>`;
     if (b.faq) return `<div class="faq">${b.faq.map(([q, a]) => `<details open><summary>${q}</summary><p>${a}</p></details>`).join("")}</div>`;
     if (b.img) return `<figure class="figure">${imgTag(b.img, b.cap || P.t, 1400, 788)}<figcaption>${b.cap || ""}</figcaption></figure>`;
     if (b.cta) return `<p>${b.p}</p><p><a class="btn" href="${b.cta.href}">${b.cta.label}</a></p>`;
-    return `<p>${b.p}</p>`;
+    return `<p>${L(b.p)}</p>`;
   }).join("\n");
 }
 const norm = s => strip(s).toLowerCase().replace(/[’']/g, "");
@@ -165,7 +184,7 @@ for (const P of POSTS) {
     "@type": "BlogPosting", headline: P.seo || P.t, description: desc, image: imgURL(P.img),
     datePublished: published, dateModified: modified > published ? modified : published, mainEntityOfPage: url,
     articleSection: P.cat, inLanguage: "en-IN",
-    author: ORG, publisher: ORG
+    author: AUTHOR, publisher: ORG
   }, {
     "@type": "BreadcrumbList", itemListElement: [
       { "@type": "ListItem", position: 1, name: "Home", item: SITE + "/" },
@@ -338,6 +357,38 @@ ${isGem || p.t ? "" : `<p class="place-claim">Run ${esc(p.n)}? <a href="/#busine
 // remove place pages that no longer exist (renamed or unpublished places)
 const live = new Set([...PLACE_URL.values()].map(u => u.split("/")[2]));
 if (fs.existsSync(path.join(ROOT, "place"))) for (const d of fs.readdirSync(path.join(ROOT, "place"))) if (!live.has(d)) fs.rmSync(path.join(ROOT, "place", d), { recursive: true });
+
+/* ---- about ---- */
+{
+  const verified = PLACES.filter(p => !p.u).length;
+  const main = `<section class="page-hero ex-compact"><div class="wrap">
+<nav class="crumbs-light" aria-label="Breadcrumb"><a href="/">Home</a><span>/</span><span aria-current="page">About</span></nav>
+<p class="label">About Doon Dekho</p>
+<h1>A Dehradun guide made by someone who lives here</h1>
+<p>Doon Dekho is an independent guide to Dehradun: where to eat, what to see, where to shop and study, written from the city itself.</p>
+</div></section>
+<section class="place-body"><div class="wrap place-wrap about">
+<h2>Who writes it</h2>
+<p>I'm Saurabh. I was born in Dehradun, went to college, moved to Gurgaon for a while and came back, because nowhere else had the bakeries, the evening walks up Rajpur Road or the quiet of the valley after rain. Doon Dekho is the guide I wanted when friends asked me where to go.</p>
+<h2>How places get on the site</h2>
+<ul class="list">
+<li><b>Verified places</b> (${verified} so far) have been checked by us. They get their own page with an area, budget, best time to go and a local tip.</li>
+<li><b>Unverified listings</b> come from public sources and are marked as such. We add details only after checking them, and owners can claim theirs.</li>
+<li><b>Featured</b> labels mark places with a business relationship with Doon Dekho. It is always shown.</li>
+</ul>
+<h2>Photos</h2>
+<p>Many photos are from Wikimedia Commons and Unsplash, credited on the <a href="/credits">photo credits</a> page. We are replacing them with our own pictures, place by place.</p>
+<h2>Get in touch</h2>
+<p>Run a place in Dehradun? Use <a href="/#business">Add your business</a>. Spotted something out of date? Tell us through the same form and we'll fix it.</p>
+</div></section>`;
+  const url = SITE + "/about/";
+  write("about/index.html", shell(main, {
+    title: "About Doon Dekho: Who Writes This Dehradun Guide", desc: "Doon Dekho is an independent Dehradun city guide written by Saurabh, born and raised in Dehradun. How places are verified, featured and photographed.",
+    url, image: imgURL("hero-valley"),
+    ld: { "@context": "https://schema.org", "@graph": [{ "@type": "AboutPage", url, name: "About Doon Dekho", about: { "@id": SITE + "/#org" }, mainEntity: AUTHOR }, AUTHOR] }
+  }).replace('data-page="place"', 'data-page="about"'));
+  add("/about/", "0.4", lastmod("/about/", main));
+}
 
 /* ---- home + credits ---- */
 let home = seoHead(read("index.html"), {
