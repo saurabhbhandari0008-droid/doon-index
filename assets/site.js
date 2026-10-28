@@ -238,9 +238,15 @@ document.addEventListener("click",e=>{
   if(t.closest("#menuBtn")){openLayer(`<div class="mobile-menu"><button class="x" data-close aria-label="Close">✕</button>${NAV.map(([l,h],i)=>`<a href="${h}" data-close style="animation-delay:${.05*i+.1}s">${l}</a>`).join("")}</div>`);return}
 });
 document.addEventListener("keydown",e=>{if(e.key==="Enter"&&e.target.matches("[data-place],[data-gem],[data-post-link]"))e.target.click()});
-/* Netlify Forms: posts to the site root; works once the site is live on Netlify */
+/* Forms: sent to the owner's inbox through Web3Forms (free). The key lives in data.js as FORM_KEY. */
 function send(form){if(location.protocol==="file:")return;
-  try{fetch("/",{method:"POST",headers:{"Content-Type":"application/x-www-form-urlencoded"},body:new URLSearchParams(new FormData(form)).toString()}).catch(()=>{})}catch(err){}}
+  const key=window.FORM_KEY;const fd=new FormData(form);
+  const name=fd.get("form-name")||form.getAttribute("name")||"website";
+  if(fd.get("bot-field")||fd.get("botcheck"))return;
+  const data={subject:`Doon Dekho · ${name}`,from_name:"Doon Dekho website",page:location.href};
+  fd.forEach((v,k)=>{if(!["form-name","bot-field","botcheck"].includes(k)&&v!=="")data[k]=v});
+  if(!key){try{const q=JSON.parse(localStorage.getItem("doon-unsent")||"[]");q.push(data);localStorage.setItem("doon-unsent",JSON.stringify(q.slice(-20)))}catch(e){}return}
+  try{fetch("https://api.web3forms.com/submit",{method:"POST",headers:{"Content-Type":"application/json",Accept:"application/json"},body:JSON.stringify({access_key:key,...data})}).catch(()=>{})}catch(err){}}
 document.addEventListener("submit",e=>{
   if(e.target.id==="enqForm"){e.preventDefault();send(e.target);const n=e.target.institution.value;$("#enqBox").innerHTML=`<p class="tip"><b>Enquiry sent.</b> ${esc(n)} will contact you soon.</p>`;toast("Enquiry sent");return}
   if(e.target.id==="bizForm"){e.preventDefault();const f=e.target,n=$("#b1").value.trim();send(f);closeLayer();toast(`Thanks! We’ll be in touch about ${n}.`)}

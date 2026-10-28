@@ -1,3 +1,5 @@
+/* Web3Forms access key: form submissions are emailed to the site owner. Empty = not set up yet. */
+window.FORM_KEY = "";
 /* Doon Dekho — content.
    Every photo has a key (e.g. "bazaar").
    TO USE YOUR OWN PHOTO: save it as images/<key>.jpg (e.g. images/bazaar.jpg)

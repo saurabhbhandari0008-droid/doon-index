@@ -1,5 +1,0 @@
-# doondekho.com is the main address for now; .in will forward here once GoDaddy releases it
-https://doondekho.in/*      https://doondekho.com/:splat  301!
-http://doondekho.in/*       https://doondekho.com/:splat  301!
-https://www.doondekho.in/*  https://doondekho.com/:splat  301!
-http://www.doondekho.in/*   https://doondekho.com/:splat  301!
