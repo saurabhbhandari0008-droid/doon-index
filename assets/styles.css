@@ -1183,3 +1183,14 @@ html{-webkit-tap-highlight-color:transparent}
 .about p,.about li{color:var(--ink-2);max-width:66ch}
 .about a,.body a.in-link{color:var(--brass);font-weight:600;text-decoration:underline;text-underline-offset:3px}
 @media (max-width:700px){body[data-page="about"] .page-hero.ex-compact h1 + p{display:block;-webkit-line-clamp:unset;overflow:visible;font-size:.95rem}}
+
+/* ===== Store: coming soon ===== */
+.soon{margin-top:8px;border:1px solid var(--line);border-radius:var(--r);background:var(--surface);padding:clamp(28px,5vw,56px);display:grid;gap:14px;justify-items:start;max-width:760px}
+.soon-tag{display:inline-block;background:var(--ink);color:var(--bg);border-radius:999px;padding:6px 14px;font-size:.74rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
+.soon h3{font-size:clamp(1.6rem,3.2vw,2.4rem);letter-spacing:-.02em;line-height:1.1}
+.soon > p{color:var(--ink-2);max-width:56ch}
+.soon-form{display:flex;gap:10px;flex-wrap:wrap;width:100%;max-width:520px;margin-top:6px}
+.soon-form input{flex:1;min-width:200px;border:1px solid var(--line);border-radius:999px;padding:13px 18px;font:inherit;font-size:16px;background:var(--bg);color:var(--ink)}
+.soon-form input:focus{outline:0;border-color:var(--ink)}
+.soon .ok{color:var(--brass);font-weight:700}
+@media (max-width:699px){.soon-form .btn{width:100%}}

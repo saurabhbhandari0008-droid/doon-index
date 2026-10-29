@@ -154,9 +154,15 @@
     <div class="wrap">
       <div class="sec-head">
         <div><p class="label">The Dekho store</p><h2>Take the valley <em>home</em></h2></div>
-        <p>Small-batch goods from Dehradun’s farms, kitchens and makers. Delivered across India.</p>
+        <p>Small-batch goods from Dehradun’s farms, kitchens and makers.</p>
       </div>
-      <div class="slider s-4" id="shopSlider"></div>
+      <div class="soon">
+        <span class="soon-tag">Coming soon</span>
+        <h3>The Dekho store is on its way.</h3>
+        <p>Rusks, pahadi honey, Doon basmati and handmade gifts from local makers. Leave your email and we’ll tell you the day it opens.</p>
+        <form data-news name="store-waitlist" class="soon-form"><input type="hidden" name="form-name" value="store-waitlist"><input type="email" name="email" required placeholder="Your email address" aria-label="Email address"><button type="submit" class="btn">Notify me</button></form>
+        <p class="ok" hidden>Done. We’ll email you when the store opens.</p>
+      </div>
       <div id="adHome2"></div>
     </div>
   </section>
@@ -300,10 +306,6 @@ function renderSchools(){
   const l=SCHOOLS.filter(s=>sf==="All"||s.type.includes(sf)||s.g===sf);
   $("#slist").innerHTML=l.map(s=>`<button class="srow" data-school="${esc(s.n)}"><h3>${s.n}</h3><span class="sub">${s.a} · ${s.d}</span><span class="pills"><span class="pill gold">${s.board}</span><span class="pill">${s.type}</span><span class="pill">${s.g}</span></span></button>`).join("")||`<div class="empty">No schools match this filter.</div>`}
 $("#schoolChips").onclick=e=>{const b=e.target.closest("[data-s]");if(!b)return;sf=b.dataset.s;renderSchools()};
-
-/* shop */
-$("#shopSlider").innerHTML=`<div class="track">${SHOP.map(s=>`<div class="prod"><div style="position:relative">${ph(s.img,700,s.n)}<button class="addq" data-add="${s.id}">Add to bag</button></div>
-  <div><p class="maker">${s.m}</p><h3>${s.n}</h3><p class="price">${inr(s.p)}</p></div></div>`).join("")}</div>${sliderControls()}`;
 
 /* journal */
 $("#postSlider").innerHTML=`<div class="track">${POSTS.map(p=>`<a class="post-card" href="/blog/${p.slug}/">${ph(p.img,900,p.t)}

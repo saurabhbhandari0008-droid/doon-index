@@ -47,7 +47,6 @@ if(navEl){
   navEl.innerHTML=`<div class="wrap"><a class="logo" href="/">Doon <i>Dekho</i></a>
   <nav class="links" aria-label="Main">${NAV.map(([l,h])=>`<a href="${h}"${(page==="blog"&&l==="Journal")||(page==="explore"&&l==="Explore")?' class="on"':""}>${l}</a>`).join("")}</nav>
   <div class="actions"><button class="icon-btn" id="savedBtn" aria-label="Saved places">${heart}<span class="badge" id="savedCount">0</span></button>
-  <button class="icon-btn" id="bagBtn" aria-label="Shopping bag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 8h14l-1.2 12H6.2L5 8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg><span class="badge" id="bagCount">0</span></button>
   <button class="icon-btn menu-btn" id="menuBtn" aria-label="Open menu">Menu</button></div></div>`;
   let lastY=0;
   const onScroll=()=>{const y=scrollY;const solidAt=document.body.dataset.nav==="light"?0:innerHeight*.55;
@@ -63,7 +62,7 @@ const ico={home:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stro
  journal:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3z"/><path d="M9 9h6M9 13h6"/></svg>`,
  bag:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M5 8h14l-1.2 12H6.2L5 8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>`};
 tb.innerHTML=`<a href="/#top"${page==="home"?' class="on"':""}>${ico.home}Home</a><a href="/explore/"${page==="explore"?' class="on"':""}>${ico.explore}Explore</a><a href="/blog/"${page==="blog"||page==="post"?' class="on"':""}>${ico.journal}Journal</a>
- <button id="tbSaved" type="button">${heart}Saved<span class="badge" data-count="saved">0</span></button><button id="tbBag" type="button">${ico.bag}Bag<span class="badge" data-count="bag">0</span></button>`;
+ <button id="tbSaved" type="button">${heart}Saved<span class="badge" data-count="saved">0</span></button><a href="${home||"/"}#shop">${ico.bag}Shop</a>`;
 document.body.appendChild(tb);
 const footEl=$("#footer");
 if(footEl){footEl.className="site";footEl.innerHTML=`<div class="wrap">
