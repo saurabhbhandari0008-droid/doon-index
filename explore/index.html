@@ -189,7 +189,7 @@ if(!sec){
     const sl=e.target.closest("[data-sub-link]");if(sl){e.preventDefault();render("",{push:true,scroll:true});return}
     if(e.target.closest("#exMore")){
       const l=pool(),next=l.slice(limit,limit+P());limit+=next.length;
-      Doon.growGrid($("#exGrid .grid"),next.map((p,i)=>card(p,{wide:true,cls:"drop",style:`animation-delay:${.08+i*.06}s`})).join(""));
+      Doon.growGrid($("#exGrid .grid"),next.map((p,i)=>card(p,{wide:true,cls:"drop",style:`animation-delay:${i*.05}s`})).join(""));
       const left=l.length-limit,row=$("#exGrid .more-row");
       if(left>0)$("#exMore").textContent=`Show ${Math.min(left,P())} more · ${left} left`;else if(row)row.remove();
       return}

@@ -1196,8 +1196,8 @@ html{-webkit-tap-highlight-color:transparent}
 @media (max-width:699px){.soon-form .btn{width:100%}}
 
 /* Show more: new cards drop in gently */
-.grid .card.drop{animation:dropIn .5s cubic-bezier(.22,.8,.24,1) both}
-@keyframes dropIn{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:none}}
+.grid .card.drop{animation:dropIn .42s ease-out both}
+@keyframes dropIn{from{opacity:0}to{opacity:1}}
 @media (prefers-reduced-motion:reduce){.grid .card.drop{animation:none}}
 /* keep the page still while a list grows: don't let the browser anchor to the Show more button */
 .more-row,#moreRow{overflow-anchor:none}

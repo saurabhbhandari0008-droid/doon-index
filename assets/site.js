@@ -361,10 +361,10 @@ function growGrid(grid,html){
   const h1=grid.scrollHeight;
   grid.style.height=h0+"px";grid.style.overflow="hidden";
   void grid.offsetHeight;
-  grid.style.transition="height .6s cubic-bezier(.22,.8,.24,1)";
+  grid.style.transition="height .52s cubic-bezier(.45,0,.2,1)";grid.style.willChange="height";
   grid.style.height=h1+"px";
-  const done=()=>{grid.style.height="";grid.style.overflow="";grid.style.transition="";grid.removeEventListener("transitionend",done)};
-  grid.addEventListener("transitionend",done);setTimeout(done,800);
+  const done=()=>{grid.style.height="";grid.style.overflow="";grid.style.transition="";grid.style.willChange="";grid.removeEventListener("transitionend",done)};
+  grid.addEventListener("transitionend",e=>{if(e.target===grid&&e.propertyName==="height")done()});setTimeout(done,700);
 }
 window.Doon={growGrid,credit,placeURL,slugify,linkPlaces,autoplay,card,ad,SUBMAP,subOf,sectionOf,listFor,countFor,countSection,$,$$,ph,phIn,hue,inr,esc,sync,saved:()=>saved,initSlider,sliderControls,splitWords,playSplit,toast,arrowL,arrowR,heart,
   start(opts={}){const delay=opts.preloader?preloader()||0:0;sync();$$(".slider").forEach(initSlider);autoRows();initCursor();initMagnetic();
