@@ -96,16 +96,16 @@ const countSection=sec=>sec.subs.reduce((t,sb)=>t+countFor(sb.id),0);
 
 /* ---------- listing card (used on home + explore) ---------- */
 function card(p,o={}){
-  if(p.school)return `<article class="card${o.wide?" wide":""}"${o.style?` style="${o.style}"`:""}><div style="position:relative">${ph(p.img||"fri",800,p.n)}<div class="tags"><span class="tag">School</span></div></div>
+  if(p.school)return `<article class="card${o.wide?" wide":""}${o.cls?" "+o.cls:""}"${o.style?` style="${o.style}"`:""}><div style="position:relative">${ph(p.img||"fri",800,p.n)}<div class="tags"><span class="tag">School</span></div></div>
    <div><div class="row"><span>${esc(p.a)}</span><span>${esc(p.board)}</span></div><h3><a class="stretch" href="#" data-school="${esc(p.n)}">${esc(p.n)}</a></h3><p class="d">${esc(p.type)} · ${esc(p.g)} · ${esc(p.d)}</p></div></article>`;
-  if(p.gem!==undefined)return `<article class="card${o.wide?" wide":""}"${o.style?` style="${o.style}"`:""}><div style="position:relative">${ph(p.img,800,p.n)}<div class="tags"><span class="tag">Hidden gem</span></div></div>
+  if(p.gem!==undefined)return `<article class="card${o.wide?" wide":""}${o.cls?" "+o.cls:""}"${o.style?` style="${o.style}"`:""}><div style="position:relative">${ph(p.img,800,p.n)}<div class="tags"><span class="tag">Hidden gem</span></div></div>
    <div><div class="row"><span>${esc(p.alt)}</span><span>Free</span></div><h3><a class="stretch" href="#" data-gem="${p.gem}">${esc(p.n)}</a></h3><p class="d">${esc(p.d)}</p></div></article>`;
   const sb=subOf(p);
-  if(p.t)return `<article class="card${o.wide?" wide":""} edu${p.f?" featured":""}"${o.style?` style="${o.style}"`:""}>
+  if(p.t)return `<article class="card${o.wide?" wide":""}${o.cls?" "+o.cls:""} edu${p.f?" featured":""}"${o.style?` style="${o.style}"`:""}>
   <div style="position:relative">${ph(p.img,800,p.n)}<div class="tags">${p.f?'<span class="tag gold">Featured</span>':""}<span class="tag${p.gov?" gov":""}">${esc(p.t.split(" · ")[0])}</span></div>${p.adm?`<span class="adm-badge">${esc(p.adm)}</span>`:""}
   <button class="save${saved.has(p.id)?" on":""}" data-save="${p.id}" aria-label="Save ${esc(p.n)}">${heart}</button></div>
   <div><div class="row"><span>${esc(p.a)}</span><span>${p.est?"Est. "+esc(p.est):""}</span></div><h3><a class="stretch" href="${placeURL(p)}" data-place="${p.id}">${esc(p.n)}</a></h3><p class="d"><b class="edu-type">${esc(p.t)}</b> · ${esc(p.d)}</p></div></article>`;
-  return `<article class="card${o.wide?" wide":""}"${o.style?` style="${o.style}"`:""}>
+  return `<article class="card${o.wide?" wide":""}${o.cls?" "+o.cls:""}"${o.style?` style="${o.style}"`:""}>
   <div style="position:relative">${ph(p.img,800,p.n)}<div class="tags"><span class="tag">${esc(sb?sb.name:"")}</span>${p.f?'<span class="tag gold">Featured</span>':""}</div>
   <button class="save${saved.has(p.id)?" on":""}" data-save="${p.id}" aria-label="Save ${esc(p.n)}">${heart}</button></div>
   <div><div class="row"><span>${esc(p.a)}</span><span>${p.u?"Unverified":esc(p.p)}</span></div><h3><a class="stretch" href="${placeURL(p)}" data-place="${p.id}">${esc(p.n)}</a></h3><p class="d">${esc(p.d)}</p></div></article>`;
@@ -348,7 +348,25 @@ function preloader(){
 }
 
 function autoRows(){$$(".tiles,.hoods").forEach(autoplay)}
-window.Doon={credit,placeURL,slugify,linkPlaces,autoplay,card,ad,SUBMAP,subOf,sectionOf,listFor,countFor,countSection,$,$$,ph,phIn,hue,inr,esc,sync,saved:()=>saved,initSlider,sliderControls,splitWords,playSplit,toast,arrowL,arrowR,heart,
+
+/* Show more: open the next cards below the current ones like a drawer, without redrawing the list */
+function growGrid(grid,html){
+  if(!grid)return;
+  const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const h0=grid.getBoundingClientRect().height,y0=scrollY,root=document.documentElement;
+  root.style.overflowAnchor="none";setTimeout(()=>root.style.overflowAnchor="",900);
+  grid.insertAdjacentHTML("beforeend",html);
+  if(Math.abs(scrollY-y0)>1)scrollTo(0,y0);
+  if(reduce)return;
+  const h1=grid.scrollHeight;
+  grid.style.height=h0+"px";grid.style.overflow="hidden";
+  void grid.offsetHeight;
+  grid.style.transition="height .6s cubic-bezier(.22,.8,.24,1)";
+  grid.style.height=h1+"px";
+  const done=()=>{grid.style.height="";grid.style.overflow="";grid.style.transition="";grid.removeEventListener("transitionend",done)};
+  grid.addEventListener("transitionend",done);setTimeout(done,800);
+}
+window.Doon={growGrid,credit,placeURL,slugify,linkPlaces,autoplay,card,ad,SUBMAP,subOf,sectionOf,listFor,countFor,countSection,$,$$,ph,phIn,hue,inr,esc,sync,saved:()=>saved,initSlider,sliderControls,splitWords,playSplit,toast,arrowL,arrowR,heart,
   start(opts={}){const delay=opts.preloader?preloader()||0:0;sync();$$(".slider").forEach(initSlider);autoRows();initCursor();initMagnetic();
     setTimeout(()=>{initReveal();opts.onReady&&opts.onReady()},delay?delay-300:0)}};
 })();

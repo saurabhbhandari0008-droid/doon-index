@@ -267,21 +267,27 @@ $("#chips").onclick=e=>{const b=e.target.closest("[data-c]");if(!b)return;S.cat=
 $("#area").innerHTML=`<option value="">All neighbourhoods</option>`+AREAS.map(a=>`<option>${a}</option>`).join("");
 $("#area").onchange=e=>{S.area=e.target.value;S.limit=PAGE();render()};
 $("#price").onchange=e=>{S.price=e.target.value;S.limit=PAGE();render()};
-function render(){
+function current(){
   const q=S.q.toLowerCase(),sv=saved();
-  const list=PLACES.filter(p=>(S.cat==="all"||(S.cat==="saved"?sv.has(p.id):(sectionOf(p)||{}).id===S.cat))&&(!S.area||p.a===S.area)&&(!S.price||p.p===S.price)
+  return PLACES.filter(p=>(S.cat==="all"||(S.cat==="saved"?sv.has(p.id):(sectionOf(p)||{}).id===S.cat))&&(!S.area||p.a===S.area)&&(!S.price||p.p===S.price)
     &&(!q||[p.n,p.d,p.a,(subOf(p)||{}).name,(sectionOf(p)||{}).name].join(" ").toLowerCase().includes(q))).sort((a,b)=>(b.f||0)-(a.f||0));
+}
+function moreLabel(left){$("#moreRow").hidden=left<=0;$("#moreBtn").textContent=`Show ${Math.min(left,PAGE())} more of ${left}`}
+function render(){
+  const list=current();
   $("#count").textContent=`${list.length} ${list.length===1?"place":"places"}${S.area?" in "+S.area:" across Dehradun"}${S.q?` matching “${S.q}”`:""}`;
   const shown=list.slice(0,S.limit);
   const cards=shown.map((p,i)=>dcard(p,{wide:true,style:`animation-delay:${Math.min(i%PAGE(),8)*.06}s`}));
   if(S.cat!=="saved"&&cards.length>=4)cards.splice(3,0,ad("infeed"));
   $("#grid").innerHTML=list.length?cards.join("")
    :`<div class="empty">${S.cat==="saved"?"You haven’t saved any places yet. Tap the heart on any card.":`No places match yet. Know one? <a href="#" data-biz="list">Add it to the Index</a>.`}</div>`;
-  const left=list.length-shown.length;
-  $("#moreRow").hidden=left<=0;
-  $("#moreBtn").textContent=`Show ${Math.min(left,PAGE())} more of ${left}`;
+  moreLabel(list.length-shown.length);
 }
-$("#moreBtn").onclick=()=>{S.limit+=PAGE();render()};
+$("#moreBtn").onclick=()=>{
+  const list=current(),next=list.slice(S.limit,S.limit+PAGE());S.limit+=next.length;
+  Doon.growGrid($("#grid"),next.map((p,i)=>dcard(p,{wide:true,cls:"drop",style:`animation-delay:${.08+i*.06}s`})).join(""));
+  moreLabel(list.length-S.limit);
+};
 document.addEventListener("doon:sync",()=>{if(S.cat==="saved")render()});
 function search(q,cat){
   if(cat==="school"||(/school|boarding/i.test(q)&&cat==="all")){$("#schools").scrollIntoView();return}

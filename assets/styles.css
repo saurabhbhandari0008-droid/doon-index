@@ -1194,3 +1194,10 @@ html{-webkit-tap-highlight-color:transparent}
 .soon-form input:focus{outline:0;border-color:var(--ink)}
 .soon .ok{color:var(--brass);font-weight:700}
 @media (max-width:699px){.soon-form .btn{width:100%}}
+
+/* Show more: new cards drop in gently */
+.grid .card.drop{animation:dropIn .5s cubic-bezier(.22,.8,.24,1) both}
+@keyframes dropIn{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.grid .card.drop{animation:none}}
+/* keep the page still while a list grows: don't let the browser anchor to the Show more button */
+.more-row,#moreRow{overflow-anchor:none}

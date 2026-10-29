@@ -187,7 +187,12 @@ if(!sec){
   document.addEventListener("click",e=>{
     const s=e.target.closest("[data-sub]");if(s&&(bar.contains(s)||s.closest(".catcard"))){e.preventDefault();const id=s.dataset.sub;if((cur?cur.id:"")!==id)render(id,{push:true,scroll:true});return}
     const sl=e.target.closest("[data-sub-link]");if(sl){e.preventDefault();render("",{push:true,scroll:true});return}
-    if(e.target.closest("#exMore")){limit+=P();renderList(false);return}
+    if(e.target.closest("#exMore")){
+      const l=pool(),next=l.slice(limit,limit+P());limit+=next.length;
+      Doon.growGrid($("#exGrid .grid"),next.map((p,i)=>card(p,{wide:true,cls:"drop",style:`animation-delay:${.08+i*.06}s`})).join(""));
+      const left=l.length-limit,row=$("#exGrid .more-row");
+      if(left>0)$("#exMore").textContent=`Show ${Math.min(left,P())} more · ${left} left`;else if(row)row.remove();
+      return}
     if(e.target.closest("[data-clear]")){term="";$("#exQ").value="";renderList(true);return}
     const t=e.target.closest("[data-tf]");if(t){tf=t.dataset.tf;limit=P();$$("[data-tf]").forEach(b=>b.setAttribute("aria-pressed",b===t));renderList(true)}
   });
