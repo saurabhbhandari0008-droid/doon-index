@@ -410,4 +410,17 @@ add("/credits", "0.2", lastmod("/credits", "credits"));
 /* ---- sitemap + lastmod record ---- */
 write("sitemap.xml", `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.map(x => `  <url><loc>${SITE}${x.u}</loc><lastmod>${x.d}</lastmod><priority>${x.pri}</priority></url>`).join("\n")}\n</urlset>\n`);
 write(LM_FILE, JSON.stringify(lastmodNew, null, 1) + "\n");
+/* ---- cache-busting: point every page at the current version of the shared CSS/JS ---- */
+{
+  const crypto = await import("node:crypto");
+  const ver = Object.fromEntries(["assets/site.js", "assets/data.js", "assets/styles.css"].map(f =>
+    [f, crypto.createHash("sha1").update(fs.readFileSync(path.join(ROOT, f))).digest("hex").slice(0, 10)]));
+  const walk = d => fs.readdirSync(d, { withFileTypes: true }).flatMap(e =>
+    e.name.startsWith(".") || e.name === "node_modules" ? [] : e.isDirectory() ? walk(path.join(d, e.name)) : e.name.endsWith(".html") ? [path.join(d, e.name)] : []);
+  for (const f of walk(ROOT)) {
+    const src = fs.readFileSync(f, "utf8");
+    const out = src.replace(/(["'])\/(assets\/(?:site\.js|data\.js|styles\.css))(?:\?v=[a-z0-9]+)?\1/g, (m, q, a) => `${q}/${a}?v=${ver[a]}${q}`);
+    if (out !== src) fs.writeFileSync(f, out);
+  }
+}
 console.log(`Built ${POSTS.length} posts, ${SECTIONS.length} sections, ${placeCount} place pages (${placeIndexed} indexed), ${urls.length} sitemap URLs.`);

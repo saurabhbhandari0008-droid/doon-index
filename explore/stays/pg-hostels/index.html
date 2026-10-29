@@ -20,7 +20,7 @@
 <meta name="theme-color" content="#0E1013">
 <link rel="preconnect" href="https://images.unsplash.com">
 <link rel="preload" href="/assets/fonts/heros-700.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/assets/styles.css">
+<link rel="stylesheet" href="/assets/styles.css?v=689470b727">
 </head>
 <body data-page="explore" data-nav="light">
 <header id="nav"></header>
@@ -46,8 +46,8 @@
 </main>
 <footer id="footer"></footer>
 
-<script src="/assets/data.js"></script>
-<script src="/assets/site.js"></script>
+<script src="/assets/data.js?v=f7e18886b8"></script>
+<script src="/assets/site.js?v=a1e3a30b95"></script>
 <script>
 (function(){
 const {$,$$,ph,esc,card,ad,listFor,countFor,countSection}=Doon;
@@ -190,7 +190,8 @@ if(!sec){
     const sl=e.target.closest("[data-sub-link]");if(sl){e.preventDefault();render("",{push:true,scroll:true});return}
     if(e.target.closest("#exMore")){
       const l=pool(),next=l.slice(limit,limit+P());limit+=next.length;
-      Doon.growGrid($("#exGrid .grid"),next.map((p,i)=>card(p,{wide:true,cls:"drop",style:`animation-delay:${i*.05}s`})).join(""));
+      const add=next.map((p,i)=>card(p,{wide:true,cls:"drop",style:`animation-delay:${i*.05}s`})).join("");
+      if(Doon.growGrid)Doon.growGrid($("#exGrid .grid"),add);else $("#exGrid .grid").insertAdjacentHTML("beforeend",add);
       const left=l.length-limit,row=$("#exGrid .more-row");
       if(left>0)$("#exMore").textContent=`Show ${Math.min(left,P())} more · ${left} left`;else if(row)row.remove();
       return}
