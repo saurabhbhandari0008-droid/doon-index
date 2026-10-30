@@ -16,7 +16,7 @@ const YEAR = TODAY.slice(0, 4);
 
 /* Social profiles for the Organization schema. Add each one as it goes live, e.g.
    "https://www.instagram.com/doondekho/" — Google uses these to recognise the brand. */
-const SAME_AS = [];
+const SAME_AS = ["https://www.instagram.com/doondekho/"];
 
 /* ---- load site data ---- */
 const ctx = { window: {} };

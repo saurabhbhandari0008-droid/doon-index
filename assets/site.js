@@ -67,9 +67,15 @@ const ico={home:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stro
 tb.innerHTML=`<a href="/#top"${page==="home"?' class="on"':""}>${ico.home}Home</a><a href="/explore/"${page==="explore"?' class="on"':""}>${ico.explore}Explore</a><a href="/blog/"${page==="blog"||page==="post"?' class="on"':""}>${ico.journal}Journal</a>
  <button id="tbSaved" type="button">${heart}Saved<span class="badge" data-count="saved">0</span></button><a href="${home||"/"}#shop">${ico.bag}Shop</a>`;
 document.body.appendChild(tb);
+/* Instagram: footer button on every page + follow card at the end of each Journal post */
+const IG_URL="https://www.instagram.com/doondekho/";
+const igIco=`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>`;
+const igBtn=(cls="")=>`<a class="ig-btn${cls?" "+cls:""}" href="${IG_URL}" target="_blank" rel="noopener me">${igIco}<span>Follow @doondekho</span></a>`;
+const authorEl=page==="post"&&$(".article .author");
+if(authorEl&&!$(".ig-card"))authorEl.insertAdjacentHTML("afterend",`<aside class="ig-card" aria-label="Doon Dekho on Instagram"><div><p class="label">On Instagram</p><h3>See these places in reels first.</h3><p>New Dehradun finds every week: street food, cafés, waterfalls and the people behind them.</p></div>${igBtn("solid")}</aside>`);
 const footEl=$("#footer");
 if(footEl){footEl.className="site";footEl.innerHTML=`<div class="wrap">
-  <div class="foot"><div><a class="logo" href="/">Doon <i>Dekho</i></a><p>An independent guide to Dehradun, made by people who live here.</p></div>
+  <div class="foot"><div><a class="logo" href="/">Doon <i>Dekho</i></a><p>An independent guide to Dehradun, made by people who live here.</p>${igBtn()}</div>
   <div><h4>Explore</h4><ul>${(window.SECTIONS||[]).slice(0,6).map(x=>`<li><a href="/explore/${x.id}/">${x.name}</a></li>`).join("")}<li><a href="/explore/">All categories</a></li></ul></div>
   <div><h4>Discover</h4><ul><li><a href="${home}#schools">Schools</a></li><li><a href="${home}#shop">Shop</a></li><li><a href="/blog/">Journal</a></li><li><a href="/about/">About Doon Dekho</a></li></ul></div>
   <div><h4>Business</h4><ul><li><a href="#" data-biz="list">Add your business</a></li><li><a href="#" data-biz="partner">Partner with us</a></li></ul></div></div>
