@@ -1221,3 +1221,12 @@ html{-webkit-tap-highlight-color:transparent}
 @media(hover:none){.slider .gem p{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;min-height:4.5em;line-height:1.5}}
 @media(max-width:699px){.slider .gem h3{font-size:1.6rem}}
 .slider .track > .gem{justify-content:flex-end;align-items:stretch}
+
+/* ===== Phones and tablets: nothing moves vertically while scrolling ===== */
+@media (hover:none),(max-width:999px){
+  .js .rv.pre{transform:none}
+  .rv{transition:opacity .45s ease}
+  .js .clip.pre .ph{clip-path:none}
+  .js .clip.pre .ph img{transform:none}
+  .slide .ph,#ahero .ph{transform:none!important}
+}

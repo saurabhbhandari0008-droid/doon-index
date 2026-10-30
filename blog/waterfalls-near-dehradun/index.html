@@ -20,7 +20,7 @@
 <meta name="theme-color" content="#0E1013">
 <link rel="preconnect" href="https://images.unsplash.com">
 <link rel="preload" href="/assets/fonts/heros-700.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/assets/styles.css?v=a718fb773e">
+<link rel="stylesheet" href="/assets/styles.css?v=cbdddc797a">
 </head>
 <body data-page="post">
 <div class="progress" aria-hidden="true"></div>
@@ -92,7 +92,7 @@
 <footer id="footer"></footer>
 
 <script src="/assets/data.js?v=f7e18886b8"></script>
-<script src="/assets/site.js?v=c1a6b81acd"></script>
+<script src="/assets/site.js?v=d432e27333"></script>
 <script>
 (function(){
 const {$,$$,ph,phIn,hue,esc,sliderControls,splitWords,playSplit,toast}=Doon;
@@ -107,7 +107,7 @@ const ogt=document.querySelector('meta[property="og:title"]');if(ogt)ogt.content
 $("#ahero").style.setProperty("--h",hue(P.img));
 $("#ahero").innerHTML=`${ph(P.img,2000,P.t,"",true)}<div class="wrap"><p class="crumbs"><a href="/">Home</a><span>/</span><a href="/blog/">Journal</a><span>/</span><span>${P.cat}</span></p>
  <h1 id="atitle">${P.t}</h1><p class="dek">${P.ex}</p><p class="meta" style="margin-top:22px"><span class="cat">${P.cat}</span><span>·</span><span>${P.min} min read</span><span>·</span><span>${P.date}</span></p></div>`;
-addEventListener("scroll",()=>{const y=scrollY;if(y<innerHeight){const p=$("#ahero .ph");if(p)p.style.transform=`translateY(${y*.35}px)`}},{passive:true});
+if(matchMedia("(hover:hover) and (pointer:fine)").matches)addEventListener("scroll",()=>{const y=scrollY;if(y<innerHeight){const p=$("#ahero .ph");if(p)p.style.transform=`translateY(${y*.35}px)`}},{passive:true});
 
 let hn=0;const heads=[];
 const _used=new Set(),L=h=>Doon.linkPlaces?Doon.linkPlaces(h,_used):h;

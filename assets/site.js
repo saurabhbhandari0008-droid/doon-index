@@ -51,7 +51,10 @@ if(navEl){
   let lastY=0;
   const onScroll=()=>{const y=scrollY;const solidAt=document.body.dataset.nav==="light"?0:innerHeight*.55;
     navEl.classList.toggle("solid",y>solidAt);
-    navEl.classList.toggle("hide",y>lastY&&y>400&&!document.body.style.overflow);lastY=y;
+    /* hide/show only after a clear scroll of 24px, and ignore iPhone's bounce at the top and bottom */
+    const maxY=document.documentElement.scrollHeight-innerHeight;
+    if(y>=0&&y<=maxY&&Math.abs(y-lastY)>24){navEl.classList.toggle("hide",y>lastY&&y>400&&!document.body.style.overflow);lastY=y}
+    if(y<=400)navEl.classList.remove("hide");
     const pr=$(".progress");if(pr){const h=document.documentElement.scrollHeight-innerHeight;pr.style.width=(h>0?y/h*100:0)+"%"}};
   addEventListener("scroll",onScroll,{passive:true});onScroll();
 }
