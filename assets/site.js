@@ -264,6 +264,22 @@ document.addEventListener("submit",e=>{
   if(e.target.matches("[data-news]")){e.preventDefault();send(e.target);const ok=e.target.parentElement.querySelector(".ok");if(ok)ok.hidden=false;e.target.reset()}
 });
 
+/* ---------- smooth glide for swipe rows (no snap fighting) ---------- */
+const easeIO=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
+function glide(row,to,dur=720){
+  const max=row.scrollWidth-row.clientWidth;to=Math.max(0,Math.min(max,to));
+  const from=row.scrollLeft;if(Math.abs(to-from)<2)return;
+  if(row._glide)cancelAnimationFrame(row._glide);
+  if(RM){row.scrollLeft=to;return}
+  row.classList.add("gliding");const t0=performance.now();
+  const f=now=>{const p=Math.min(1,(now-t0)/dur);row.scrollLeft=from+(to-from)*easeIO(p);
+    if(p<1)row._glide=requestAnimationFrame(f);else{row._glide=0;requestAnimationFrame(()=>row.classList.remove("gliding"))}};
+  row._glide=requestAnimationFrame(f);
+}
+/* page-level "is the visitor scrolling or touching" signal: autoplay never moves a row then */
+let pageBusy=0;
+["scroll","touchstart","touchmove","wheel"].forEach(ev=>addEventListener(ev,()=>{pageBusy=Date.now()+1600},{passive:true}));
+
 /* ---------- slider ---------- */
 function initSlider(root){
   const track=$(".track",root),prev=$("[data-prev]",root),next=$("[data-next]",root),bar=$(".s-prog i",root);
@@ -272,14 +288,14 @@ function initSlider(root){
   const upd=()=>{const max=track.scrollWidth-track.clientWidth;const r=max>0?track.scrollLeft/max:0;
     if(bar){const w=Math.max(12,track.clientWidth/track.scrollWidth*100);bar.style.width=w+"%";bar.style.transform=`translateX(${r*(100/w*100-100)}%)`}
     if(prev)prev.disabled=track.scrollLeft<4;if(next)next.disabled=track.scrollLeft>max-4};
-  prev&&(prev.onclick=()=>track.scrollBy({left:-step(),behavior:"smooth"}));
-  next&&(next.onclick=()=>track.scrollBy({left:step(),behavior:"smooth"}));
+  prev&&(prev.onclick=()=>glide(track,track.scrollLeft-step()));
+  next&&(next.onclick=()=>glide(track,track.scrollLeft+step()));
   track.addEventListener("scroll",upd,{passive:true});addEventListener("resize",upd);setTimeout(upd,50);
   let down=false,sx=0,sl=0,moved=0;
   track.addEventListener("pointerdown",e=>{if(e.pointerType!=="mouse")return;down=true;moved=0;sx=e.clientX;sl=track.scrollLeft});
   addEventListener("pointermove",e=>{if(!down)return;const dx=e.clientX-sx;moved=Math.abs(dx);if(moved>6)track.classList.add("drag");track.scrollLeft=sl-dx});
   addEventListener("pointerup",()=>{if(!down)return;down=false;if(track.classList.contains("drag")){
-    track.classList.remove("drag");const s=step();track.scrollTo({left:Math.round(track.scrollLeft/s)*s,behavior:"smooth"})}});
+    track.classList.remove("drag");const s=step();glide(track,Math.round(track.scrollLeft/s)*s,420)}});
   track.addEventListener("click",e=>{if(moved>6){e.stopPropagation();e.preventDefault();moved=0}},true);
   autoplay(track);
 }
@@ -296,12 +312,15 @@ function autoplay(row){
   const pause=()=>{hold=Date.now()+8000};
   ["pointerdown","touchstart","wheel","keydown","focusin"].forEach(ev=>row.addEventListener(ev,pause,{passive:true}));
   const ctl=row.parentElement&&row.parentElement.querySelector(".arrows");if(ctl)ctl.addEventListener("click",pause);
-  if("IntersectionObserver" in window)new IntersectionObserver(es=>{visible=es[0].isIntersecting},{threshold:.25}).observe(row);
+  if("IntersectionObserver" in window)new IntersectionObserver(es=>{visible=es[0].intersectionRatio>=.6},{threshold:[0,.6,1]}).observe(row);
   setInterval(()=>{
-    if(document.hidden||!visible||Date.now()<hold||row.classList.contains("drag"))return;
+    if(document.hidden||!visible||Date.now()<hold||Date.now()<pageBusy||row.classList.contains("drag")||row._glide)return;
     const max=row.scrollWidth-row.clientWidth;if(max<8)return;
-    if(row.scrollLeft>=max-8)row.scrollTo({left:0,behavior:"smooth"});
-    else row.scrollBy({left:step(),behavior:"smooth"});
+    if(row.scrollLeft>=max-8){
+      /* back to the start: a soft fade instead of racing across every card */
+      row.style.transition="opacity .28s ease";row.style.opacity="0";
+      setTimeout(()=>{row.classList.add("gliding");row.scrollLeft=0;requestAnimationFrame(()=>{row.classList.remove("gliding");row.style.opacity="1";setTimeout(()=>{row.style.transition="";row.style.opacity=""},320)})},290);
+    } else {const s=step();glide(row,Math.round((row.scrollLeft+s)/s)*s)}
   },AUTO_MS);
 }
 function sliderControls(){return `<div class="s-ctrl"><div class="s-prog"><i></i></div><div class="arrows"><button data-prev aria-label="Previous">${arrowL}</button><button data-next aria-label="Next">${arrowR}</button></div></div>`}

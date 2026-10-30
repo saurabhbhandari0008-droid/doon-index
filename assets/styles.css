@@ -1201,3 +1201,5 @@ html{-webkit-tap-highlight-color:transparent}
 @media (prefers-reduced-motion:reduce){.grid .card.drop{animation:none}}
 /* keep the page still while a list grows: don't let the browser anchor to the Show more button */
 .more-row,#moreRow{overflow-anchor:none}
+/* while a row glides by script, switch snapping off so the browser doesn't fight the motion */
+.track.gliding{scroll-snap-type:none;scroll-behavior:auto}
