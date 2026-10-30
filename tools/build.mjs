@@ -410,6 +410,10 @@ add("/credits", "0.2", lastmod("/credits", "credits"));
 /* ---- sitemap + lastmod record ---- */
 write("sitemap.xml", `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.map(x => `  <url><loc>${SITE}${x.u}</loc><lastmod>${x.d}</lastmod><priority>${x.pri}</priority></url>`).join("\n")}\n</urlset>\n`);
 write(LM_FILE, JSON.stringify(lastmodNew, null, 1) + "\n");
+/* ---- Google Analytics 4 (doondekho.in property) on every page ---- */
+const GA_ID = "G-VPM2SFRKV5";
+const GA_TAG = `<script async src="https://www.googletagmanager.com/gtag/js?id=${GA_ID}"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date());gtag("config","${GA_ID}");</script>`;
 /* ---- cache-busting: point every page at the current version of the shared CSS/JS ---- */
 {
   const crypto = await import("node:crypto");
@@ -419,7 +423,8 @@ write(LM_FILE, JSON.stringify(lastmodNew, null, 1) + "\n");
     e.name.startsWith(".") || e.name === "node_modules" ? [] : e.isDirectory() ? walk(path.join(d, e.name)) : e.name.endsWith(".html") ? [path.join(d, e.name)] : []);
   for (const f of walk(ROOT)) {
     const src = fs.readFileSync(f, "utf8");
-    const out = src.replace(/(["'])\/(assets\/(?:site\.js|data\.js|styles\.css))(?:\?v=[a-z0-9]+)?\1/g, (m, q, a) => `${q}/${a}?v=${ver[a]}${q}`);
+    let out = src.replace(/(["'])\/(assets\/(?:site\.js|data\.js|styles\.css))(?:\?v=[a-z0-9]+)?\1/g, (m, q, a) => `${q}/${a}?v=${ver[a]}${q}`);
+    if (!out.includes(GA_ID)) out = out.replace(/<head>\n?/, `<head>\n${GA_TAG}\n`);
     if (out !== src) fs.writeFileSync(f, out);
   }
 }
