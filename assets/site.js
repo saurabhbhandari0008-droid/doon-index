@@ -282,12 +282,12 @@ function glide(row,to,dur=720){
   if(RM){row.scrollLeft=to;return}
   row.classList.add("gliding");const t0=performance.now();
   const f=now=>{const p=Math.min(1,(now-t0)/dur);row.scrollLeft=from+(to-from)*easeIO(p);
-    if(p<1)row._glide=requestAnimationFrame(f);else{row._glide=0;requestAnimationFrame(()=>row.classList.remove("gliding"))}};
+    if(p<1)row._glide=requestAnimationFrame(f);else{row.scrollLeft=to;setTimeout(()=>{row.classList.remove("gliding");row._glide=0},120)}};
   row._glide=requestAnimationFrame(f);
 }
 /* page-level "is the visitor scrolling or touching" signal: autoplay never moves a row then */
 let pageBusy=0;
-["scroll","touchstart","touchmove","wheel"].forEach(ev=>addEventListener(ev,()=>{pageBusy=Date.now()+1600},{passive:true}));
+["scroll","touchstart","touchmove","wheel"].forEach(ev=>addEventListener(ev,()=>{pageBusy=Date.now()+700},{passive:true}));
 
 /* ---------- slider ---------- */
 function initSlider(root){
@@ -312,25 +312,35 @@ function initSlider(root){
 /* ---------- autoplay: every swipe row moves by itself every 3 seconds ----------
    Pauses for 8 s after the visitor swipes, drags, clicks an arrow or uses the keyboard,
    while the row is off screen or the tab is hidden, and never runs with reduced motion. */
-const AUTO_MS=3000;
+const AUTO_MS=1500;
 function autoplay(row){
   if(!row||row.dataset.auto||RM)return;row.dataset.auto=1;
-  let hold=0,visible=true;
-  const gap=()=>parseFloat(getComputedStyle(row).columnGap)||16;
-  const step=()=>{const c=row.children[0];return c?c.getBoundingClientRect().width+gap():300};
-  const pause=()=>{hold=Date.now()+8000};
-  ["pointerdown","touchstart","wheel","keydown","focusin"].forEach(ev=>row.addEventListener(ev,pause,{passive:true}));
+  let hold=0,ratio=1;
+  const pause=()=>{hold=Date.now()+4000};
+  ["pointerdown","touchstart","wheel","keydown"].forEach(ev=>row.addEventListener(ev,pause,{passive:true}));
   const ctl=row.parentElement&&row.parentElement.querySelector(".arrows");if(ctl)ctl.addEventListener("click",pause);
-  if("IntersectionObserver" in window)new IntersectionObserver(es=>{visible=es[0].intersectionRatio>=.6},{threshold:[0,.6,1]}).observe(row);
-  setInterval(()=>{
-    if(document.hidden||!visible||Date.now()<hold||Date.now()<pageBusy||row.classList.contains("drag")||row._glide)return;
-    const max=row.scrollWidth-row.clientWidth;if(max<8)return;
-    if(row.scrollLeft>=max-8){
-      /* back to the start: a soft fade instead of racing across every card */
-      row.style.transition="opacity .28s ease";row.style.opacity="0";
-      setTimeout(()=>{row.classList.add("gliding");row.scrollLeft=0;requestAnimationFrame(()=>{row.classList.remove("gliding");row.style.opacity="1";setTimeout(()=>{row.style.transition="";row.style.opacity=""},320)})},290);
-    } else {const s=step();glide(row,Math.round((row.scrollLeft+s)/s)*s)}
-  },AUTO_MS);
+  if("IntersectionObserver" in window)new IntersectionObserver(es=>{ratio=es[es.length-1].intersectionRatio},{threshold:[0,.25,.35,.5,.75,1]}).observe(row);
+  /* exact start position of each card, so the row lands where snapping wants it (no pull-back on iPhone) */
+  const stops=()=>{const base=row.firstElementChild?row.firstElementChild.offsetLeft:0;const max=row.scrollWidth-row.clientWidth;
+    return [...row.children].map(c=>Math.min(max,c.offsetLeft-base))};
+  const tick=()=>{
+    const ok=!document.hidden&&ratio>=.35&&Date.now()>=hold&&Date.now()>=pageBusy&&!row.classList.contains("drag")&&!row._glide;
+    if(ok){
+      const max=row.scrollWidth-row.clientWidth;
+      if(max>8){
+        if(row.scrollLeft>=max-8){
+          row.style.transition="opacity .25s ease";row.style.opacity="0";
+          setTimeout(()=>{row.classList.add("gliding");row.scrollLeft=0;
+            setTimeout(()=>{row.classList.remove("gliding");row.style.opacity="1";setTimeout(()=>{row.style.transition="";row.style.opacity=""},280)},60)},260);
+        }else{
+          const x=row.scrollLeft,next=stops().find(p=>p>x+4);
+          if(next!==undefined)glide(row,next,560);
+        }
+      }
+    }
+    setTimeout(tick,AUTO_MS);
+  };
+  setTimeout(tick,AUTO_MS);
 }
 function sliderControls(){return `<div class="s-ctrl"><div class="s-prog"><i></i></div><div class="arrows"><button data-prev aria-label="Previous">${arrowL}</button><button data-next aria-label="Next">${arrowR}</button></div></div>`}
 
