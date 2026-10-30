@@ -1230,3 +1230,8 @@ html{-webkit-tap-highlight-color:transparent}
   .js .clip.pre .ph img{transform:none}
   .slide .ph,#ahero .ph{transform:none!important}
 }
+
+/* Hero caption: same height on every slide (caption line + credit line always reserved) */
+.slide-cap{display:grid;grid-template-rows:auto auto;min-height:0;height:calc(1.45em + 1.4em);overflow:hidden;line-height:1.45}
+.slide-cap .cap-line{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.slide-cap .cr{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:.68rem;line-height:1.4em;height:1.4em;margin-top:0;opacity:.7}

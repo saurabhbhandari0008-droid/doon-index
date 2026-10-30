@@ -21,7 +21,7 @@
 <link rel="preload" as="image" href="https://images.unsplash.com/photo-1660791601899-f79f14cc427d?auto=format&fit=crop&w=2000&q=70" imagesrcset="https://images.unsplash.com/photo-1660791601899-f79f14cc427d?auto=format&fit=crop&w=700&q=70 700w, https://images.unsplash.com/photo-1660791601899-f79f14cc427d?auto=format&fit=crop&w=1400&q=70 1400w, https://images.unsplash.com/photo-1660791601899-f79f14cc427d?auto=format&fit=crop&w=2000&q=70 2000w" imagesizes="100vw" fetchpriority="high">
 <link rel="preconnect" href="https://images.unsplash.com">
 <link rel="preload" href="/assets/fonts/heros-700.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/assets/styles.css?v=cbdddc797a">
+<link rel="stylesheet" href="/assets/styles.css?v=654f28849e">
 </head>
 <body data-page="home">
 <header id="nav"></header>
@@ -233,7 +233,7 @@ function go(i){cur=(i+HERO_SLIDES.length)%HERO_SLIDES.length;
   $$(".slide").forEach((s,k)=>s.classList.toggle("on",k===cur));
   $$("#dots button").forEach((d,k)=>{d.classList.remove("on");d.classList.toggle("done",k<cur);if(k===cur){void d.offsetWidth;d.classList.add("on")}});
   $("#slideNum").textContent=String(cur+1).padStart(2,"0");
-  const s=HERO_SLIDES[cur];const pc=PHOTOS[s.img]||{};$("#slideCap").innerHTML=`<b>${s.cap}</b> · ${s.sub}${pc.credit?`<a class="cr" href="${pc.link}" target="_blank" rel="noopener">Photo: ${esc(pc.credit)} · ${esc(pc.lic)}</a>`:""}`;
+  const s=HERO_SLIDES[cur];const pc=PHOTOS[s.img]||{};$("#slideCap").innerHTML=`<span class="cap-line"><b>${s.cap}</b> · ${s.sub}</span>${pc.credit?`<a class="cr" href="${pc.link}" target="_blank" rel="noopener">Photo: ${esc(pc.credit)} · ${esc(pc.lic)}</a>`:`<span class="cr" aria-hidden="true">&nbsp;</span>`}`;
   clearTimeout(timer);if(!paused)timer=setTimeout(()=>go(cur+1),DUR)}
 $("#dots").onclick=e=>{const b=e.target.closest("button");if(b)go([...b.parentNode.children].indexOf(b))};
 const hero=$(".hero");
