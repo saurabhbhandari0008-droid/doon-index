@@ -1247,3 +1247,5 @@ html{-webkit-tap-highlight-color:transparent}
 .slide-cap{display:grid;grid-template-rows:auto auto;min-height:0;height:calc(1.45em + 1.4em);overflow:hidden;line-height:1.45}
 .slide-cap .cap-line{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .slide-cap .cr{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:.68rem;line-height:1.4em;height:1.4em;margin-top:0;opacity:.7}
+.s-prog i{transition:transform .45s cubic-bezier(.25,.8,.25,1),width .45s ease}
+.track.gliding{overflow-x:hidden}

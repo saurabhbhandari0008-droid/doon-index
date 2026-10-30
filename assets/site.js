@@ -274,16 +274,24 @@ document.addEventListener("submit",e=>{
 });
 
 /* ---------- smooth glide for swipe rows (no snap fighting) ---------- */
-const easeIO=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
-function glide(row,to,dur=720){
-  const max=row.scrollWidth-row.clientWidth;to=Math.max(0,Math.min(max,to));
-  const from=row.scrollLeft;if(Math.abs(to-from)<2)return;
-  if(row._glide)cancelAnimationFrame(row._glide);
+const GLIDE_EASE="cubic-bezier(.25,.8,.25,1)";
+/* Smooth glide: the cards move as one GPU-composited layer (transform), then the row's
+   scroll position is swapped in invisibly at the end. Much smoother on phones than
+   changing scrollLeft every frame. */
+function glide(row,to,dur=780){
+  const max=row.scrollWidth-row.clientWidth;to=Math.max(0,Math.min(max,Math.round(to)));
+  const from=row.scrollLeft,delta=to-from;if(Math.abs(delta)<2)return;
   if(RM){row.scrollLeft=to;return}
-  row.classList.add("gliding");const t0=performance.now();
-  const f=now=>{const p=Math.min(1,(now-t0)/dur);row.scrollLeft=from+(to-from)*easeIO(p);
-    if(p<1)row._glide=requestAnimationFrame(f);else{row.scrollLeft=to;setTimeout(()=>{row.classList.remove("gliding");row._glide=0},120)}};
-  row._glide=requestAnimationFrame(f);
+  if(row._glide)return;
+  const kids=[...row.children];row._glide=1;row.classList.add("gliding");
+  kids.forEach(k=>{k.style.willChange="transform";k.style.transition=`transform ${dur}ms ${GLIDE_EASE}`});
+  void row.offsetWidth;
+  kids.forEach(k=>{k.style.transform=`translate3d(${-delta}px,0,0)`});
+  setTimeout(()=>{
+    kids.forEach(k=>{k.style.transition="none";k.style.transform="";k.style.willChange=""});
+    row.scrollLeft=to;void row.offsetWidth;
+    requestAnimationFrame(()=>{row.classList.remove("gliding");row._glide=0;kids.forEach(k=>{k.style.transition=""})});
+  },dur+20);
 }
 /* page-level "is the visitor scrolling or touching" signal: autoplay never moves a row then */
 let pageBusy=0;
@@ -334,7 +342,7 @@ function autoplay(row){
             setTimeout(()=>{row.classList.remove("gliding");row.style.opacity="1";setTimeout(()=>{row.style.transition="";row.style.opacity=""},280)},60)},260);
         }else{
           const x=row.scrollLeft,next=stops().find(p=>p>x+4);
-          if(next!==undefined)glide(row,next,560);
+          if(next!==undefined)glide(row,next);
         }
       }
     }
