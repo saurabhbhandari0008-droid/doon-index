@@ -310,7 +310,9 @@ for (const [p, u] of PLACE_URL) {
   const sameSub = others(isGem ? GEMS : PLACES.filter(x => x.s === p.s && !x.u));
   const sameArea = isGem ? [] : others(PLACES.filter(x => !x.u && x.a === p.a && x.s !== p.s));
   const linkList = (title, arr) => arr.length ? `<div class="place-links"><h2>${title}</h2><ul>${arr.map(x => `<li><a href="${PLACE_URL.get(x)}">${esc(x.n)}</a><span>${esc(x.a || x.alt || "")}</span></li>`).join("")}</ul></div>` : "";
-  const title = isGem ? `${p.n}, Dehradun: Best Time, Tips and Directions` : p.t ? `${p.n}, ${area}, Dehradun` : `${p.n}, ${area}, Dehradun: Tips and Directions`;
+  // `seo` on a place overrides the search title (use the words people search with, from Search Console).
+  const where = area && !norm(p.n).includes(norm(area)) ? `${area}, ` : "";
+  const title = p.seo || (isGem ? `${p.n}, Dehradun: Best Time, Tips and Directions` : p.t ? `${p.n}, ${where}Dehradun` : `${p.n}, ${where}Dehradun: Tips and Directions`);
   const desc = `${strip(p.d)} ${isGem || !p.t ? "Area, best time, a local tip and directions." : "Area, courses, website and directions."}`.slice(0, 300);
   const schema = {
     "@type": SCHEMA_TYPE[sb ? sb.id : ""] || "LocalBusiness", "@id": url + "#place", name: p.n, description: strip(p.d), url,
