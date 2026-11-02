@@ -402,6 +402,31 @@ if (fs.existsSync(path.join(ROOT, "place"))) for (const d of fs.readdirSync(path
   add("/about/", "0.4", lastmod("/about/", main));
 }
 
+/* ---- badge kit for listed businesses (not indexed; sent to owners) ---- */
+{
+  const snippet = `<a href="https://doondekho.in/" title="Featured on Doon Dekho, the Dehradun city guide"><img src="https://doondekho.in/assets/featured-on-doon-dekho.svg" alt="Featured on Doon Dekho" width="240" height="72"></a>`;
+  const main = `<section class="page-hero ex-compact"><div class="wrap">
+<nav class="crumbs-light" aria-label="Breadcrumb"><a href="/">Home</a><span>/</span><span aria-current="page">Badge</span></nav>
+<p class="label">For listed businesses</p>
+<h1>Featured on Doon Dekho badge</h1>
+<p>If your place is listed on Doon Dekho, you're welcome to show this badge on your website or share it on Instagram.</p>
+</div></section>
+<section class="place-body"><div class="wrap place-wrap about">
+<p><img src="/assets/featured-on-doon-dekho.svg" alt="Featured on Doon Dekho" width="240" height="72"></p>
+<h2>On your website</h2>
+<p>Paste this where you want the badge to appear. Change the link to your own page on Doon Dekho (for example https://doondekho.in/place/your-place/) so visitors land on your listing.</p>
+<pre class="badge-code"><code>${esc(snippet)}</code></pre>
+<h2>On Instagram</h2>
+<p>Share your Doon Dekho page in a story with a link sticker, and tag <a href="https://www.instagram.com/doondekho/" target="_blank" rel="noopener">@doondekho</a>. We reshare the ones we're tagged in.</p>
+<h2>Not listed yet?</h2>
+<p>Use <a href="/#business">Add your business</a> and we'll take a look.</p>
+</div></section>`;
+  write("badge/index.html", shell(main, {
+    title: "Featured on Doon Dekho badge", desc: "A badge for businesses listed on Doon Dekho, the Dehradun city guide, with the code to add it to a website.",
+    url: SITE + "/badge/", image: imgURL("hero-valley"), noindex: true
+  }).replace('data-page="place"', 'data-page="about"'));
+}
+
 /* ---- home + credits ---- */
 let home = seoHead(read("index.html"), {
   title: "Doon Dekho · Dehradun City Guide: Cafés, Food, Places and Schools",
