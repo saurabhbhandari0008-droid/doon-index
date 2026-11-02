@@ -452,8 +452,230 @@ window.ADS = [
   text:"Be one of the first in our new For Pets section.",cta:"Get listed",action:"biz:list",img:"corgi"}
 ];
 
-/* Journal posts published 23–27 Oct 2026 (newest first) */
+/* Journal posts published 23 Oct – 2 Nov 2026 (newest first) */
 window.NEW_POSTS = [
+{
+"slug": "best-momos-in-dehradun",
+"t": "Best Momos in Dehradun: 10 Places, Area by Area",
+"seo": "Best Momos in Dehradun (2026): 10 Places, Area by Area",
+"desc": "From Tandon's and Nanu's in Rajpur market to Hungry Eye in Garhi Cantt and Negi's near the Buddha Temple: the best momos in Dehradun, sorted by area.",
+"cat": "Food",
+"min": 6,
+"date": "2 Nov 2026",
+"img": "momos",
+"ex": "Ten momo places sorted by area, from the Rajpur market counters to Clement Town's Tibetan shops, with hours and weekly offs.",
+"sec": "food",
+"sub": "street-food",
+"body": [
+{
+"p": "Every Dehradun family has a momo place they're loyal to, and most of them think the others are overrated. That is fair enough, because momos in Doon are everywhere: Tibetan kitchens, college-side shacks, carts outside the Clock Tower and tiny counters that open at 3 pm and run out by 7."
+},
+{
+"p": "This list sticks to ten places, sorted by area, so you can pick the one closest to you instead of crossing the city in traffic for a plate of steamed veg."
+},
+{
+"h": "First, what to order"
+},
+{
+"p": "Most places in Dehradun do some version of these:"
+},
+{
+"ul": [
+"<b>Steamed:</b> the default. Veg, chicken, paneer, sometimes mutton or pork.",
+"<b>Fried:</b> steamed momos deep-fried until crisp.",
+"<b>Kothey:</b> pan-fried on one side, so the base is crisp and the top stays soft.",
+"<b>Jhol momo:</b> momos sitting in a thin, sour-spicy soup made from the chutney. Nepali in origin, and the best thing to eat in December.",
+"<b>Chilli momo:</b> tossed in a hot, sticky chilli sauce like chilli paneer.",
+"<b>Afghani:</b> momos in a creamy, mildly spiced gravy, sometimes finished in a tandoor."
+]
+},
+{
+"p": "The red chutney matters more than people admit. A place with a good chutney can get away with average momos. The opposite never works."
+},
+{
+"h": "Rajpur market (upper Rajpur Road)"
+},
+{
+"p": "The small main market in Rajpur, at the top end of Rajpur Road near Dhakpatti, has two of the city's best-known momo counters a few shops apart. If you're coming back from Shikhar Falls or a drive towards Mussoorie, plan to stop here."
+},
+{
+"h3": "1. Tandon Snacks"
+},
+{
+"p": "Probably the most talked-about momo shop in Dehradun right now, partly thanks to food YouTubers. It's a small place, the momos are made fresh, and on weekend evenings you'll wait. Parking is on the roadside, so come on a two-wheeler if you can."
+},
+{
+"p": "<b>Hours:</b> evenings, roughly 3 to 10 pm. Closed Tuesdays."
+},
+{
+"h3": "2. Nanu's Fast Food"
+},
+{
+"p": "A couple of doors down from Tandon's in the same market, and every Rajpur regular has an opinion on which one is better. Nanu's is an evening-only counter and it runs out of momos, so don't turn up at 8:45 expecting a full menu."
+},
+{
+"p": "<b>Hours:</b> roughly 5 to 9 pm. Closed Tuesdays."
+},
+{
+"tip": "since Tandon's and Nanu's share a weekly off, Tuesday is the wrong day to plan a Rajpur momo run."
+},
+{
+"h3": "3. Lhasa Tibet Kitchen"
+},
+{
+"p": "A proper sit-down Tibetan kitchen, with one branch on Rajpur Road in Rajpur and another in Kulhan on the Sahastradhara side. Come here when you want a full meal with thukpa or noodles and somewhere to sit for an hour, rather than a quick plate standing at a counter."
+},
+{
+"p": "<b>Hours:</b> roughly 10:30 am to 11 pm."
+},
+{
+"h": "Best momos in Dehradun across the city"
+},
+{
+"h3": "4. Kalsang"
+},
+{
+"p": "Kalsang is the name most people in Doon say first when you ask about Tibetan food. There are now a few outlets: the original on Rajpur Road (opposite Osho), one in the MDDA complex opposite the GPO at the Clock Tower, and one in the Mall of Dehradun. The menu goes well beyond momos, with thukpa, thenthuk and shapta, plus Korean and Thai dishes. It's a restaurant rather than a momo stall, so prices are higher, but it's the safest pick for a family dinner."
+},
+{
+"p": "<b>Good for:</b> a sit-down meal, a group with mixed orders, a cold evening."
+},
+{
+"img": "momos-2",
+"cap": "Steamed momos with red chutney, the default order across Dehradun."
+},
+{
+"p": "More Rajpur Road picks are in our café guide."
+},
+{
+"h": "Garhi Cantt"
+},
+{
+"p": "Two small momo places sit almost next to each other here, near the chowk in Garhi Cantt. If you're visiting Tapkeshwar temple, they're a short ride away."
+},
+{
+"h3": "5. Hungry Eye"
+},
+{
+"p": "A small place near the Garhi Cantt chowk with a loyal crowd, many of whom pre-order because dishes sell out by early evening. Seating is limited."
+},
+{
+"p": "<b>Hours:</b> roughly 2:30 to 8:30 pm. Closed Tuesdays."
+},
+{
+"h3": "6. Wok This Way"
+},
+{
+"p": "On Shaheed Durgamal Road, opposite the Uttarakhand Gramin Bank. The menu is short and the place is tiny, about enough seating for one large group. It closes early by Dehradun standards, so think of it as a late-lunch or tea-time stop."
+},
+{
+"p": "<b>Hours:</b> from 12:30 pm, closing between 7 and 8 pm. Closed Sundays."
+},
+{
+"h": "Clement Town"
+},
+{
+"p": "Clement Town has a big Tibetan community around Mindrolling Monastery, and the momo shops here are cheap, busy and very no-frills."
+},
+{
+"h3": "7. Negi Fast Food, Buddha Temple Road"
+},
+{
+"p": "In Lane 1C on Buddha Temple Road, near Mindrolling. This is a daytime place that shuts by early evening, so it fits neatly into a monastery visit. Expect fresh momos, quick service and basic seating."
+},
+{
+"p": "<b>Hours:</b> daytime only, closing around 5 to 6 pm."
+},
+{
+"h3": "8. Choeden Restaurant and Fast Food"
+},
+{
+"p": "At Char Khamba in Subhash Nagar, on the Clement Town side. A small Tibetan place with a short menu and very little seating, so you may wait for a table. It's one of the cheaper options on this list."
+},
+{
+"p": "<b>Hours:</b> check before going. Closed Sundays."
+},
+{
+"p": "Pair either of these with our temples guide, which covers Mindrolling."
+},
+{
+"h": "West Dehradun (GMS Road and Vasant Vihar)"
+},
+{
+"h3": "9. 8 Momoz, GMS Road"
+},
+{
+"p": "In Ophir Tower on GMS Road, Mohit Nagar. An evening place with a long menu that goes beyond momos into rolls, chaap and snacks. Handy if you live on the GMS Road or Ballupur side, and popular with students in the PGs around there."
+},
+{
+"p": "<b>Hours:</b> roughly 5 to 10:30 pm."
+},
+{
+"h3": "10. Mama Momo, Vasant Vihar"
+},
+{
+"p": "In Indra Nagar Colony, Vasant Vihar. A neighbourhood momo shop with steamed, jhol and other styles plus chowmein. Seating is limited and it gets busy in the evenings."
+},
+{
+"p": "<b>Hours:</b> roughly 1 to 10 pm."
+},
+{
+"h": "Quick picks"
+},
+{
+"ul": [
+"<b>For a sit-down Tibetan meal:</b> Kalsang or Lhasa Tibet Kitchen.",
+"<b>For the famous ones:</b> Tandon Snacks and Nanu's in Rajpur market.",
+"<b>For a cheap daytime plate:</b> Negi Fast Food or Choeden in Clement Town.",
+"<b>After 9 pm:</b> Kalsang, Lhasa or 8 Momoz. Most of the small counters have shut by then."
+]
+},
+{
+"h": "Tips before you go"
+},
+{
+"ul": [
+"Check the weekly off. Tandon's, Nanu's and Hungry Eye were all listed as closed on Tuesdays when we wrote this, and Wok This Way and Choeden on Sundays.",
+"The small counters sell out. If a place closes at 8, getting there at 7:30 is a gamble.",
+"Carry cash as well as UPI for the smaller shops.",
+"Ask for extra chutney. Most places will give it, and it's half the reason you came."
+]
+},
+{
+"h": "Frequently asked questions"
+},
+{
+"faq": [
+[
+"Which place has the best momos in Dehradun?",
+"Tandon Snacks and Nanu's in Rajpur market get talked about most, and Kalsang is the most famous sit-down Tibetan restaurant. The best one for you depends on which side of the city you live on, which is why this list is sorted by area."
+],
+[
+"Where can I find Tibetan food in Dehradun?",
+"Kalsang (Rajpur Road, Clock Tower and Mall of Dehradun), Lhasa Tibet Kitchen (Rajpur and Kulhan), and the small Tibetan shops in Clement Town near Mindrolling Monastery."
+],
+[
+"What is jhol momo?",
+"Momos served in a thin, sour and spicy soup made from the chutney. The dish is Nepali, and many momo places in Dehradun now serve it."
+],
+[
+"Which momo places are open late in Dehradun?",
+"The sit-down restaurants (Kalsang, Lhasa Tibet Kitchen) and 8 Momoz stay open until about 10:30 or 11 pm. Most small counters close between 6 and 9 pm."
+]
+]
+},
+{
+"h": "Find more on Doon Dekho"
+},
+{
+"p": "Every place in this guide is on Doon Dekho with directions. Browse Explore → Food & Drink → Street food, and see our full guide to street food in Dehradun for katlamba, bun tikki and the rest.",
+"cta": {
+"href": "/explore/food/street-food/",
+"label": "Browse Street food"
+}
+}
+]
+},
 {
 "slug": "best-street-food-in-dehradun",
 "t": "Best Street Food in Dehradun: 10 Places Locals Swear By",
