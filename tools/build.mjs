@@ -313,7 +313,7 @@ for (const [p, u] of PLACE_URL) {
   // `seo` on a place overrides the search title (use the words people search with, from Search Console).
   const where = area && !norm(p.n).includes(norm(area)) ? `${area}, ` : "";
   const title = p.seo || (isGem ? `${p.n}, Dehradun: Best Time, Tips and Directions` : p.t ? `${p.n}, ${where}Dehradun` : `${p.n}, ${where}Dehradun: Tips and Directions`);
-  const desc = `${strip(p.d)} ${isGem || !p.t ? "Area, best time, a local tip and directions." : "Area, courses, website and directions."}`.slice(0, 300);
+  const desc = `${strip(p.d)} ${isGem || !p.t ? "Where it is, the best time to go, a local tip and directions." : "Area, courses, website and directions."}`.slice(0, 300);
   const schema = {
     "@type": SCHEMA_TYPE[sb ? sb.id : ""] || "LocalBusiness", "@id": url + "#place", name: p.n, description: strip(p.d), url,
     // only real photos of this place (Wikimedia or your own), never generic stock
@@ -331,6 +331,15 @@ for (const [p, u] of PLACE_URL) {
     { "@type": "ListItem", position: 4, name: p.n, item: url }] };
   const ok = indexable(p, isGem);
   const img = imgTag(p.img, `${p.n}, Dehradun`, 1280, 720, true);
+  // Quick answers for "where is / how to reach / best time" searches, built only from the listing's own data.
+  const dist = isGem && p.alt.includes("·") ? p.alt.split("·")[1].trim() : "";
+  const qa = p.t ? [] : [
+    [`Where is ${p.n} in Dehradun?`, `${p.n} is in ${area}, Dehradun${dist && /km/.test(dist) ? `, about ${dist} from the city` : ""}.`, `Open it in <a href="${dir}" target="_blank" rel="noopener">Google Maps</a> for directions from where you are.`],
+    ...(p.best ? [[`When is the best time to visit ${p.n}?`, `${p.best}.`, ""]] : []),
+    ...(p.tip ? [[`Any tips before going to ${p.n}?`, p.tip, ""]] : [])
+  ];
+  const qaHTML = qa.length ? `<div class="place-links place-qa"><h2>Quick answers</h2>${qa.map(([q, a, extra]) => `<h3>${esc(q)}</h3><p>${esc(a)}${extra ? " " + extra : ""}</p>`).join("")}</div>` : "";
+  const qaLD = qa.length ? [{ "@type": "FAQPage", mainEntity: qa.map(([q, a]) => ({ "@type": "Question", name: q, acceptedAnswer: { "@type": "Answer", text: a } })) }] : [];
   const main = `<section class="page-hero ex-compact"><div class="wrap">
 <nav class="crumbs-light" aria-label="Breadcrumb"><a href="/">Home</a><span>/</span><a href="/explore/">Explore</a><span>/</span><a href="/explore/${secId}/${sb.id}/">${esc(cat)}</a><span>/</span><span aria-current="page">${esc(p.n)}</span></nav>
 <p class="label">${esc(cat)} · ${esc(area)}${p.f ? " · Featured" : ""}</p>
@@ -343,6 +352,7 @@ ${img ? `<figure class="ph place-ph" style="--h:${(PHOTOS[p.img] || { h: 38 }).h
 ${p.tip ? `<p class="tip"><b>Local tip ·</b> ${esc(p.tip)}</p>` : ""}
 ${p.t ? `<p class="tip"><b>Admissions ·</b> Courses, fees and dates change every year. Always confirm with the institution before applying.</p>` : ""}
 <div class="btn-row"><a class="btn" href="${dir}" target="_blank" rel="noopener">Get directions</a>${p.web ? `<a class="btn line" href="${esc(p.web)}" target="_blank" rel="noopener">Official website</a>` : ""}<a class="btn line" href="/explore/${secId}/${sb.id}/">All ${esc(cat.toLowerCase())}</a></div>
+${qaHTML}
 ${posts.length ? `<div class="place-links"><h2>Read about it</h2><ul>${posts.map(x => `<li><a href="/blog/${x.slug}/">${esc(x.t)}</a><span>${esc(x.cat)}</span></li>`).join("")}</ul></div>` : ""}
 ${linkList(`More ${esc(cat.toLowerCase())} in Dehradun`, sameSub)}
 ${linkList(`Also in ${esc(area)}`, sameArea)}
@@ -350,7 +360,7 @@ ${isGem || p.t ? "" : `<p class="place-claim">Run ${esc(p.n)}? <a href="/#busine
 </div></section>`;
   const html = shell(main, {
     title: `${title} · Doon Dekho`, desc, url, image: imgURL(p.img), noindex: !ok,
-    ld: { "@context": "https://schema.org", "@graph": [schema, crumbs] }
+    ld: { "@context": "https://schema.org", "@graph": [schema, crumbs, ...qaLD] }
   });
   write(`${u.slice(1)}index.html`, html);
   placeCount++;

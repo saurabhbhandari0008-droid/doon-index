@@ -298,7 +298,7 @@ window.SHOP = [
 
 /* Blog posts. Body blocks: {p}, {h}, {q} quote, {tip}, {img, cap} */
 window.POSTS = [
- {slug:"48-hours-in-dehradun",seo:"48 Hours in Dehradun: A 2-Day Itinerary (2026)",t:"48 hours in Dehradun",cat:"Guides",min:8,date:"20 Oct 2026",img:"hero-valley",
+ {slug:"48-hours-in-dehradun",desc:"A two-day Dehradun itinerary: Rajpur Road bakeries, the Forest Research Institute, Paltan Bazaar, Robber's Cave at 8 am and sunset on the Mussoorie road.",seo:"48 Hours in Dehradun: A 2-Day Itinerary (2026)",t:"48 hours in Dehradun",cat:"Guides",min:8,date:"20 Oct 2026",img:"hero-valley",
   ex:"Two days, one valley. Bakeries at breakfast, a river gorge before lunch, momos by the Clock Tower and a sunset up the Mussoorie road.",
   body:[
    {p:"Dehradun rewards people who slow down. The city is small enough to cross in half an hour, but every road out of it leads somewhere worth stopping: a river, a monastery, a bakery that has been doing the same thing well for decades. Here is how to fit the best of it into a weekend."},
@@ -312,7 +312,7 @@ window.POSTS = [
    {p:"Before dark, drive up the Mussoorie road for the view back over the valley. On a clear evening you can see the city lights spread out below like a second sky."},
    {tip:"Plan the hills for the morning after rain. The air is clearest then and the views go all the way to the plains."}
   ]},
- {slug:"rajpur-road-walk",seo:"Rajpur Road Dehradun on Foot: Cafés, Bakeries and Sights",t:"Rajpur Road, end to end, on foot",cat:"Walks",min:6,date:"14 Oct 2026",img:"rajpur-road",
+ {slug:"rajpur-road-walk",desc:"Walk Rajpur Road from the Clock Tower to Rajpur village, about 9 km: bakeries, old bungalows, Tibetan kitchens, and when to go to avoid the traffic.",seo:"Rajpur Road Dehradun on Foot: Cafés, Bakeries and Sights",t:"Rajpur Road, end to end, on foot",cat:"Walks",min:6,date:"14 Oct 2026",img:"rajpur-road",
   ex:"Nine kilometres from the Clock Tower to the foot of the Mussoorie road. Bakeries, Tibetan kitchens and old bungalows on the way.",
   body:[
    {p:"Rajpur Road runs about nine kilometres from the Clock Tower to Rajpur village, where the old bridle path to Mussoorie begins. It is the city’s main street, its café strip and, for most of its length, a gentle climb. Start early and walk north."},
@@ -326,7 +326,7 @@ window.POSTS = [
    {p:"At Rajpur the road narrows and the hills close in. Have a last chai, then take a shared cab back down."},
    {tip:"Walk on a weekday morning. Weekend afternoons bring heavy traffic to the lower half."}
   ]},
- {slug:"paltan-bazaar-food",seo:"Paltan Bazaar Street Food: Bun Tikki, Momos and Chai",t:"A bun-tikki crawl through Paltan Bazaar",cat:"Food",min:4,date:"8 Oct 2026",img:"food-stall",
+ {slug:"paltan-bazaar-food",desc:"What to eat in Paltan Bazaar after 6 pm: bun-tikki from the thelas, momos near Ghanta Ghar, kulhad chai, and a few tips for an evening food walk.",seo:"Paltan Bazaar Street Food: Bun Tikki, Momos and Chai",t:"A bun-tikki crawl through Paltan Bazaar",cat:"Food",min:4,date:"8 Oct 2026",img:"food-stall",
   ex:"The thelas come out after 6 pm. Here’s what to eat, in what order, and how to leave room for chai.",
   body:[
    {p:"Paltan Bazaar is busiest after 6 pm, which is exactly when the thelas come out. The market runs downhill from the Clock Tower in a tangle of lanes, and the food follows the crowds."},
@@ -339,7 +339,7 @@ window.POSTS = [
    {p:"Finish with a kulhad of chai and a slow walk through the woollens lanes."},
    {tip:"Most carts take UPI now, but keep some cash for the smaller stalls."}
   ]},
- {slug:"choosing-school-dehradun",seo:"Day School or Boarding? How to Choose a School in Dehradun",t:"Day school or boarding? Choosing a school in Dehradun",cat:"Schools",min:7,date:"1 Oct 2026",img:"corridor",
+ {slug:"choosing-school-dehradun",desc:"Choosing a school in Dehradun: compare CBSE, ICSE and IB, decide between day school and boarding, and ask for the full annual cost in writing.",seo:"Day School or Boarding? How to Choose a School in Dehradun",t:"Day school or boarding? Choosing a school in Dehradun",cat:"Schools",min:7,date:"1 Oct 2026",img:"corridor",
   ex:"Dehradun has some of India’s best-known schools. A simple way to compare boards, campuses and costs.",
   body:[
    {p:"Dehradun has some of India’s best-known boarding schools and many strong day schools. For parents, the choice can feel overwhelming. A few questions, asked in the right order, make it much simpler."},
@@ -352,7 +352,7 @@ window.POSTS = [
    {p:"Fee structures differ a lot. Ask for the full annual cost in writing, including boarding, uniforms, trips and activities."},
    {tip:"Talk to parents of current students. They will tell you what the brochure doesn’t."}
   ]},
- {slug:"robbers-cave-guide",seo:"Robbers Cave Dehradun (Guchhupani): Best Time and Tips",t:"Robber’s Cave, before the crowds",cat:"Hidden gems",min:5,date:"24 Sep 2026",img:"river",
+ {slug:"robbers-cave-guide",desc:"Robbers Cave (Guchhupani) is a river gorge about 8 km from Dehradun. Arrive by 8 am to beat the crowds, and wear sandals: the water is ankle to knee deep.",seo:"Robbers Cave Dehradun (Guchhupani): Best Time and Tips",t:"Robber’s Cave, before the crowds",cat:"Hidden gems",min:5,date:"24 Sep 2026",img:"river",
   ex:"A narrow river gorge eight kilometres from the city. Go at 8 am and you’ll have it almost to yourself.",
   body:[
    {p:"Guchhupani, better known as Robber’s Cave, is a narrow river gorge about 8 km from the city centre. The stream disappears underground and comes back up further along, and the rock walls close in overhead."},
@@ -364,7 +364,7 @@ window.POSTS = [
    {q:"Walk to the far end. Most people turn back halfway."},
    {tip:"The tea stalls at the entrance open around nine. Have breakfast there on the way out."}
   ]},
- {slug:"litchi-season",seo:"Dehradun Litchi Season: When and Where to Buy (2026)",t:"Litchi season: when and where",cat:"Seasonal",min:3,date:"18 Sep 2026",img:"valley-hills",
+ {slug:"litchi-season",desc:"Dehradun litchis ripen from late May to June. Where to buy them fresh from orchards around Rajpur, Raipur and Vikasnagar, and how to pick the best trees.",seo:"Dehradun Litchi Season: When and Where to Buy (2026)",t:"Litchi season: when and where",cat:"Seasonal",min:3,date:"18 Sep 2026",img:"valley-hills",
   ex:"Late May to June, the orchards turn red. How to buy the best Dehradun litchis straight from the tree.",
   body:[
    {p:"Dehradun litchis ripen from late May to June. For a few weeks the orchards around the city turn red, and the fruit sellers move to every corner."},
@@ -829,7 +829,7 @@ window.NEW_POSTS = [
 {
 "slug": "best-cafes-rajpur-road-dehradun",
 "t": "Best Cafés on Rajpur Road, Dehradun: Where to Go and What to Order",
-"seo": "Best Cafés on Rajpur Road, Dehradun (2026 Guide)",
+"seo": "Best Cafes on Rajpur Road, Dehradun: Where to Go, What to Order",
 "desc": "A local's guide to cafés in Dehradun's Rajpur Road: quiet work spots, date-night places, Tibetan kitchens and the old bakeries worth a stop on the way.",
 "cat": "Food",
 "min": 3,
@@ -1295,7 +1295,7 @@ window.NEW_POSTS = [
 {
 "slug": "dehradun-shopping-guide",
 "t": "Dehradun Shopping Guide: Paltan Bazaar, Indira Market and Where Locals Really Shop",
-"seo": "Shopping in Dehradun: Best Markets and What to Buy (2026)",
+"seo": "Dehradun Markets for Shopping: Paltan Bazaar, Indira Market",
 "desc": "Paltan Bazaar, Indira Market, the Tibetan Market and pahadi stores: a local's guide to shopping in Dehradun, what to bring home and how to bargain well.",
 "cat": "Shopping",
 "min": 3,
@@ -1704,7 +1704,7 @@ window.NEW_POSTS = [
 {
 "slug": "best-bakeries-in-dehradun",
 "t": "Dehradun's Bakeries and the Famous Rusk: Where to Buy and What to Try",
-"seo": "Best Bakeries in Dehradun and the Famous Rusk (2026)",
+"seo": "Best Bakery in Dehradun? Where to Buy the Famous Rusk (2026)",
 "desc": "Why Dehradun is famous for rusks, which bakeries locals swear by, and what to carry home as a gift: rusks, cheese straws, plum cake, puffs and more.",
 "cat": "Food",
 "min": 3,
