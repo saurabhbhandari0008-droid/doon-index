@@ -443,8 +443,332 @@ window.ADS = [
   text:"Be one of the first in our new For Pets section.",cta:"Get listed",action:"biz:list",img:"corgi"}
 ];
 
-/* Journal posts published 23–27 Oct 2026 (newest first) */
+/* Journal posts published 23 Oct – 2 Nov 2026 (newest first) */
 window.NEW_POSTS = [
+{
+"slug": "diwali-shopping-in-dehradun",
+"t": "Diwali Shopping in Dehradun: Markets, Sweets and Gifts",
+"seo": "Diwali Shopping in Dehradun 2026: Markets and Gifts",
+"desc": "Diwali shopping in Dehradun for 2026: which bazaar to go to for what, the Paltan Bazaar vehicle rules, where to park, and gifts that actually come from Doon.",
+"cat": "Shopping",
+"min": 5,
+"date": "2 Nov 2026",
+"img": "bazaar",
+"ex": "Which bazaar to go to for what, the festive traffic rules around Paltan Bazaar, and gifts that come from Doon rather than a mall.",
+"sec": "shopping",
+"sub": "markets",
+"body": [
+{
+"p": "Diwali shopping in Dehradun mostly happens in one small corner of the city. Paltan Bazaar, Moti Bazaar, Hanuman Chowk and Dhamawala sit within walking distance of the Clock Tower, and in the week before the festival it can feel like half the valley is in those lanes at the same time."
+},
+{
+"p": "This guide covers where to go for what, how the festive traffic rules work this year, and what to buy if you want gifts that are actually from here."
+},
+{
+"h": "Diwali 2026 dates"
+},
+{
+"p": "The five days fall like this in 2026:"
+},
+{
+"ul": [
+"Dhanteras: Friday, 6 November",
+"Choti Diwali: Saturday, 7 November",
+"Diwali and Lakshmi Puja: Sunday, 8 November",
+"Govardhan Puja: Monday, 9 November",
+"Bhai Dooj: Tuesday, 10 November"
+]
+},
+{
+"p": "Diwali is on a Sunday this year, and that matters here. Most shops in Paltan Bazaar normally stay shut on Sundays. Some will open for the festival, but don't count on finding your usual shop open on the day. Plan to finish your shopping by Saturday evening."
+},
+{
+"h": "Paltan Bazaar traffic rules this festive season"
+},
+{
+"p": "The district administration has made Paltan Bazaar vehicle-free from 11 am to 7 pm for the festive season. According to the city's traders' association, the rule covers Moti Bazaar and Hanuman Chowk too, and it started on 27 October. Loading vehicles, three-wheelers and cars are stopped at the entry points. Two-wheelers are allowed. Shopkeepers can load and unload only before 11 am and after 7 pm."
+},
+{
+"p": "In practice this makes the bazaar much easier on foot. It also means you can't drive up to a shop, load a carton of diyas and leave. Park outside and carry what you buy, or ask the shop to keep your bags until the evening."
+},
+{
+"p": "For last year's Diwali, the traffic police listed Gandhi Inter College and CNI School as parking for Paltan Bazaar shoppers, along with the MDDA complex at Ghanta Ghar and the multi-storey parking at Kanak Chowk. This year's list may differ, so check the Dehradun Police announcements before you set out."
+},
+{
+"tip": "go before 11 am on a weekday. The lanes are quieter, and shopkeepers have time to show you more than the first three options."
+},
+{
+"h": "Where to go for Diwali shopping in Dehradun"
+},
+{
+"h3": "Paltan Bazaar: clothes, dry fruits and the main festive buying"
+},
+{
+"p": "Paltan Bazaar starts at the Ghanta Ghar (Clock Tower) and is the oldest market in the city. For Diwali it has most of what a household needs: new clothes, dry fruits, spices, Doon basmati, gift boxes and decorations. It's also the most crowded place in Dehradun from Dhanteras onwards, so go with a list."
+},
+{
+"img": "w-paltan2",
+"cap": "The lanes off Paltan Bazaar get busiest from Dhanteras onwards."
+},
+{
+"h3": "Dhamawala: utensils and jewellery for Dhanteras"
+},
+{
+"p": "Dhanteras is the day many families buy something in metal: a steel or brass utensil, a silver coin, a piece of jewellery. The Dhamawala section, towards the railway station end of the bazaar, is where Dehradun goes for utensils and jewellery. Expect it to be packed on 6 November."
+},
+{
+"h3": "Moti Bazaar and Hanuman Chowk"
+},
+{
+"p": "Moti Bazaar has wholesale-style shops, which helps if you're buying the same gift for a lot of people. It also has the city's best-known chole katlamba, so plan your food break here (our street food guide has the details). Near the Hanuman temple at Hanuman Chowk, Chetan Pooriwala serves puri sabzi, which is a good reason to start a shopping morning there."
+},
+{
+"h3": "Indira Market"
+},
+{
+"p": "Near Darshan Lal Chowk, Indira Market is the place for everyday clothes, shoes and bags at reasonable prices. It's a calmer option if you need a new kurta for Lakshmi Puja and don't want to fight the Paltan Bazaar crowd."
+},
+{
+"h3": "Tibetan Market, Parade Ground"
+},
+{
+"p": "Diwali falls right when the winter stock arrives. The stalls at the Tibetan Market, Parade Ground sell jackets, sweaters, caps and gloves, and a good jacket makes a practical Diwali gift for anyone heading into a Doon winter."
+},
+{
+"h": "Gifts that come from Dehradun"
+},
+{
+"p": "Dry fruit boxes and chocolate hampers are available everywhere. If you want something that says Doon, try these instead."
+},
+{
+"ul": [
+"<b>A box of rusks or cake rusk from an old bakery.</b> Ellora’s Melting Moments on Rajpur Road is the famous name, and there's Quality Bakery near the Clock Tower. Our bakeries guide has more.",
+"<b>Doon basmati.</b> Paltan Bazaar is where to buy it. A small bag of good basmati is a gift most elders will appreciate.",
+"<b>Pahadi produce.</b> Honey, gahat, rajma, mandua flour and pahadi salt. Pahadi Store, Dehradun has branches in Ballupur and on the Doon University campus, and PAHADI ORGANIC HUB is in Ajabpur Khurd. A basket of three or four of these makes a better hamper than most ready-made ones.",
+"<b>Handloom.</b> Himalayan Weavers Dehradun in Old Rajpur sells handloom shawls and stoles. The older woollen shops in Paltan Bazaar, like Urvashi Wool House and Bareilly Wool Bhandar, are worth a look for shawls too.",
+"<b>A book.</b> The English Book Depot is one of the city's best-known bookshops, and Moti Bazaar has several book depots."
+]
+},
+{
+"img": "honey",
+"cap": "Pahadi honey and pulses make a good Diwali hamper."
+},
+{
+"h": "Sweets"
+},
+{
+"p": "Every part of Dehradun has its own halwai, and most families already have a favourite. Two things help in Diwali week. Place big orders for gift boxes a few days ahead, because the popular shops are busiest on Choti Diwali and on the day itself. And buy fresh milk sweets close to when you'll give them, since they don't keep long. Kaju katli and dry sweets travel better if you're sending a box out of town."
+},
+{
+"h": "A simple Diwali shopping plan"
+},
+{
+"p": "Start at Hanuman Chowk around 10 am with puri sabzi. Walk up through Moti Bazaar and Paltan Bazaar for clothes, dry fruits and decorations while the vehicle ban keeps the lanes clear. Break for chole katlamba. Do Dhamawala last if you're buying utensils or jewellery, then finish at a bakery near the Clock Tower for rusks to take home. Keep the Tibetan Market for a separate evening."
+},
+{
+"h": "Tips before you go"
+},
+{
+"ul": [
+"Carry a cloth bag or two. You'll be walking with everything you buy.",
+"Most shops take UPI. Keep some cash for small stalls.",
+"Bargaining is normal in Paltan Bazaar, Indira Market and the Tibetan Market. It isn't in branded showrooms.",
+"Keep your phone and wallet in a front pocket in crowded lanes."
+]
+},
+{
+"h": "Frequently asked questions"
+},
+{
+"faq": [
+[
+"Which is the best market for Diwali shopping in Dehradun?",
+"Paltan Bazaar, starting at the Clock Tower. With Moti Bazaar, Hanuman Chowk and Dhamawala next to it, you can buy clothes, dry fruits, decorations, utensils and jewellery on one walk."
+],
+[
+"Can I drive into Paltan Bazaar during Diwali 2026?",
+"Not between 11 am and 7 pm. The festive rule keeps cars, three-wheelers and loading vehicles out of Paltan Bazaar during those hours. Two-wheelers are allowed, according to the traders' association."
+],
+[
+"When is Dhanteras in 2026?",
+"Friday, 6 November. Diwali and Lakshmi Puja are on Sunday, 8 November."
+],
+[
+"Where can I buy utensils and jewellery for Dhanteras in Dehradun?",
+"The Dhamawala section of Paltan Bazaar, near the railway station end."
+],
+[
+"What gifts can I buy in Dehradun that are local?",
+"Bakery rusks, Doon basmati, pahadi honey and pulses, and handloom shawls are the most Dehradun gifts you can give."
+]
+]
+},
+{
+"h": "Find more on Doon Dekho"
+},
+{
+"p": "Every market and shop in this guide is listed on Doon Dekho with directions. Browse Explore → Shopping to plan your route.",
+"cta": {
+"href": "/explore/shopping/markets/",
+"label": "Browse Markets"
+}
+}
+]
+},
+{
+"slug": "best-momos-in-dehradun",
+"t": "Best Momos in Dehradun: Where to Eat Them, Area by Area",
+"seo": "Best Momos in Dehradun (2026): 8 Places to Try",
+"desc": "The best momos in Dehradun, from chilli momos at Kalsang on Rajpur Road to the tiny stall near Astley Hall, plus the evening carts around the Clock Tower.",
+"cat": "Food",
+"min": 5,
+"date": "2 Nov 2026",
+"img": "momos",
+"ex": "Chilli momos on Rajpur Road, kothey in Rajpur, a steel plate near Astley Hall and the evening carts around Ghanta Ghar.",
+"sec": "food",
+"sub": "street-food",
+"body": [
+{
+"p": "Finding the best momos in Dehradun is less about one famous shop and more about knowing which kind you want. The city has sit-down Tibetan kitchens on Rajpur Road, Nepali places with their own chutneys, and carts that appear around the Clock Tower once the offices empty out."
+},
+{
+"p": "This list is organised so you can find a good plate wherever you are in the city. It draws on the places that food writers and local lists keep naming."
+},
+{
+"h": "Why momos are everywhere in Doon"
+},
+{
+"p": "Dehradun has a large Tibetan community, centred on Clement Town and the settlements around it, and a long connection with Nepal and the hills. Momos came with both. Over the years the city made them its own: you'll find fried, tandoori and kurkure versions next to the plain steamed ones, and almost every cart has its own red chutney."
+},
+{
+"h": "The kinds you'll see on a menu"
+},
+{
+"ul": [
+"<b>Steamed:</b> the default, and the best test of a kitchen. Thin wrapper, juicy filling.",
+"<b>Fried:</b> steamed first, then deep-fried until crisp.",
+"<b>Kothey:</b> the Nepali style, pan-fried on one side so the base is crisp and the top stays soft.",
+"<b>Chilli momos:</b> tossed in a thick, spicy gravy with onion and capsicum.",
+"<b>Tandoori and kurkure:</b> the North Indian street versions. One is marinated and roasted, the other coated and fried crunchy.",
+"<b>Jhol:</b> served in a thin, tangy soup."
+]
+},
+{
+"h": "Best momos in Dehradun: 8 places to try"
+},
+{
+"h3": "1. Kalsang Friends Corner, Rajpur Road"
+},
+{
+"p": "Kalsang is the name most people give first. It's a Tibetan kitchen on Rajpur Road, and the chilli momos are what it's known for, in a thick gravy with peppers and shallots. Steamed momos, thukpa and thenthuk are on the menu too. On a cold evening, order a bowl of thenthuk alongside. Weekends get busy, so go early for dinner."
+},
+{
+"img": "momos-2",
+"cap": "A plate of steamed momos with red chutney."
+},
+{
+"h3": "2. Tibet Kitchen – Didi Momo's, near New Empire Cinema"
+},
+{
+"p": "A small Tibetan, Chinese and Sikkimese kitchen on Rajpur Road, near the New Empire Cinema complex by Gandhi Park. It moved here from near the Clock Tower. It serves veg and non-veg momos and is a handy stop if you're shopping around Astley Hall or Gandhi Park."
+},
+{
+"h3": "3. Joshi Momos, near Astley Hall"
+},
+{
+"p": "A tiny stall that has been serving momos near Astley Hall for years. There's nothing fancy here: hot dumplings on a steel plate with sharp chutney, and they're cheap."
+},
+{
+"h3": "4. Orchards, Rajpur"
+},
+{
+"p": "Further up towards Rajpur, Orchards serves Tibetan and North-Eastern food with outdoor seating among the trees. The mutton and chicken kothey momos are the ones to order. One food list we read suggests skipping the cheese momos."
+},
+{
+"h3": "5. Thapa Restaurant, Hathibarkala"
+},
+{
+"p": "A no-fuss Tibetan place in Hathibarkala. The mutton momos are the reason to go: soft wrappers and a well-seasoned filling. Good for a quick lunch if you live in the Hathibarkala or Salawala area."
+},
+{
+"h3": "6. Saino, Chakrata Road"
+},
+{
+"p": "On the western side of the city, Saino serves Nepali food. The momos are plump and well seasoned, and they come with a strong tomato chutney that's different from the usual red chilli one. Worth the stop if you're near Chakrata Road or heading out towards Prem Nagar."
+},
+{
+"h3": "7. Singh Soup Bar, Rajpur Road"
+},
+{
+"p": "An open-air, drive-in place on Rajpur Road known for soups and momos with a fiery chilli sauce. Service is quick, which is why so many people stop here on the way home in the evening. Get a soup with your momos if it's cold."
+},
+{
+"h3": "8. The evening carts around Ghanta Ghar"
+},
+{
+"p": "The carts around the Ghanta Ghar (Clock Tower) and the edge of Paltan Bazaar are the classic place to eat momos. They come out in the evening. Pick the cart with the most people standing around it, and taste the chutney before you add more. If you're doing a bun tikki walk in Paltan Bazaar, finish here."
+},
+{
+"h": "Momos by area"
+},
+{
+"ul": [
+"<b>Rajpur Road and Astley Hall:</b> Kalsang Friends Corner, Tibet Kitchen – Didi Momo's, Joshi Momos, Singh Soup Bar.",
+"<b>Rajpur and Hathibarkala:</b> Orchards, Thapa Restaurant.",
+"<b>Chakrata Road:</b> Saino.",
+"<b>Clock Tower and Paltan Bazaar:</b> the evening carts."
+]
+},
+{
+"h": "How to tell a good plate of momos"
+},
+{
+"p": "The wrapper should be thin enough to see a little of the filling, and it shouldn't tear when you pick it up. A good veg filling tastes of cabbage and onion, not just oil. Chicken and mutton should be juicy, so a dry filling usually means the momos were steamed too long or reheated. The chutney matters as much as the momo. A good red chutney has garlic and tomato in it, not only chilli."
+},
+{
+"tip": "if you can't handle much spice, ask for the chutney on the side. Some carts mix it in by default."
+},
+{
+"h": "When to go"
+},
+{
+"p": "Momos are an evening food in Dehradun. The carts near the Clock Tower are a late-afternoon and evening thing, and winter evenings are when a hot plate makes the most sense. The sit-down places on Rajpur Road serve them at lunch too, so go then if you want a table without waiting."
+},
+{
+"h": "Frequently asked questions"
+},
+{
+"faq": [
+[
+"Where can I find the best momos in Dehradun?",
+"Kalsang Friends Corner on Rajpur Road is the name most people mention, especially for chilli momos. For street momos, try the evening carts around the Clock Tower or Joshi Momos near Astley Hall."
+],
+[
+"Which momos is Dehradun famous for?",
+"Steamed Tibetan momos with red chutney are the classic. Chilli momos, fried momos and Nepali-style kothey are also easy to find."
+],
+[
+"Are there good vegetarian momos in Dehradun?",
+"Yes. Veg momos, usually with a cabbage, onion and carrot filling, are on nearly every menu and cart in the city."
+],
+[
+"What time do momo carts open near the Clock Tower?",
+"They're an evening thing. Most carts set up in the late afternoon and stay busy after office hours."
+]
+]
+},
+{
+"h": "Find more on Doon Dekho"
+},
+{
+"p": "Browse Explore → Food & Drink → Street food to see momo stalls and the rest of Dehradun's street food with directions.",
+"cta": {
+"href": "/explore/food/street-food/",
+"label": "Browse Street food"
+}
+}
+]
+},
 {
 "slug": "best-street-food-in-dehradun",
 "t": "Best Street Food in Dehradun: 10 Places Locals Swear By",
