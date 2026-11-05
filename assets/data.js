@@ -712,7 +712,7 @@ window.NEW_POSTS = [
 {
 "slug": "best-street-food-in-dehradun",
 "t": "Best Street Food in Dehradun: 10 Places Locals Swear By",
-"seo": "Best Street Food in Dehradun (2026): 10 Places Locals Love",
+"seo": "Dehradun Famous Food: Best Street Food and Where to Eat It",
 "desc": "From chole katlamba in Moti Bazaar to bun tikki in Dalanwala and momos at the Clock Tower: the street food in Dehradun that locals actually queue for.",
 "cat": "Food",
 "min": 4,
