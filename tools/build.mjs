@@ -491,7 +491,7 @@ let home = seoHead(read("index.html"), {
   url: `${SITE}/`, image: BRAND_OG,
   ld: { "@context": "https://schema.org", "@graph": [
     { ...ORG, description: "A local city guide to Dehradun, Uttarakhand.", areaServed: { "@type": "City", name: "Dehradun" }, ...(SAME_AS.length ? { sameAs: SAME_AS } : {}) },
-    { "@type": "WebSite", "@id": SITE + "/#site", name: "Doon Dekho", url: SITE + "/", inLanguage: "en-IN", publisher: { "@id": SITE + "/#org" } }
+    { "@type": "WebSite", "@id": SITE + "/#site", name: "Doon Dekho", alternateName: ["DoonDekho", "Doon Dekho Dehradun"], url: SITE + "/", inLanguage: "en-IN", publisher: { "@id": SITE + "/#org" } }
   ] }
 });
 // crawlable directory in the grid container (the page script replaces it with cards)
@@ -516,6 +516,7 @@ const GA_TAG = `<script async src="https://www.googletagmanager.com/gtag/js?id=$
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date());gtag("config","${GA_ID}");</script>`;
 /* ---- brand icons: favicon, Apple touch icon, web manifest on every page ---- */
 const ICON_TAGS = `<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="icon" type="image/png" sizes="192x192" href="/assets/brand/icon-192.png">
 <link rel="icon" type="image/svg+xml" href="/assets/brand/icon.svg">
 <link rel="apple-touch-icon" href="/assets/brand/icon-180.png">
 <link rel="manifest" href="/site.webmanifest">`;
