@@ -1268,3 +1268,12 @@ html{-webkit-tap-highlight-color:transparent}
 .loader .lw span{display:inline-flex;align-items:center;gap:.4em}
 .loader .lw .mark{height:1em;width:auto}
 .loader .lw .mark .dot{fill:var(--brass-2)}
+/* compact banner ad on wider screens */
+@media (min-width:700px){
+  .ad-banner .ad-hit{grid-template-columns:minmax(0,.8fr) minmax(0,1.4fr);min-height:0;height:240px}
+  .ad-banner .ph{aspect-ratio:auto;height:240px;min-height:0}
+  .ad-banner .ad-body{padding:22px 30px}
+  .ad-banner .ad-body h3{font-size:clamp(1.25rem,2vw,1.6rem)}
+  .ad-article .ad-hit{height:auto;min-height:150px}
+  .ad-article .ph{height:100%;min-height:150px}
+}
