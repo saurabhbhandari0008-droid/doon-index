@@ -100,7 +100,7 @@
   "d": "2026-11-02"
  },
  "/explore/shopping/": {
-  "h": "1456e9a0cbf0",
+  "h": "322af189998f",
   "d": "2026-11-05"
  },
  "/explore/shopping/markets/": {
@@ -120,7 +120,7 @@
   "d": "2026-10-28"
  },
  "/explore/shopping/malls/": {
-  "h": "2a94ea28789c",
+  "h": "f933c90018cc",
   "d": "2026-11-05"
  },
  "/explore/grooming/": {
@@ -172,16 +172,16 @@
   "d": "2026-10-28"
  },
  "/explore/education/": {
-  "h": "236affbd8565",
-  "d": "2026-10-28"
+  "h": "39cb1aab7a75",
+  "d": "2026-11-05"
  },
  "/explore/education/schools/": {
   "h": "2961356fc925",
   "d": "2026-10-28"
  },
  "/explore/education/universities/": {
-  "h": "10d9a13691c1",
-  "d": "2026-10-28"
+  "h": "c4487d822c39",
+  "d": "2026-11-05"
  },
  "/explore/education/colleges/": {
   "h": "0f5e7080b8e1",
@@ -196,8 +196,8 @@
   "d": "2026-10-28"
  },
  "/explore/education/institutes/": {
-  "h": "7358820a5759",
-  "d": "2026-10-28"
+  "h": "2a5a030b81f9",
+  "d": "2026-11-05"
  },
  "/explore/education/coaching/": {
   "h": "7e09e8e79c1d",
@@ -208,15 +208,15 @@
   "d": "2026-10-28"
  },
  "/explore/places/": {
-  "h": "3e257b60afa8",
+  "h": "74ed3b5242d2",
   "d": "2026-11-05"
  },
  "/explore/places/attractions/": {
-  "h": "72dc2184b869",
+  "h": "25f33da448dd",
   "d": "2026-11-05"
  },
  "/explore/places/hidden-gems/": {
-  "h": "c49e2720c807",
+  "h": "e8caa7472ba8",
   "d": "2026-11-05"
  },
  "/explore/places/spiritual/": {
@@ -224,7 +224,7 @@
   "d": "2026-11-05"
  },
  "/explore/places/nature/": {
-  "h": "e2ef0038f011",
+  "h": "11c5b4dc6480",
   "d": "2026-11-05"
  },
  "/explore/places/parks/": {
@@ -328,7 +328,7 @@
   "d": "2026-11-05"
  },
  "/place/pacific-mall/": {
-  "h": "a8f4cd96abfb",
+  "h": "c02b73a03135",
   "d": "2026-11-05"
  },
  "/place/crossroads-mall/": {
@@ -348,7 +348,7 @@
   "d": "2026-11-05"
  },
  "/place/asan-conservation-reserve/": {
-  "h": "b2bdc302fee7",
+  "h": "aaa497f48a57",
   "d": "2026-11-05"
  },
  "/place/tapovan-temple/": {
@@ -356,16 +356,16 @@
   "d": "2026-11-05"
  },
  "/place/jabarkhet-nature-reserve/": {
-  "h": "9ec69b934f7b",
+  "h": "a2c4676f2901",
   "d": "2026-11-05"
  },
  "/place/ashoka-rock-edict-kalsi/": {
-  "h": "3299a22d312d",
+  "h": "5e53a0381a7c",
   "d": "2026-11-05"
  },
  "/place/subir-raha-oil-museum/": {
-  "h": "2b45cb8d5947",
-  "d": "2026-10-28"
+  "h": "c8d5c32a53db",
+  "d": "2026-11-05"
  },
  "/place/indira-market/": {
   "h": "c38c634833ad",
@@ -408,8 +408,8 @@
   "d": "2026-10-28"
  },
  "/place/indian-military-academy/": {
-  "h": "4bd8fa5a031f",
-  "d": "2026-10-28"
+  "h": "8bbe10614336",
+  "d": "2026-11-05"
  },
  "/place/robbers-cave/": {
   "h": "2c4e599dbde2",
@@ -424,8 +424,8 @@
   "d": "2026-10-28"
  },
  "/place/mussoorie-road-views/": {
-  "h": "876798c59a43",
-  "d": "2026-10-28"
+  "h": "1a449e480b39",
+  "d": "2026-11-05"
  },
  "/place/malsi-foothills/": {
   "h": "fa1c8a5e3529",
