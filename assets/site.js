@@ -88,8 +88,8 @@ const SUBMAP={};(window.SECTIONS||[]).forEach(sec=>sec.subs.forEach(sb=>SUBMAP[s
 const subOf=p=>SUBMAP[p.s]||null;
 /* place page URLs: must match slugify + dedupe in tools/build.mjs */
 const slugify=t=>String(t).normalize("NFKD").replace(/[\u0300-\u036f]/g,"").toLowerCase().replace(/&/g," and ").replace(/[’'.]/g,"").replace(/[^a-z0-9]+/g,"-").replace(/^-+|-+$/g,"");
-const PLACE_URL={},LINKABLE=[];{const used=new Set();const claim=(name,area,id)=>{let s=slugify(name);if(used.has(s))s=slugify(name+" "+area);if(used.has(s))s+="-"+id;used.add(s);const u="/place/"+s+"/";LINKABLE.push([name,u]);return u};
-(window.PLACES||[]).filter(p=>!p.u).forEach(p=>{PLACE_URL[p.id]=claim(p.n,p.a,p.id)});(window.GEMS||[]).forEach((g,i)=>claim(g.n,g.alt.split("·")[0],"g"+i))}
+const PLACE_URL={},SCHOOL_URL={},LINKABLE=[];{const used=new Set();const claim=(name,area,id)=>{let s=slugify(name);if(used.has(s))s=slugify(name+" "+area);if(used.has(s))s+="-"+id;used.add(s);const u="/place/"+s+"/";LINKABLE.push([name,u]);return u};
+(window.PLACES||[]).filter(p=>!p.u).forEach(p=>{PLACE_URL[p.id]=claim(p.n,p.a,p.id)});(window.GEMS||[]).forEach((g,i)=>claim(g.n,g.alt.split("·")[0],"g"+i));(window.SCHOOLS||[]).forEach((x,i)=>{SCHOOL_URL[x.n]=claim(x.n,x.a,"s"+i)})}
 const placeURL=p=>PLACE_URL[p.id]||"#";
 /* link the first mention of each place in a post to its page (same rules as tools/build.mjs) */
 const LINK_RE=LINKABLE.filter(([n])=>n.length>4).sort((a,b)=>b[0].length-a[0].length).map(([n,u])=>[new RegExp("(^|[^\\w])("+n.replace(/[.*+?^${}()|[\]\\]/g,"\\$&").replace(/[’']/g,"[’']")+")(?![\\w])","i"),u]);
@@ -106,7 +106,7 @@ const countSection=sec=>sec.subs.reduce((t,sb)=>t+countFor(sb.id),0);
 /* ---------- listing card (used on home + explore) ---------- */
 function card(p,o={}){
   if(p.school)return `<article class="card${o.wide?" wide":""}${o.cls?" "+o.cls:""}"${o.style?` style="${o.style}"`:""}><div style="position:relative">${ph(p.img||"fri",800,p.n)}<div class="tags"><span class="tag">School</span></div></div>
-   <div><div class="row"><span>${esc(p.a)}</span><span>${esc(p.board)}</span></div><h3><a class="stretch" href="#" data-school="${esc(p.n)}">${esc(p.n)}</a></h3><p class="d">${esc(p.type)} · ${esc(p.g)} · ${esc(p.d)}</p></div></article>`;
+   <div><div class="row"><span>${esc(p.a)}</span><span>${esc(p.board)}</span></div><h3><a class="stretch" href="${SCHOOL_URL[p.n]||"#"}" data-school="${esc(p.n)}">${esc(p.n)}</a></h3><p class="d">${esc(p.type)} · ${esc(p.g)} · ${esc(p.d)}</p></div></article>`;
   if(p.gem!==undefined)return `<article class="card${o.wide?" wide":""}${o.cls?" "+o.cls:""}"${o.style?` style="${o.style}"`:""}><div style="position:relative">${ph(p.img,800,p.n)}<div class="tags"><span class="tag">Hidden gem</span></div></div>
    <div><div class="row"><span>${esc(p.alt)}</span><span>Free</span></div><h3><a class="stretch" href="#" data-gem="${p.gem}">${esc(p.n)}</a></h3><p class="d">${esc(p.d)}</p></div></article>`;
   const sb=subOf(p);

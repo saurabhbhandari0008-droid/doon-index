@@ -86,10 +86,16 @@ const PLACE_URL = new Map(); // object -> "/place/slug/"
   };
   PLACES.filter(p => !p.u).forEach(p => claim(p, p.n, p.a, p.id));
   GEMS.forEach((g, i) => claim(g, g.n, g.alt.split("·")[0], "g" + i));
+  // Schools get pages too (claimed last so the slugs above match assets/site.js).
+  SCHOOLS.forEach((x, i) => {
+    x.s = "schools";
+    x.t = x.t || [x.type, x.board, x.g].filter(Boolean).join(" · ");
+    claim(x, x.n, x.a, "s" + i);
+  });
 }
 const urlOfItem = it => {
   if (PLACE_URL.has(it)) return PLACE_URL.get(it);
-  const orig = PLACES.find(p => p.id === it.id && p.n === it.n) || GEMS.find(g => g.n === it.n);
+  const orig = PLACES.find(p => p.id === it.id && p.n === it.n) || GEMS.find(g => g.n === it.n) || SCHOOLS.find(x => x.n === it.n);
   return orig && PLACE_URL.has(orig) ? PLACE_URL.get(orig) : null;
 };
 

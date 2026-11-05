@@ -172,12 +172,12 @@
   "d": "2026-10-28"
  },
  "/explore/education/": {
-  "h": "39cb1aab7a75",
+  "h": "61c11361b9a3",
   "d": "2026-11-05"
  },
  "/explore/education/schools/": {
-  "h": "2961356fc925",
-  "d": "2026-10-28"
+  "h": "5756cc5acd45",
+  "d": "2026-11-05"
  },
  "/explore/education/universities/": {
   "h": "c4487d822c39",
@@ -431,12 +431,60 @@
   "h": "fa1c8a5e3529",
   "d": "2026-10-28"
  },
+ "/place/the-asian-school/": {
+  "h": "c049bbb38300",
+  "d": "2026-11-05"
+ },
+ "/place/ecole-globale-international-girls-school/": {
+  "h": "13bb33c29382",
+  "d": "2026-11-05"
+ },
+ "/place/the-indian-public-school/": {
+  "h": "ca623606916d",
+  "d": "2026-11-05"
+ },
+ "/place/him-jyoti-school/": {
+  "h": "1dae2204d78f",
+  "d": "2026-11-05"
+ },
+ "/place/vantage-hall-girls-residential-school/": {
+  "h": "ca17531ff1e1",
+  "d": "2026-11-05"
+ },
+ "/place/doon-international-school-riverside-campus/": {
+  "h": "befb9a44f508",
+  "d": "2026-11-05"
+ },
+ "/place/delhi-public-school-dehradun/": {
+  "h": "c557ef1d82b2",
+  "d": "2026-11-05"
+ },
+ "/place/army-public-school-clement-town/": {
+  "h": "b0755fa9467b",
+  "d": "2026-11-05"
+ },
+ "/place/oak-grove-school/": {
+  "h": "f42e24630241",
+  "d": "2026-11-05"
+ },
+ "/place/woodstock-school/": {
+  "h": "dde73c05e512",
+  "d": "2026-11-05"
+ },
+ "/place/the-doon-global-school/": {
+  "h": "8abeadcb04cc",
+  "d": "2026-11-05"
+ },
+ "/place/convent-of-jesus-and-mary-waverley/": {
+  "h": "e982470a0d43",
+  "d": "2026-11-05"
+ },
  "/about/": {
   "h": "ff4f39c1bcb3",
   "d": "2026-11-05"
  },
  "/": {
-  "h": "6311efda32f0",
+  "h": "32e4fa201cdd",
   "d": "2026-11-05"
  },
  "/credits": {
