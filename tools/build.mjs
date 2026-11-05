@@ -116,7 +116,32 @@ function linkPlaces(html, used) {
 }
 
 /* Replace the <head> SEO block of a template. */
+/* Search snippets: titles up to ~60 characters, descriptions up to ~158, never cut mid-word. */
+function fitTitle(t) {
+  t = String(t || "").replace(/\s+/g, " ").trim();
+  const brand = " · Doon Dekho";
+  if (t.length <= 62) return t;
+  let core = t.endsWith(brand) ? t.slice(0, -brand.length) : t;
+  if (core.length <= 60) return core;
+  core = core.replace(/: (Best Time, )?Tips and Directions$/, "").replace(/: Tips and Directions$/, "");
+  if (core.length <= 60) return core;
+  core = core.replace(/ \((19|20)\d\d\)/, "");
+  if (core.length <= 60) return core;
+  // drop the area segment ("Name, Area, Dehradun" -> "Name, Dehradun")
+  core = core.replace(/^([^,]+), [^,]+, Dehradun/, "$1, Dehradun");
+  if (core.length <= 62) return core;
+  return core.slice(0, 60).replace(/[\s,:;·(-]+\S*$/, "");
+}
+function fitDesc(d) {
+  d = String(d || "").replace(/\s+/g, " ").trim();
+  if (d.length <= 160) return d;
+  const cut = d.slice(0, 158);
+  const sent = cut.lastIndexOf(". ");
+  if (sent >= 128) return cut.slice(0, sent + 1);
+  return cut.replace(/[\s,;:·(-]+\S*$/, "").replace(/[,;:]$/, "") + "…";
+}
 function seoHead(html, { title, desc, url, image, type = "website", ld, noindex = false }) {
+  title = fitTitle(title); desc = fitDesc(desc);
   const tags = [
     `<title>${esc(title)}</title>`,
     `<meta name="description" content="${esc(desc)}">`,
@@ -215,7 +240,11 @@ let blogTpl = read("blog/index.html");
 blogTpl = seoHead(blogTpl, {
   title: "Dehradun Blog: Food, Cafés, Places and Local Guides · Doon Dekho",
   desc: "Guides to Dehradun's street food, cafés, waterfalls, temples, shopping and more, written by people who live here.",
-  url: `${SITE}/blog/`, image: imgURL(POSTS[0].img)
+  url: `${SITE}/blog/`, image: imgURL(POSTS[0].img),
+  ld: { "@context": "https://schema.org", "@graph": [
+    { "@type": "Blog", name: "Doon Dekho Journal", url: `${SITE}/blog/`, publisher: { "@type": "Organization", name: "Doon Dekho", url: SITE + "/" },
+      blogPost: POSTS.map(x => ({ "@type": "BlogPosting", headline: x.seo || x.t, url: `${SITE}/blog/${x.slug}/` })) },
+    { "@type": "BreadcrumbList", itemListElement: [{ "@type": "ListItem", position: 1, name: "Home", item: SITE + "/" }, { "@type": "ListItem", position: 2, name: "Journal", item: SITE + "/blog/" }] }] }
 });
 blogTpl = fill(blogTpl, "bgrid", `${POSTS.map(p => `<a class="post-card" href="/blog/${p.slug}/"><h3>${esc(p.t)}</h3><p class="ex">${esc(p.ex)}</p></a>`).join("")}`);
 write("blog/index.html", blogTpl);
@@ -237,7 +266,10 @@ const itemList = (name, items) => ({
 const exRoot = seoHead(exTpl, {
   title: "Explore Dehradun by Category: Food, Places, Shopping, Schools · Doon Dekho",
   desc: "Every part of Dehradun sorted by category: food, shopping, grooming, pets, fitness, education, places to visit, stays and services.",
-  url: `${SITE}/explore/`, image: imgURL("hero-valley")
+  url: `${SITE}/explore/`, image: imgURL("hero-valley"),
+  ld: { "@context": "https://schema.org", "@graph": [
+    { "@type": "CollectionPage", name: "Explore Dehradun by category", url: `${SITE}/explore/`, hasPart: SECTIONS.map(x => ({ "@type": "CollectionPage", name: `${x.name} in Dehradun`, url: `${SITE}/explore/${x.id}/` })) },
+    { "@type": "BreadcrumbList", itemListElement: [{ "@type": "ListItem", position: 1, name: "Home", item: SITE + "/" }, { "@type": "ListItem", position: 2, name: "Explore", item: SITE + "/explore/" }] }] }
 });
 write("explore/index.html", fill(exRoot, "exList", `<nav>${SECTIONS.map(s => `<p><a href="/explore/${s.id}/">${esc(s.name)}</a>: ${s.subs.map(sb => `<a href="/explore/${s.id}/${sb.id}/">${esc(sb.name)}</a>`).join(", ")}</p>`).join("")}</nav>`));
 add("/explore/", "0.8", lastmod("/explore/", JSON.stringify(SECTIONS)));
@@ -250,7 +282,7 @@ for (const S of SECTIONS) {
   const su = `/explore/${S.id}/`;
   let h = seoHead(exTpl, {
     title: `${S.name} in Dehradun (${YEAR}) · Doon Dekho`,
-    desc: `${S.name} in Dehradun: ${S.subs.map(sb => sb.name.toLowerCase()).join(", ")}. ${S.blurb}`.slice(0, 300),
+    desc: `${S.blurb} Browse ${S.subs.map(sb => sb.name.toLowerCase()).join(", ").replace(/, ([^,]*)$/, " and $1")} in Dehradun.`,
     url: SITE + su, image: imgURL(S.img),
     ld: { "@context": "https://schema.org", "@graph": [crumbs([]), itemList(`${S.name} in Dehradun`, all)] }
   });
@@ -261,16 +293,16 @@ for (const S of SECTIONS) {
   for (const sb of S.subs) {
     const items = listFor(sb.id);
     const u = `/explore/${S.id}/${sb.id}/`;
-    const desc = items.length
-      ? `${sb.name} in Dehradun: ${items.slice(0, 4).map(p => p.n).join(", ")}${items.length > 4 ? ` and ${items.length - 4} more` : ""}. Areas, directions and details on Doon Dekho.`
-      : `${sb.name} in Dehradun on Doon Dekho, the complete guide to the city.`;
+    const names = items.slice(0, 3).map(p => p.n);
+    const listed = items.length ? `${items.length} listed on Doon Dekho, including ${names.length > 1 ? names.slice(0, -1).join(", ") + " and " + names[names.length - 1] : names[0]}.` : "";
+    const desc = items.length ? `${sb.intro || S.blurb} ${listed}` : `${sb.name} in Dehradun on Doon Dekho, the complete guide to the city.`;
     let k = seoHead(exTpl, {
       title: `${sb.name} in Dehradun (${YEAR}) · Doon Dekho`, desc: desc.slice(0, 300), url: SITE + u, image: imgURL(sb.img || S.img),
       ld: { "@context": "https://schema.org", "@graph": [crumbs([{ "@type": "ListItem", position: 4, name: sb.name, item: SITE + u }]), ...(items.length ? [itemList(`${sb.name} in Dehradun`, items)] : [])] },
       noindex: items.length === 0
     });
-    k = fill(fill(k, "exTitle", `${esc(sb.name)} <em>in Dehradun</em>`), "exBlurb", esc(S.blurb));
-    k = fill(k, "exList", listHTML(items));
+    k = fill(fill(k, "exTitle", `${esc(sb.name)} <em>in Dehradun</em>`), "exBlurb", esc(sb.intro || S.blurb));
+    k = fill(k, "exList", `${listed ? `<p class="seo-intro">${esc(listed)} Tap any place for the area, directions and details. Know a place that should be here? <a href="/#business">Tell us</a>.</p>` : ""}${listHTML(items)}<nav class="seo-sibs" aria-label="More in ${esc(S.name)}">More in ${esc(S.name)}: ${S.subs.filter(x => x !== sb).map(x => `<a href="/explore/${S.id}/${x.id}/">${esc(x.name)}</a>`).join(" · ")}</nav>`);
     write(`explore/${S.id}/${sb.id}/index.html`, k);
     if (items.length) add(u, "0.6", lastmod(u, JSON.stringify(items)));
   }
@@ -345,7 +377,14 @@ for (const [p, u] of PLACE_URL) {
   const img = imgTag(p.img, `${p.n}, Dehradun`, 1280, 720, true);
   // Quick answers for "where is / how to reach / best time" searches, built only from the listing's own data.
   const dist = isGem && p.alt.includes("·") ? p.alt.split("·")[1].trim() : "";
-  const qa = p.t ? [] : [
+  // Education listings: quick answers from the listing's own fields (type, year, area, board, website).
+  const eduQA = p.t ? [
+    [`What type of institution is ${p.n}?`, `${p.n}: ${p.t.replace(/ · /g, ", ")}.${p.board && !p.t.includes(p.board) ? ` Board: ${p.board}.` : ""}`, ""],
+    ...(p.est ? [[`When was ${p.n} established?`, `${p.n} was established in ${p.est}.`, ""]] : []),
+    [`Where is ${p.n}?`, `${p.n} is in ${area}, Dehradun.`, `Open it in <a href="${dir}" target="_blank" rel="noopener">Google Maps</a> for directions.`],
+    ...(p.web ? [[`What is the official website of ${p.n}?`, `The official website is ${p.web.replace(/^https?:\/\//, "").replace(/\/$/, "")}. Check it for current courses, fees and admission dates.`, ""]] : [])
+  ] : [];
+  const qa = p.t ? eduQA : [
     [`Where is ${p.n} in Dehradun?`, `${p.n}${p.aka ? ` (also called ${p.aka})` : ""} is in ${area}, Dehradun${p.km ? `, ${p.km.replace(/^about /i, "about ")}` : dist && /km/.test(dist) ? `, about ${dist} from the city` : ""}.`, `Open it in <a href="${dir}" target="_blank" rel="noopener">Google Maps</a> for directions from where you are.`],
     ...(p.hours ? [[`What are the timings of ${p.n}?`, `${p.hours}${/\.$/.test(p.hours) ? "" : "."} Timings can change, so check before you go.`, ""]] : []),
     ...(p.fee ? [[`Is there an entry fee at ${p.n}?`, `${p.fee}${/\.$/.test(p.fee) ? "" : "."}`, ""]] : []),
@@ -446,7 +485,7 @@ if (fs.existsSync(path.join(ROOT, "place"))) for (const d of fs.readdirSync(path
 
 /* ---- home + credits ---- */
 let home = seoHead(read("index.html"), {
-  title: "Doon Dekho · Dehradun City Guide: Cafés, Food, Places and Schools",
+  title: "Dehradun City Guide: Cafés, Food, Places, Schools · Doon Dekho",
   desc: "The complete guide to Dehradun: cafés, street food, hidden gems, schools, shops and stories from the Doon Valley.",
   url: `${SITE}/`, image: imgURL("hero-valley"),
   ld: { "@context": "https://schema.org", "@graph": [
@@ -458,12 +497,18 @@ let home = seoHead(read("index.html"), {
 home = fill(home, "grid", `<ul class="seo-list">${[...PLACE_URL].filter(([p]) => !p.t).map(([p, u]) => `<li><a href="${u}">${esc(p.n)}</a> · ${esc(p.a || p.alt)}</li>`).join("")}</ul>`);
 write("index.html", home);
 add("/", "1.0", lastmod("/", [...PLACE_URL.values()].join() + POSTS.map(p => p.slug).join()));
-write("credits.html", seoHead(read("credits.html"), { title: "Photo credits · Doon Dekho", desc: "Credits for the photographs used on Doon Dekho.", url: `${SITE}/credits`, image: imgURL("hero-valley") }));
+write("credits.html", seoHead(read("credits.html"), { title: "Photo credits and licences · Doon Dekho", desc: "The photographers behind the pictures on Doon Dekho, with the licence for each photo. Most are from Wikimedia Commons; tell us if a credit is wrong.", url: `${SITE}/credits`, image: imgURL("hero-valley"),
+  ld: { "@context": "https://schema.org", "@type": "WebPage", name: "Photo credits", url: `${SITE}/credits`, isPartOf: { "@type": "WebSite", name: "Doon Dekho", url: SITE + "/" } } }));
 add("/credits", "0.2", lastmod("/credits", "credits"));
 
 /* ---- sitemap + lastmod record ---- */
 write("sitemap.xml", `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.map(x => `  <url><loc>${SITE}${x.u}</loc><lastmod>${x.d}</lastmod><priority>${x.pri}</priority></url>`).join("\n")}\n</urlset>\n`);
 write(LM_FILE, JSON.stringify(lastmodNew, null, 1) + "\n");
+/* ---- Crawlable footer: the same links the script draws, present in the HTML for search engines.
+   assets/site.js replaces the contents of #footer when it runs, so visitors see the normal footer. ---- */
+const STATIC_FOOT = `<div class="wrap"><nav aria-label="Site"><p><a href="/">Doon Dekho</a>: an independent guide to Dehradun.</p>
+${SECTIONS.map(x => `<p><a href="/explore/${x.id}/">${esc(x.name)}</a>: ${x.subs.map(b => `<a href="/explore/${x.id}/${b.id}/">${esc(b.name)}</a>`).join(", ")}</p>`).join("\n")}
+<p><a href="/blog/">Journal</a> · <a href="/explore/">All categories</a> · <a href="/about/">About</a> · <a href="/credits">Photo credits</a></p></nav></div>`;
 /* ---- Google Analytics 4 (doondekho.in property) on every page ---- */
 const GA_ID = "G-VPM2SFRKV5";
 const GA_TAG = `<script async src="https://www.googletagmanager.com/gtag/js?id=${GA_ID}"></script>
@@ -479,6 +524,7 @@ const GA_TAG = `<script async src="https://www.googletagmanager.com/gtag/js?id=$
     const src = fs.readFileSync(f, "utf8");
     let out = src.replace(/(["'])\/(assets\/(?:site\.js|data\.js|styles\.css))(?:\?v=[a-z0-9]+)?\1/g, (m, q, a) => `${q}/${a}?v=${ver[a]}${q}`);
     if (!out.includes(GA_ID)) out = out.replace(/<head>\n?/, `<head>\n${GA_TAG}\n`);
+    out = out.replace(/<footer id="footer">[\s\S]*?<\/footer>/, `<footer id="footer">${STATIC_FOOT}</footer>`);
     if (out !== src) fs.writeFileSync(f, out);
   }
 }
