@@ -176,7 +176,8 @@ const fill = (html, id, inner) => {
 
 const urls = [];
 const add = (u, pri, d) => urls.push({ u, pri, d });
-const ORG = { "@type": "Organization", "@id": SITE + "/#org", name: "Doon Dekho", url: SITE + "/" };
+const ORG = { "@type": "Organization", "@id": SITE + "/#org", name: "Doon Dekho", url: SITE + "/", logo: { "@type": "ImageObject", url: SITE + "/assets/brand/icon-512.png", width: 512, height: 512 } };
+const BRAND_OG = SITE + "/assets/brand/og-default.png";
 /* The person who writes the guide. Edit here; the About page and every post use it. */
 const AUTHOR = { "@type": "Person", "@id": SITE + "/about/#saurabh", name: "Saurabh", url: SITE + "/about/", homeLocation: { "@type": "City", name: "Dehradun" }, worksFor: { "@id": SITE + "/#org" } };
 
@@ -233,7 +234,7 @@ for (const P of POSTS) {
   add(u, "0.8", modified);
 }
 // the bare template should never be indexed
-write("post.html", seoHead(postTpl, { title: "Journal · Doon Dekho", desc: "Stories from Dehradun.", url: `${SITE}/blog/`, image: imgURL("hero-valley"), noindex: true }));
+write("post.html", seoHead(postTpl, { title: "Journal · Doon Dekho", desc: "Stories from Dehradun.", url: `${SITE}/blog/`, image: BRAND_OG, noindex: true }));
 
 /* ---- journal index ---- */
 let blogTpl = read("blog/index.html");
@@ -242,7 +243,7 @@ blogTpl = seoHead(blogTpl, {
   desc: "Guides to Dehradun's street food, cafés, waterfalls, temples, shopping and more, written by people who live here.",
   url: `${SITE}/blog/`, image: imgURL(POSTS[0].img),
   ld: { "@context": "https://schema.org", "@graph": [
-    { "@type": "Blog", name: "Doon Dekho Journal", url: `${SITE}/blog/`, publisher: { "@type": "Organization", name: "Doon Dekho", url: SITE + "/" },
+    { "@type": "Blog", name: "Doon Dekho Journal", url: `${SITE}/blog/`, publisher: { "@id": SITE + "/#org" },
       blogPost: POSTS.map(x => ({ "@type": "BlogPosting", headline: x.seo || x.t, url: `${SITE}/blog/${x.slug}/` })) },
     { "@type": "BreadcrumbList", itemListElement: [{ "@type": "ListItem", position: 1, name: "Home", item: SITE + "/" }, { "@type": "ListItem", position: 2, name: "Journal", item: SITE + "/blog/" }] }] }
 });
@@ -479,7 +480,7 @@ if (fs.existsSync(path.join(ROOT, "place"))) for (const d of fs.readdirSync(path
 </div></section>`;
   write("badge/index.html", shell(main, {
     title: "Featured on Doon Dekho badge", desc: "A badge for businesses listed on Doon Dekho, the Dehradun city guide, with the code to add it to a website.",
-    url: SITE + "/badge/", image: imgURL("hero-valley"), noindex: true
+    url: SITE + "/badge/", image: BRAND_OG, noindex: true
   }).replace('data-page="place"', 'data-page="about"'));
 }
 
@@ -487,7 +488,7 @@ if (fs.existsSync(path.join(ROOT, "place"))) for (const d of fs.readdirSync(path
 let home = seoHead(read("index.html"), {
   title: "Dehradun City Guide: Cafés, Food, Places, Schools · Doon Dekho",
   desc: "The complete guide to Dehradun: cafés, street food, hidden gems, schools, shops and stories from the Doon Valley.",
-  url: `${SITE}/`, image: imgURL("hero-valley"),
+  url: `${SITE}/`, image: BRAND_OG,
   ld: { "@context": "https://schema.org", "@graph": [
     { ...ORG, description: "A local city guide to Dehradun, Uttarakhand.", areaServed: { "@type": "City", name: "Dehradun" }, ...(SAME_AS.length ? { sameAs: SAME_AS } : {}) },
     { "@type": "WebSite", "@id": SITE + "/#site", name: "Doon Dekho", url: SITE + "/", inLanguage: "en-IN", publisher: { "@id": SITE + "/#org" } }
@@ -497,7 +498,7 @@ let home = seoHead(read("index.html"), {
 home = fill(home, "grid", `<ul class="seo-list">${[...PLACE_URL].filter(([p]) => !p.t).map(([p, u]) => `<li><a href="${u}">${esc(p.n)}</a> · ${esc(p.a || p.alt)}</li>`).join("")}</ul>`);
 write("index.html", home);
 add("/", "1.0", lastmod("/", [...PLACE_URL.values()].join() + POSTS.map(p => p.slug).join()));
-write("credits.html", seoHead(read("credits.html"), { title: "Photo credits and licences · Doon Dekho", desc: "The photographers behind the pictures on Doon Dekho, with the licence for each photo. Most are from Wikimedia Commons; tell us if a credit is wrong.", url: `${SITE}/credits`, image: imgURL("hero-valley"),
+write("credits.html", seoHead(read("credits.html"), { title: "Photo credits and licences · Doon Dekho", desc: "The photographers behind the pictures on Doon Dekho, with the licence for each photo. Most are from Wikimedia Commons; tell us if a credit is wrong.", url: `${SITE}/credits`, image: BRAND_OG,
   ld: { "@context": "https://schema.org", "@type": "WebPage", name: "Photo credits", url: `${SITE}/credits`, isPartOf: { "@type": "WebSite", name: "Doon Dekho", url: SITE + "/" } } }));
 add("/credits", "0.2", lastmod("/credits", "credits"));
 
@@ -513,6 +514,11 @@ ${SECTIONS.map(x => `<p><a href="/explore/${x.id}/">${esc(x.name)}</a>: ${x.subs
 const GA_ID = "G-VPM2SFRKV5";
 const GA_TAG = `<script async src="https://www.googletagmanager.com/gtag/js?id=${GA_ID}"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date());gtag("config","${GA_ID}");</script>`;
+/* ---- brand icons: favicon, Apple touch icon, web manifest on every page ---- */
+const ICON_TAGS = `<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="icon" type="image/svg+xml" href="/assets/brand/icon.svg">
+<link rel="apple-touch-icon" href="/assets/brand/icon-180.png">
+<link rel="manifest" href="/site.webmanifest">`;
 /* ---- cache-busting: point every page at the current version of the shared CSS/JS ---- */
 {
   const crypto = await import("node:crypto");
@@ -523,6 +529,9 @@ const GA_TAG = `<script async src="https://www.googletagmanager.com/gtag/js?id=$
   for (const f of walk(ROOT)) {
     const src = fs.readFileSync(f, "utf8");
     let out = src.replace(/(["'])\/(assets\/(?:site\.js|data\.js|styles\.css))(?:\?v=[a-z0-9]+)?\1/g, (m, q, a) => `${q}/${a}?v=${ver[a]}${q}`);
+    out = out.replace(/<link rel="icon"[^>]*>\n?|<link rel="apple-touch-icon"[^>]*>\n?|<link rel="manifest"[^>]*>\n?/g, "");
+    out = out.replace(/(<meta name="viewport"[^>]*>\n?)/, `$1${ICON_TAGS}\n`);
+    if (!/<meta name="theme-color"/.test(out)) out = out.replace(/(<link rel="manifest"[^>]*>\n?)/, `$1<meta name="theme-color" content="#121418">\n`);
     if (!out.includes(GA_ID)) out = out.replace(/<head>\n?/, `<head>\n${GA_TAG}\n`);
     out = out.replace(/<footer id="footer">[\s\S]*?<\/footer>/, `<footer id="footer">${STATIC_FOOT}</footer>`);
     if (out !== src) fs.writeFileSync(f, out);

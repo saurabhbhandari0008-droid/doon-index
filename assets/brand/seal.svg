@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" role="img" aria-label="Doon Dekho · Dehradun · Est. 2026">
+<defs><path id="c" d="M200 200m-148 0a148 148 0 1 1 296 0a148 148 0 1 1-296 0"/></defs>
+<circle cx="200" cy="200" r="196" fill="#121418"/>
+<circle cx="200" cy="200" r="126" fill="none" stroke="#A9853F" stroke-width="2.5"/>
+<text font-family="Helvetica Neue,Helvetica,Arial,sans-serif" font-size="25" font-weight="700" letter-spacing="9" fill="#F3EFE7"><textPath href="#c" startOffset="0">·DOON DEKHO · DEHRADUN · EST. 2026 </textPath></text>
+<g transform="translate(130 150) scale(0.54)"><g fill="#F3EFE7">
+<path fill-rule="evenodd" d="M62 100.5a62.5 62.5 0 1 0 0.01 0zM62 131.5a31.5 31.5 0 1 1-0.01 0z"/>
+<path d="M93 45 109 10 125 45V225H93z"/>
+<path fill-rule="evenodd" d="M194.5 100.5a62.5 62.5 0 1 0 0.01 0zM194.5 131.5a31.5 31.5 0 1 1-0.01 0z"/>
+<path d="M225 45 241 10 257 45V225H225z"/>
+</g><circle cx="175" cy="53" r="19" fill="#C9A86A"/></g></svg>

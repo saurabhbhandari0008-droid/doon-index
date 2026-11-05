@@ -1259,3 +1259,12 @@ html{-webkit-tap-highlight-color:transparent}
 .place-src a{color:var(--brass);text-decoration:underline;text-underline-offset:2px}
 
 .sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+/* brand mark next to the wordmark */
+.logo{display:inline-flex;align-items:center;gap:.42em}
+.logo .mark{height:1.02em;width:auto;flex:none;transform:translateY(-.04em)}
+.logo .mark .dot{fill:var(--brass-2)}
+.nav.solid .logo .mark .dot,.nav.light .logo .mark .dot,.foot .logo .mark .dot{fill:var(--brass)}
+.loader .lw span{display:inline-flex;align-items:center;gap:.4em}
+.loader .lw .mark{height:1em;width:auto}
+.loader .lw .mark .dot{fill:var(--brass-2)}

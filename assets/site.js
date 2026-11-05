@@ -42,9 +42,11 @@ const heart=`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-w
 const arrowL=`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M15 5l-7 7 7 7"/></svg>`;
 const arrowR=`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 5l7 7-7 7"/></svg>`;
 const navEl=$("#nav");
+const MARK=`<svg class="mark" viewBox="0 0 260 230" aria-hidden="true" focusable="false"><g fill="currentColor"><path fill-rule="evenodd" d="M62 100.5a62.5 62.5 0 1 0 0.01 0zM62 131.5a31.5 31.5 0 1 1-0.01 0z"/><path d="M93 45 109 10 125 45V225H93z"/><path fill-rule="evenodd" d="M194.5 100.5a62.5 62.5 0 1 0 0.01 0zM194.5 131.5a31.5 31.5 0 1 1-0.01 0z"/><path d="M225 45 241 10 257 45V225H225z"/></g><circle class="dot" cx="175" cy="53" r="19"/></svg>`;
+const LOGO=`${MARK}<span class="wm">Doon <i>Dekho</i></span>`;
 if(navEl){
   navEl.className="nav"+(document.body.dataset.nav==="light"?" light":"");
-  navEl.innerHTML=`<div class="wrap"><a class="logo" href="/">Doon <i>Dekho</i></a>
+  navEl.innerHTML=`<div class="wrap"><a class="logo" href="/" aria-label="Doon Dekho, home">${LOGO}</a>
   <nav class="links" aria-label="Main">${NAV.map(([l,h])=>`<a href="${h}"${(page==="blog"&&l==="Journal")||(page==="explore"&&l==="Explore")?' class="on"':""}>${l}</a>`).join("")}</nav>
   <div class="actions"><button class="icon-btn" id="savedBtn" aria-label="Saved places">${heart}<span class="badge" id="savedCount">0</span></button>
   <button class="icon-btn menu-btn" id="menuBtn" aria-label="Open menu">Menu</button></div></div>`;
@@ -75,7 +77,7 @@ const authorEl=page==="post"&&$(".article .author");
 if(authorEl&&!$(".ig-card"))authorEl.insertAdjacentHTML("afterend",`<aside class="ig-card" aria-label="Doon Dekho on Instagram"><div><p class="label">On Instagram</p><h3>See these places in reels first.</h3><p>New Dehradun finds every week: street food, cafés, waterfalls and the people behind them.</p></div>${igBtn("solid")}</aside>`);
 const footEl=$("#footer");
 if(footEl){footEl.className="site";footEl.innerHTML=`<div class="wrap">
-  <div class="foot"><div><a class="logo" href="/">Doon <i>Dekho</i></a><p>An independent guide to Dehradun, made by people who live here.</p>${igBtn()}</div>
+  <div class="foot"><div><a class="logo" href="/" aria-label="Doon Dekho, home">${LOGO}</a><p>An independent guide to Dehradun, made by people who live here.</p>${igBtn()}</div>
   <div><h4>Explore</h4><ul>${(window.SECTIONS||[]).slice(0,6).map(x=>`<li><a href="/explore/${x.id}/">${x.name}</a></li>`).join("")}<li><a href="/explore/">All categories</a></li></ul></div>
   <div><h4>Discover</h4><ul><li><a href="${home}#schools">Schools</a></li><li><a href="${home}#shop">Shop</a></li><li><a href="/blog/">Journal</a></li><li><a href="/about/">About Doon Dekho</a></li></ul></div>
   <div><h4>Business</h4><ul><li><a href="#" data-biz="list">Add your business</a></li><li><a href="#" data-biz="partner">Partner with us</a></li></ul></div></div>
@@ -388,7 +390,7 @@ function preloader(){
   if(RM)return;let seen=false;try{seen=sessionStorage.getItem("doon_loaded")}catch{}
   if(seen)return;try{sessionStorage.setItem("doon_loaded",1)}catch{}
   const l=document.createElement("div");l.className="loader";
-  l.innerHTML=`<div class="lw"><span>Doon <i>Dekho</i></span></div><div class="bar"></div>`;
+  l.innerHTML=`<div class="lw"><span>${LOGO}</span></div><div class="bar"></div>`;
   document.body.appendChild(l);setTimeout(()=>l.classList.add("done"),1300);setTimeout(()=>l.remove(),2400);
   return 1300;
 }
