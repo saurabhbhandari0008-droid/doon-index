@@ -282,6 +282,7 @@ const SCHEMA_TYPE = {
   universities: "CollegeOrUniversity", colleges: "CollegeOrUniversity", medical: "CollegeOrUniversity",
   engineering: "CollegeOrUniversity", institutes: "EducationalOrganization", coaching: "EducationalOrganization",
   libraries: "Library", schools: "School",
+  malls: "ShoppingCenter", parks: "Park",
   attractions: "TouristAttraction", spiritual: "PlaceOfWorship", nature: "TouristAttraction", "hidden-gems": "TouristAttraction"
 };
 // A place page is indexed when it says something specific; thin ones stay live for visitors but out of Google.
@@ -305,6 +306,10 @@ for (const [p, u] of PLACE_URL) {
     ? [["Type", p.t], ["Established", p.est || "—"], ["Area", area], ["Category", cat]]
     : [["Area", area], ["Budget", p.p || "Free"], ["Best time", p.best || "Any time"], ["Category", isGem ? "Hidden gem" : cat]];
   if (isGem && p.alt.includes("·")) facts[1] = ["Distance", p.alt.split("·")[1].trim()];
+  // Sourced practical details (hours, fee, km) replace the softer fields when present.
+  if (p.km) facts[1] = ["Distance", p.km];
+  if (p.hours) facts[2] = ["Timings", p.hours];
+  if (p.fee) facts.splice(3, 0, ["Entry", p.fee]);
   const posts = [...new Set([...(placeLinked.get(u) || []), ...(isGem && p.post ? POSTS.filter(x => x.slug === p.post) : [])])];
   const others = (list) => list.filter(x => x !== p && PLACE_URL.has(x)).slice(0, 6);
   const sameSub = others(isGem ? GEMS : PLACES.filter(x => x.s === p.s && !x.u));
@@ -313,7 +318,7 @@ for (const [p, u] of PLACE_URL) {
   // `seo` on a place overrides the search title (use the words people search with, from Search Console).
   const where = area && !norm(p.n).includes(norm(area)) ? `${area}, ` : "";
   const title = p.seo || (isGem ? `${p.n}, Dehradun: Best Time, Tips and Directions` : p.t ? `${p.n}, ${where}Dehradun` : `${p.n}, ${where}Dehradun: Tips and Directions`);
-  const desc = `${strip(p.d)} ${isGem || !p.t ? "Where it is, the best time to go, a local tip and directions." : "Area, courses, website and directions."}`.slice(0, 300);
+  const desc = `${p.aka ? `Also called ${p.aka}. ` : ""}${strip(p.d)} ${p.hours || p.fee ? "Timings, entry fee, how to get there and tips." : isGem || !p.t ? "Where it is, the best time to go, a local tip and directions." : "Area, courses, website and directions."}`.slice(0, 300);
   const schema = {
     "@type": SCHEMA_TYPE[sb ? sb.id : ""] || "LocalBusiness", "@id": url + "#place", name: p.n, description: strip(p.d), url,
     // only real photos of this place (Wikimedia or your own), never generic stock
@@ -322,7 +327,8 @@ for (const [p, u] of PLACE_URL) {
     hasMap: dir,
     ...(p.p && /^₹+$/.test(p.p) ? { priceRange: p.p } : {}),
     ...(p.web ? { sameAs: p.web } : {}),
-    ...(p.est ? { foundingDate: String(p.est) } : {})
+    ...(p.est ? { foundingDate: String(p.est) } : {}),
+    ...(p.aka ? { alternateName: p.aka.split(/,\s*| or /) } : {})
   };
   const crumbs = { "@type": "BreadcrumbList", itemListElement: [
     { "@type": "ListItem", position: 1, name: "Home", item: SITE + "/" },
@@ -334,7 +340,9 @@ for (const [p, u] of PLACE_URL) {
   // Quick answers for "where is / how to reach / best time" searches, built only from the listing's own data.
   const dist = isGem && p.alt.includes("·") ? p.alt.split("·")[1].trim() : "";
   const qa = p.t ? [] : [
-    [`Where is ${p.n} in Dehradun?`, `${p.n} is in ${area}, Dehradun${dist && /km/.test(dist) ? `, about ${dist} from the city` : ""}.`, `Open it in <a href="${dir}" target="_blank" rel="noopener">Google Maps</a> for directions from where you are.`],
+    [`Where is ${p.n} in Dehradun?`, `${p.n}${p.aka ? ` (also called ${p.aka})` : ""} is in ${area}, Dehradun${p.km ? `, ${p.km.replace(/^about /i, "about ")}` : dist && /km/.test(dist) ? `, about ${dist} from the city` : ""}.`, `Open it in <a href="${dir}" target="_blank" rel="noopener">Google Maps</a> for directions from where you are.`],
+    ...(p.hours ? [[`What are the timings of ${p.n}?`, `${p.hours}${/\.$/.test(p.hours) ? "" : "."} Timings can change, so check before you go.`, ""]] : []),
+    ...(p.fee ? [[`Is there an entry fee at ${p.n}?`, `${p.fee}${/\.$/.test(p.fee) ? "" : "."}`, ""]] : []),
     ...(p.best ? [[`When is the best time to visit ${p.n}?`, `${p.best}.`, ""]] : []),
     ...(p.tip ? [[`Any tips before going to ${p.n}?`, p.tip, ""]] : [])
   ];
@@ -344,6 +352,7 @@ for (const [p, u] of PLACE_URL) {
 <nav class="crumbs-light" aria-label="Breadcrumb"><a href="/">Home</a><span>/</span><a href="/explore/">Explore</a><span>/</span><a href="/explore/${secId}/${sb.id}/">${esc(cat)}</a><span>/</span><span aria-current="page">${esc(p.n)}</span></nav>
 <p class="label">${esc(cat)} · ${esc(area)}${p.f ? " · Featured" : ""}</p>
 <h1>${esc(p.n)}</h1>
+${p.aka ? `<p class="aka">Also called ${esc(p.aka)}</p>` : ""}
 <p>${esc(p.d)}</p>
 </div></section>
 <section class="place-body"><div class="wrap place-wrap">
@@ -354,9 +363,10 @@ ${p.t ? `<p class="tip"><b>Admissions ·</b> Courses, fees and dates change ever
 <div class="btn-row"><a class="btn" href="${dir}" target="_blank" rel="noopener">Get directions</a>${p.web ? `<a class="btn line" href="${esc(p.web)}" target="_blank" rel="noopener">Official website</a>` : ""}<a class="btn line" href="/explore/${secId}/${sb.id}/">All ${esc(cat.toLowerCase())}</a></div>
 ${qaHTML}
 ${posts.length ? `<div class="place-links"><h2>Read about it</h2><ul>${posts.map(x => `<li><a href="/blog/${x.slug}/">${esc(x.t)}</a><span>${esc(x.cat)}</span></li>`).join("")}</ul></div>` : ""}
+${p.src ? `<div class="place-src"><p>${p.sourced ? "Doon Dekho hasn't visited this place yet. These details come from the public sources below" : "Timings and fees come from the sources below"}, checked ${esc(p.checked || "")}. They change, so confirm before you go.</p><ul>${p.src.map(([label, href]) => `<li><a href="${esc(href)}" target="_blank" rel="noopener nofollow">${esc(label)}</a></li>`).join("")}</ul></div>` : ""}
 ${linkList(`More ${esc(cat.toLowerCase())} in Dehradun`, sameSub)}
 ${linkList(`Also in ${esc(area)}`, sameArea)}
-${isGem || p.t ? "" : `<p class="place-claim">Run ${esc(p.n)}? <a href="/#business">Add photos, timings and offers to this page</a>.</p>`}
+${isGem || p.t || p.public ? "" : `<p class="place-claim">Run ${esc(p.n)}? <a href="/#business">Add photos, timings and offers to this page</a>.</p>`}
 </div></section>`;
   const html = shell(main, {
     title: `${title} · Doon Dekho`, desc, url, image: imgURL(p.img), noindex: !ok,
@@ -386,6 +396,7 @@ if (fs.existsSync(path.join(ROOT, "place"))) for (const d of fs.readdirSync(path
 <ul class="list">
 <li><b>Verified places</b> (${verified} so far) have been checked by us. They get their own page with an area, budget, best time to go and a local tip.</li>
 <li><b>Unverified listings</b> come from public sources and are marked as such. We add details only after checking them, and owners can claim theirs.</li>
+<li><b>Listings from public sources</b> are well-known public places we haven't visited yet. Their pages say so and link the sources for timings and fees.</li>
 <li><b>Featured</b> labels mark places with a business relationship with Doon Dekho. It is always shown.</li>
 </ul>
 <h2>Photos</h2>

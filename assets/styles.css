@@ -1253,3 +1253,7 @@ html{-webkit-tap-highlight-color:transparent}
 .place-qa p{color:var(--ink-2);max-width:66ch}
 .place-qa a{color:var(--brass);font-weight:600;text-decoration:underline;text-underline-offset:3px}
 .badge-code{background:var(--sunk);border:1px solid var(--line);border-radius:10px;padding:14px 16px;overflow-x:auto;font-size:.82rem;line-height:1.5;white-space:pre-wrap;word-break:break-all}
+.page-hero .aka{font-weight:700;color:var(--brass);margin:-4px 0 6px}
+.place-src{font-size:.84rem;color:var(--muted);border-top:1px solid var(--line);padding-top:12px}
+.place-src ul{margin:6px 0 0;padding-left:18px}
+.place-src a{color:var(--brass);text-decoration:underline;text-underline-offset:2px}

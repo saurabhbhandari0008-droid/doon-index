@@ -76,8 +76,8 @@
   "d": "2026-11-02"
  },
  "/explore/": {
-  "h": "c3edc9c2875a",
-  "d": "2026-10-28"
+  "h": "a8c931f9bae1",
+  "d": "2026-11-05"
  },
  "/explore/food/": {
   "h": "c9d4a291a38e",
@@ -100,8 +100,8 @@
   "d": "2026-11-02"
  },
  "/explore/shopping/": {
-  "h": "b444c0f81b15",
-  "d": "2026-11-02"
+  "h": "1456e9a0cbf0",
+  "d": "2026-11-05"
  },
  "/explore/shopping/markets/": {
   "h": "38363e0e2c63",
@@ -118,6 +118,10 @@
  "/explore/shopping/books-gifts/": {
   "h": "cf7eb08572a4",
   "d": "2026-10-28"
+ },
+ "/explore/shopping/malls/": {
+  "h": "2a94ea28789c",
+  "d": "2026-11-05"
  },
  "/explore/grooming/": {
   "h": "f1275dbb117e",
@@ -204,24 +208,28 @@
   "d": "2026-10-28"
  },
  "/explore/places/": {
-  "h": "cb01413f712d",
-  "d": "2026-11-02"
+  "h": "3e257b60afa8",
+  "d": "2026-11-05"
  },
  "/explore/places/attractions/": {
-  "h": "072afb2d7def",
-  "d": "2026-11-02"
+  "h": "72dc2184b869",
+  "d": "2026-11-05"
  },
  "/explore/places/hidden-gems/": {
-  "h": "96b0daf03fe0",
-  "d": "2026-10-28"
+  "h": "c49e2720c807",
+  "d": "2026-11-05"
  },
  "/explore/places/spiritual/": {
-  "h": "24db515cdbfd",
-  "d": "2026-10-28"
+  "h": "c2964c6f530c",
+  "d": "2026-11-05"
  },
  "/explore/places/nature/": {
-  "h": "d034136af956",
-  "d": "2026-11-02"
+  "h": "e2ef0038f011",
+  "d": "2026-11-05"
+ },
+ "/explore/places/parks/": {
+  "h": "8b44f90c43b1",
+  "d": "2026-11-05"
  },
  "/explore/stays/": {
   "h": "c1bdefa3d169",
@@ -260,16 +268,16 @@
   "d": "2026-10-28"
  },
  "/place/forest-research-institute/": {
-  "h": "013f40875592",
-  "d": "2026-10-28"
+  "h": "8e3c40097b59",
+  "d": "2026-11-05"
  },
  "/place/mindrolling-monastery/": {
-  "h": "11b6696dbe31",
-  "d": "2026-10-28"
+  "h": "f2be7eefc643",
+  "d": "2026-11-05"
  },
  "/place/sahastradhara/": {
-  "h": "056699c71f36",
-  "d": "2026-10-28"
+  "h": "f42960482249",
+  "d": "2026-11-05"
  },
  "/place/clement-town-tibetan-market/": {
   "h": "0a2d84661460",
@@ -292,8 +300,8 @@
   "d": "2026-10-28"
  },
  "/place/prakasheshwar-mahadev-temple/": {
-  "h": "853ef659d35a",
-  "d": "2026-10-28"
+  "h": "c22c3b8ff24d",
+  "d": "2026-11-05"
  },
  "/place/santala-devi-temple/": {
   "h": "30f4cf9f2ddb",
@@ -316,8 +324,44 @@
   "d": "2026-10-28"
  },
  "/place/dehradun-zoo/": {
-  "h": "5b588c427680",
-  "d": "2026-10-28"
+  "h": "334183224479",
+  "d": "2026-11-05"
+ },
+ "/place/pacific-mall/": {
+  "h": "a8f4cd96abfb",
+  "d": "2026-11-05"
+ },
+ "/place/crossroads-mall/": {
+  "h": "afcbd78ee7b2",
+  "d": "2026-11-05"
+ },
+ "/place/gandhi-park/": {
+  "h": "e09068057abd",
+  "d": "2026-11-05"
+ },
+ "/place/anand-van/": {
+  "h": "d2ffb2d378e1",
+  "d": "2026-11-05"
+ },
+ "/place/fun-n-food-kingdom/": {
+  "h": "cedcc7ed940e",
+  "d": "2026-11-05"
+ },
+ "/place/asan-conservation-reserve/": {
+  "h": "b2bdc302fee7",
+  "d": "2026-11-05"
+ },
+ "/place/tapovan-temple/": {
+  "h": "2ea4e2ab93d2",
+  "d": "2026-11-05"
+ },
+ "/place/jabarkhet-nature-reserve/": {
+  "h": "9ec69b934f7b",
+  "d": "2026-11-05"
+ },
+ "/place/ashoka-rock-edict-kalsi/": {
+  "h": "3299a22d312d",
+  "d": "2026-11-05"
  },
  "/place/subir-raha-oil-museum/": {
   "h": "2b45cb8d5947",
@@ -368,8 +412,8 @@
   "d": "2026-10-28"
  },
  "/place/robbers-cave/": {
-  "h": "47651c498c8e",
-  "d": "2026-10-28"
+  "h": "2c4e599dbde2",
+  "d": "2026-11-05"
  },
  "/place/tapkeshwar-temple/": {
   "h": "ad3572095aa1",
@@ -388,12 +432,12 @@
   "d": "2026-10-28"
  },
  "/about/": {
-  "h": "ac46dcd09ede",
-  "d": "2026-10-28"
+  "h": "ff4f39c1bcb3",
+  "d": "2026-11-05"
  },
  "/": {
-  "h": "9d0cf874a5d6",
-  "d": "2026-11-02"
+  "h": "6311efda32f0",
+  "d": "2026-11-05"
  },
  "/credits": {
   "h": "66c22fad3a99",
