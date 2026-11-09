@@ -357,7 +357,7 @@ for (const [p, u] of PLACE_URL) {
   // `seo` on a place overrides the search title (use the words people search with, from Search Console).
   const where = area && !norm(p.n).includes(norm(area)) ? `${area}, ` : "";
   const title = p.seo || (isGem ? `${p.n}, Dehradun: Best Time, Tips and Directions` : p.t ? `${p.n}, ${where}Dehradun` : `${p.n}, ${where}Dehradun: Tips and Directions`);
-  const desc = `${p.aka ? `Also called ${p.aka}. ` : ""}${strip(p.d)} ${p.hours || p.fee ? "Timings, entry fee, how to get there and tips." : isGem || !p.t ? "Where it is, the best time to go, a local tip and directions." : "Area, courses, website and directions."}`.slice(0, 300);
+  const desc = p.sdesc || `${p.aka ? `Also called ${p.aka}. ` : ""}${strip(p.d)} ${p.hours || p.fee ? "Timings, entry fee, how to get there and tips." : isGem || !p.t ? "Where it is, the best time to go, a local tip and directions." : "Area, courses, website and directions."}`.slice(0, 300);
   const schema = {
     "@type": SCHEMA_TYPE[sb ? sb.id : ""] || "LocalBusiness", "@id": url + "#place", name: p.n, description: strip(p.d), url,
     // only real photos of this place (Wikimedia or your own), never generic stock
