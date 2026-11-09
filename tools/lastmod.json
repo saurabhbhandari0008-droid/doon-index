@@ -92,16 +92,16 @@
   "d": "2026-11-05"
  },
  "/explore/food/": {
-  "h": "d443332f92d1",
-  "d": "2026-11-05"
+  "h": "9a86594db652",
+  "d": "2026-11-09"
  },
  "/explore/food/street-food/": {
   "h": "bd2910d979b4",
   "d": "2026-11-05"
  },
  "/explore/food/cafes/": {
-  "h": "a871d4dceb14",
-  "d": "2026-11-05"
+  "h": "d6a41b8a2914",
+  "d": "2026-11-09"
  },
  "/explore/food/bakeries/": {
   "h": "214a8c13009d",
@@ -112,7 +112,7 @@
   "d": "2026-11-05"
  },
  "/explore/shopping/": {
-  "h": "16daa95c029d",
+  "h": "47465c582cfd",
   "d": "2026-11-09"
  },
  "/explore/shopping/markets/": {
@@ -132,8 +132,8 @@
   "d": "2026-11-05"
  },
  "/explore/shopping/malls/": {
-  "h": "f933c90018cc",
-  "d": "2026-11-05"
+  "h": "1d0c3200cffe",
+  "d": "2026-11-09"
  },
  "/explore/grooming/": {
   "h": "ad0ea3879eb4",
@@ -220,7 +220,7 @@
   "d": "2026-11-05"
  },
  "/explore/places/": {
-  "h": "e8c529ea8fca",
+  "h": "fea041ba8b7a",
   "d": "2026-11-09"
  },
  "/explore/places/attractions/": {
@@ -228,28 +228,28 @@
   "d": "2026-11-09"
  },
  "/explore/places/hidden-gems/": {
-  "h": "e8caa7472ba8",
-  "d": "2026-11-05"
+  "h": "37c37ba9e9d5",
+  "d": "2026-11-09"
  },
  "/explore/places/spiritual/": {
   "h": "82503c186193",
   "d": "2026-11-05"
  },
  "/explore/places/nature/": {
-  "h": "d392418bec72",
-  "d": "2026-11-05"
+  "h": "a26299e02657",
+  "d": "2026-11-09"
  },
  "/explore/places/parks/": {
   "h": "8b44f90c43b1",
   "d": "2026-11-05"
  },
  "/explore/stays/": {
-  "h": "b0dd916e3344",
-  "d": "2026-11-05"
+  "h": "75a1af9261ca",
+  "d": "2026-11-09"
  },
  "/explore/stays/hotels/": {
-  "h": "487a451f3e3d",
-  "d": "2026-11-05"
+  "h": "75549f1a698d",
+  "d": "2026-11-09"
  },
  "/explore/stays/pg-hostels/": {
   "h": "d9e01d29c037",
@@ -300,8 +300,8 @@
   "d": "2026-11-02"
  },
  "/place/maldevta/": {
-  "h": "5244df95a4da",
-  "d": "2026-11-02"
+  "h": "e9b110e804d6",
+  "d": "2026-11-09"
  },
  "/place/jharipani-falls/": {
   "h": "c6aeec61489e",
@@ -375,6 +375,66 @@
   "h": "5e53a0381a7c",
   "d": "2026-11-05"
  },
+ "/place/rising-dough/": {
+  "h": "c9b10cfdc49a",
+  "d": "2026-11-09"
+ },
+ "/place/eddies-patisserie/": {
+  "h": "e4d660fea554",
+  "d": "2026-11-09"
+ },
+ "/place/cafe-razzmatazz/": {
+  "h": "46703eaac4d6",
+  "d": "2026-11-09"
+ },
+ "/place/cafe-marigold/": {
+  "h": "e29e49d07fa7",
+  "d": "2026-11-09"
+ },
+ "/place/chhaya-cafe/": {
+  "h": "a4f7201b1b6b",
+  "d": "2026-11-09"
+ },
+ "/place/eltham-bakery-and-coffee-house/": {
+  "h": "6eef5b61c042",
+  "d": "2026-11-09"
+ },
+ "/place/krazy-for-coffee/": {
+  "h": "87ca41d8ad79",
+  "d": "2026-11-09"
+ },
+ "/place/waffles-and-crepes/": {
+  "h": "4a36ce7dbc5f",
+  "d": "2026-11-09"
+ },
+ "/place/the-mudcup-cafe/": {
+  "h": "8e5a9c85152a",
+  "d": "2026-11-09"
+ },
+ "/place/centrio-mall/": {
+  "h": "9136d583374c",
+  "d": "2026-11-09"
+ },
+ "/place/mall-of-dehradun/": {
+  "h": "ecd40cf2e4bf",
+  "d": "2026-11-09"
+ },
+ "/place/four-banyans-spirit-and-nature-resort/": {
+  "h": "aa7da9efc437",
+  "d": "2026-11-09"
+ },
+ "/place/dhanaulti/": {
+  "h": "2cd12225572d",
+  "d": "2026-11-09"
+ },
+ "/place/kanatal/": {
+  "h": "b8ff4fe57274",
+  "d": "2026-11-09"
+ },
+ "/place/chakrata/": {
+  "h": "87a643081410",
+  "d": "2026-11-09"
+ },
  "/place/subir-raha-oil-museum/": {
   "h": "c8d5c32a53db",
   "d": "2026-11-05"
@@ -428,8 +488,8 @@
   "d": "2026-11-05"
  },
  "/place/tapkeshwar-temple/": {
-  "h": "ad3572095aa1",
-  "d": "2026-10-28"
+  "h": "024a84b1ecdf",
+  "d": "2026-11-09"
  },
  "/place/lachhiwala/": {
   "h": "9fd0815966ad",
@@ -492,12 +552,12 @@
   "d": "2026-11-05"
  },
  "/about/": {
-  "h": "ff4f39c1bcb3",
-  "d": "2026-11-05"
+  "h": "454f679f370c",
+  "d": "2026-11-09"
  },
  "/": {
-  "h": "b76168bf7a5a",
-  "d": "2026-11-05"
+  "h": "5411a890dabb",
+  "d": "2026-11-09"
  },
  "/credits": {
   "h": "66c22fad3a99",
