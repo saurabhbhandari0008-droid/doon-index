@@ -256,28 +256,28 @@
   "d": "2026-11-05"
  },
  "/explore/places/": {
-  "h": "4fd50c1ae962",
-  "d": "2026-11-09"
+  "h": "a3734bace753",
+  "d": "2026-11-10"
  },
  "/explore/places/attractions/": {
-  "h": "37f73da9afaa",
-  "d": "2026-11-09"
+  "h": "84fe387c4f1e",
+  "d": "2026-11-10"
  },
  "/explore/places/hidden-gems/": {
   "h": "37c37ba9e9d5",
   "d": "2026-11-09"
  },
  "/explore/places/spiritual/": {
-  "h": "82503c186193",
-  "d": "2026-11-05"
+  "h": "83c7f78b4f88",
+  "d": "2026-11-10"
  },
  "/explore/places/nature/": {
-  "h": "13d17c1b1721",
-  "d": "2026-11-09"
+  "h": "08144591dca8",
+  "d": "2026-11-10"
  },
  "/explore/places/parks/": {
-  "h": "8b44f90c43b1",
-  "d": "2026-11-05"
+  "h": "01c429501202",
+  "d": "2026-11-10"
  },
  "/explore/stays/": {
   "h": "75a1af9261ca",
@@ -471,6 +471,30 @@
   "h": "05c1758c84ac",
   "d": "2026-11-09"
  },
+ "/place/indian-military-academy/": {
+  "h": "5f1d9f3140a1",
+  "d": "2026-11-10"
+ },
+ "/place/rashtrapati-niketan/": {
+  "h": "0b29a40eafb0",
+  "d": "2026-11-10"
+ },
+ "/place/rashtrapati-tapovan/": {
+  "h": "ff1ee794d39e",
+  "d": "2026-11-10"
+ },
+ "/place/mdda-park/": {
+  "h": "8931510b4000",
+  "d": "2026-11-10"
+ },
+ "/place/zonal-anthropological-museum/": {
+  "h": "80cba569440e",
+  "d": "2026-11-10"
+ },
+ "/place/ramakrishna-ashrama/": {
+  "h": "5febacf26ac3",
+  "d": "2026-11-10"
+ },
  "/place/subir-raha-oil-museum/": {
   "h": "c8d5c32a53db",
   "d": "2026-11-05"
@@ -515,9 +539,9 @@
   "h": "e6504b34ba9e",
   "d": "2026-10-28"
  },
- "/place/indian-military-academy/": {
+ "/place/indian-military-academy-prem-nagar-chakrata-road/": {
   "h": "8bbe10614336",
-  "d": "2026-11-05"
+  "d": "2026-11-10"
  },
  "/place/robbers-cave/": {
   "h": "2c4e599dbde2",
@@ -588,12 +612,12 @@
   "d": "2026-11-05"
  },
  "/about/": {
-  "h": "454f679f370c",
-  "d": "2026-11-09"
+  "h": "cd99eed76dd8",
+  "d": "2026-11-10"
  },
  "/": {
-  "h": "23be6b93ea43",
-  "d": "2026-11-09"
+  "h": "4c01f50bf0e2",
+  "d": "2026-11-10"
  },
  "/credits": {
   "h": "66c22fad3a99",
