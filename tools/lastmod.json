@@ -220,8 +220,8 @@
   "d": "2026-11-05"
  },
  "/explore/education/": {
-  "h": "7a92ece728c6",
-  "d": "2026-11-05"
+  "h": "caa5e9495cf7",
+  "d": "2026-11-10"
  },
  "/explore/education/schools/": {
   "h": "ebec494b9111",
@@ -244,8 +244,8 @@
   "d": "2026-10-28"
  },
  "/explore/education/institutes/": {
-  "h": "2a5a030b81f9",
-  "d": "2026-11-05"
+  "h": "ec9362df6293",
+  "d": "2026-11-10"
  },
  "/explore/education/coaching/": {
   "h": "9cf2df3dc8f6",
@@ -256,11 +256,11 @@
   "d": "2026-11-05"
  },
  "/explore/places/": {
-  "h": "a3734bace753",
+  "h": "a322f58d1a7e",
   "d": "2026-11-10"
  },
  "/explore/places/attractions/": {
-  "h": "84fe387c4f1e",
+  "h": "b9a7c6d6f8eb",
   "d": "2026-11-10"
  },
  "/explore/places/hidden-gems/": {
@@ -471,10 +471,6 @@
   "h": "05c1758c84ac",
   "d": "2026-11-09"
  },
- "/place/indian-military-academy/": {
-  "h": "5f1d9f3140a1",
-  "d": "2026-11-10"
- },
  "/place/rashtrapati-niketan/": {
   "h": "0b29a40eafb0",
   "d": "2026-11-10"
@@ -539,8 +535,8 @@
   "h": "e6504b34ba9e",
   "d": "2026-10-28"
  },
- "/place/indian-military-academy-prem-nagar-chakrata-road/": {
-  "h": "8bbe10614336",
+ "/place/indian-military-academy/": {
+  "h": "10f48c4f4ddb",
   "d": "2026-11-10"
  },
  "/place/robbers-cave/": {
@@ -612,11 +608,11 @@
   "d": "2026-11-05"
  },
  "/about/": {
-  "h": "cd99eed76dd8",
+  "h": "902543fa4676",
   "d": "2026-11-10"
  },
  "/": {
-  "h": "4c01f50bf0e2",
+  "h": "9003946b4487",
   "d": "2026-11-10"
  },
  "/credits": {
