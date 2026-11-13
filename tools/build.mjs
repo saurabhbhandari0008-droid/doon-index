@@ -448,7 +448,7 @@ if (fs.existsSync(path.join(ROOT, "place"))) for (const d of fs.readdirSync(path
 <h2>Photos</h2>
 <p>Many photos are from Wikimedia Commons and Unsplash, credited on the <a href="/credits">photo credits</a> page. We are replacing them with our own pictures, place by place.</p>
 <h2>Get in touch</h2>
-<p>Run a place in Dehradun? Use <a href="/#business">Add your business</a>. Spotted something out of date? Tell us through the same form and we'll fix it.</p>
+<p>See the <a href="/contact/">contact page</a>, or if you run a place in Dehradun, use <a href="/#business">Add your business</a>. Spotted something out of date? Tell us through the same form and we'll fix it.</p>
 </div></section>`;
   const url = SITE + "/about/";
   write("about/index.html", shell(main, {
@@ -457,6 +457,33 @@ if (fs.existsSync(path.join(ROOT, "place"))) for (const d of fs.readdirSync(path
     ld: { "@context": "https://schema.org", "@graph": [{ "@type": "AboutPage", url, name: "About Doon Dekho", about: { "@id": SITE + "/#org" }, mainEntity: AUTHOR }, AUTHOR] }
   }).replace('data-page="place"', 'data-page="about"'));
   add("/about/", "0.4", lastmod("/about/", main));
+}
+
+/* ---- contact ---- */
+{
+  const main = `<section class="page-hero ex-compact"><div class="wrap">
+<nav class="crumbs-light" aria-label="Breadcrumb"><a href="/">Home</a><span>/</span><span aria-current="page">Contact</span></nav>
+<p class="label">Contact</p>
+<h1>Contact Doon Dekho</h1>
+<p>Doon Dekho is written and run from Dehradun, Uttarakhand. Here is how to reach us.</p>
+</div></section>
+<section class="place-body"><div class="wrap place-wrap about">
+<h2>Instagram</h2>
+<p>The quickest way to reach us is a direct message on Instagram: <a href="https://www.instagram.com/doondekho/" rel="noopener" target="_blank">@doondekho</a>. We read every message.</p>
+<h2>Own a business in Dehradun?</h2>
+<p>Listing your place is free. Use <a href="/#business">Add your business</a> and we'll verify the details and get back to you within two working days. Already listed? You can put our <a href="/badge/">Featured on Doon Dekho badge</a> on your website or Instagram.</p>
+<h2>Brand collaborations and stories</h2>
+<p>For sponsored stories, events and partnerships, use <a href="/#business">Partner with us</a> on the home page.</p>
+<h2>Corrections</h2>
+<p>Spotted wrong timings, a closed place or a wrong photo credit? Message us on Instagram or use the business form, and we'll fix it.</p>
+</div></section>`;
+  const url = SITE + "/contact/";
+  write("contact/index.html", shell(main, {
+    title: "Contact Doon Dekho, the Dehradun City Guide", desc: "How to reach Doon Dekho: Instagram, free business listings, brand collaborations and corrections for our Dehradun city guide.",
+    url, image: imgURL("hero-valley"),
+    ld: { "@context": "https://schema.org", "@graph": [{ "@type": "ContactPage", url, name: "Contact Doon Dekho", about: { "@id": SITE + "/#org" } }] }
+  }).replace('data-page="place"', 'data-page="about"'));
+  add("/contact/", "0.3", lastmod("/contact/", main));
 }
 
 /* ---- badge kit for listed businesses (not indexed; sent to owners) ---- */
@@ -509,7 +536,7 @@ write(LM_FILE, JSON.stringify(lastmodNew, null, 1) + "\n");
    assets/site.js replaces the contents of #footer when it runs, so visitors see the normal footer. ---- */
 const STATIC_FOOT = `<div class="wrap"><nav aria-label="Site"><p><a href="/">Doon Dekho</a>: an independent guide to Dehradun.</p>
 ${SECTIONS.map(x => `<p><a href="/explore/${x.id}/">${esc(x.name)}</a>: ${x.subs.map(b => `<a href="/explore/${x.id}/${b.id}/">${esc(b.name)}</a>`).join(", ")}</p>`).join("\n")}
-<p><a href="/blog/">Journal</a> · <a href="/explore/">All categories</a> · <a href="/about/">About</a> · <a href="/credits">Photo credits</a></p></nav></div>`;
+<p><a href="/blog/">Journal</a> · <a href="/explore/">All categories</a> · <a href="/about/">About</a> · <a href="/contact/">Contact</a> · <a href="/credits">Photo credits</a></p></nav></div>`;
 /* ---- Google Analytics 4 (doondekho.in property) on every page ---- */
 const GA_ID = "G-VPM2SFRKV5";
 const GA_TAG = `<script async src="https://www.googletagmanager.com/gtag/js?id=${GA_ID}"></script>

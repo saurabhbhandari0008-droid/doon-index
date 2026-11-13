@@ -38,9 +38,9 @@
   <url><loc>https://doondekho.in/blog/litchi-season/</loc><lastmod>2026-11-02</lastmod><priority>0.8</priority></url>
   <url><loc>https://doondekho.in/blog/</loc><lastmod>2026-11-10</lastmod><priority>0.7</priority></url>
   <url><loc>https://doondekho.in/explore/</loc><lastmod>2026-11-05</lastmod><priority>0.8</priority></url>
-  <url><loc>https://doondekho.in/explore/food/</loc><lastmod>2026-11-09</lastmod><priority>0.7</priority></url>
+  <url><loc>https://doondekho.in/explore/food/</loc><lastmod>2026-11-13</lastmod><priority>0.7</priority></url>
   <url><loc>https://doondekho.in/explore/food/street-food/</loc><lastmod>2026-11-05</lastmod><priority>0.6</priority></url>
-  <url><loc>https://doondekho.in/explore/food/cafes/</loc><lastmod>2026-11-09</lastmod><priority>0.6</priority></url>
+  <url><loc>https://doondekho.in/explore/food/cafes/</loc><lastmod>2026-11-13</lastmod><priority>0.6</priority></url>
   <url><loc>https://doondekho.in/explore/food/bakeries/</loc><lastmod>2026-11-05</lastmod><priority>0.6</priority></url>
   <url><loc>https://doondekho.in/explore/food/restaurants/</loc><lastmod>2026-11-05</lastmod><priority>0.6</priority></url>
   <url><loc>https://doondekho.in/explore/shopping/</loc><lastmod>2026-11-09</lastmod><priority>0.7</priority></url>
@@ -75,7 +75,7 @@
   <url><loc>https://doondekho.in/explore/places/hidden-gems/</loc><lastmod>2026-11-09</lastmod><priority>0.6</priority></url>
   <url><loc>https://doondekho.in/explore/places/spiritual/</loc><lastmod>2026-11-13</lastmod><priority>0.6</priority></url>
   <url><loc>https://doondekho.in/explore/places/nature/</loc><lastmod>2026-11-10</lastmod><priority>0.6</priority></url>
-  <url><loc>https://doondekho.in/explore/places/parks/</loc><lastmod>2026-11-10</lastmod><priority>0.6</priority></url>
+  <url><loc>https://doondekho.in/explore/places/parks/</loc><lastmod>2026-11-13</lastmod><priority>0.6</priority></url>
   <url><loc>https://doondekho.in/explore/stays/</loc><lastmod>2026-11-09</lastmod><priority>0.7</priority></url>
   <url><loc>https://doondekho.in/explore/stays/hotels/</loc><lastmod>2026-11-09</lastmod><priority>0.6</priority></url>
   <url><loc>https://doondekho.in/explore/stays/pg-hostels/</loc><lastmod>2026-11-05</lastmod><priority>0.6</priority></url>
@@ -117,7 +117,7 @@
   <url><loc>https://doondekho.in/place/eltham-bakery-and-coffee-house/</loc><lastmod>2026-11-09</lastmod><priority>0.6</priority></url>
   <url><loc>https://doondekho.in/place/krazy-for-coffee/</loc><lastmod>2026-11-09</lastmod><priority>0.6</priority></url>
   <url><loc>https://doondekho.in/place/waffles-and-crepes/</loc><lastmod>2026-11-09</lastmod><priority>0.6</priority></url>
-  <url><loc>https://doondekho.in/place/the-mudcup-cafe/</loc><lastmod>2026-11-09</lastmod><priority>0.6</priority></url>
+  <url><loc>https://doondekho.in/place/the-mudcup-cafe/</loc><lastmod>2026-11-13</lastmod><priority>0.6</priority></url>
   <url><loc>https://doondekho.in/place/centrio-mall/</loc><lastmod>2026-11-09</lastmod><priority>0.6</priority></url>
   <url><loc>https://doondekho.in/place/mall-of-dehradun/</loc><lastmod>2026-11-09</lastmod><priority>0.6</priority></url>
   <url><loc>https://doondekho.in/place/four-banyans-spirit-and-nature-resort/</loc><lastmod>2026-11-09</lastmod><priority>0.6</priority></url>
@@ -126,7 +126,7 @@
   <url><loc>https://doondekho.in/place/chakrata/</loc><lastmod>2026-11-09</lastmod><priority>0.6</priority></url>
   <url><loc>https://doondekho.in/place/rashtrapati-niketan/</loc><lastmod>2026-11-13</lastmod><priority>0.6</priority></url>
   <url><loc>https://doondekho.in/place/rashtrapati-tapovan/</loc><lastmod>2026-11-10</lastmod><priority>0.6</priority></url>
-  <url><loc>https://doondekho.in/place/mdda-park/</loc><lastmod>2026-11-10</lastmod><priority>0.6</priority></url>
+  <url><loc>https://doondekho.in/place/mdda-park/</loc><lastmod>2026-11-13</lastmod><priority>0.6</priority></url>
   <url><loc>https://doondekho.in/place/zonal-anthropological-museum/</loc><lastmod>2026-11-10</lastmod><priority>0.6</priority></url>
   <url><loc>https://doondekho.in/place/ramakrishna-ashrama/</loc><lastmod>2026-11-10</lastmod><priority>0.6</priority></url>
   <url><loc>https://doondekho.in/place/subir-raha-oil-museum/</loc><lastmod>2026-11-05</lastmod><priority>0.6</priority></url>
@@ -158,7 +158,8 @@
   <url><loc>https://doondekho.in/place/woodstock-school/</loc><lastmod>2026-11-05</lastmod><priority>0.6</priority></url>
   <url><loc>https://doondekho.in/place/the-doon-global-school/</loc><lastmod>2026-11-05</lastmod><priority>0.6</priority></url>
   <url><loc>https://doondekho.in/place/convent-of-jesus-and-mary-waverley/</loc><lastmod>2026-11-05</lastmod><priority>0.6</priority></url>
-  <url><loc>https://doondekho.in/about/</loc><lastmod>2026-11-10</lastmod><priority>0.4</priority></url>
+  <url><loc>https://doondekho.in/about/</loc><lastmod>2026-11-13</lastmod><priority>0.4</priority></url>
+  <url><loc>https://doondekho.in/contact/</loc><lastmod>2026-11-13</lastmod><priority>0.3</priority></url>
   <url><loc>https://doondekho.in/</loc><lastmod>2026-11-10</lastmod><priority>1.0</priority></url>
   <url><loc>https://doondekho.in/credits</loc><lastmod>2026-10-28</lastmod><priority>0.2</priority></url>
 </urlset>

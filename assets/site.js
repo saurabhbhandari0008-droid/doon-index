@@ -79,7 +79,7 @@ const footEl=$("#footer");
 if(footEl){footEl.className="site";footEl.innerHTML=`<div class="wrap">
   <div class="foot"><div><a class="logo" href="/" aria-label="Doon Dekho, home">${LOGO}</a><p>An independent guide to Dehradun, made by people who live here.</p>${igBtn()}</div>
   <div><h4>Explore</h4><ul>${(window.SECTIONS||[]).slice(0,6).map(x=>`<li><a href="/explore/${x.id}/">${x.name}</a></li>`).join("")}<li><a href="/explore/">All categories</a></li></ul></div>
-  <div><h4>Discover</h4><ul><li><a href="${home}#schools">Schools</a></li><li><a href="${home}#shop">Shop</a></li><li><a href="/blog/">Journal</a></li><li><a href="/about/">About Doon Dekho</a></li></ul></div>
+  <div><h4>Discover</h4><ul><li><a href="${home}#schools">Schools</a></li><li><a href="${home}#shop">Shop</a></li><li><a href="/blog/">Journal</a></li><li><a href="/about/">About Doon Dekho</a></li><li><a href="/contact/">Contact</a></li></ul></div>
   <div><h4>Business</h4><ul><li><a href="#" data-biz="list">Add your business</a></li><li><a href="#" data-biz="partner">Partner with us</a></li></ul></div></div>
   <div class="big-word" aria-hidden="true">Dehra<i>dun</i></div>
   <div class="legal"><span>© 2026 Doon Dekho · Dehradun, Uttarakhand</span><span><a href="/credits" style="text-decoration:underline">Photo credits</a> · listings marked Unverified are from public sources · shop products are samples</span></div></div>`}
