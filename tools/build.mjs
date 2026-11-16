@@ -101,7 +101,7 @@ const urlOfItem = it => {
 
 /* Link the first mention of each place in a post to its page (same rules as assets/site.js linkPlaces). */
 const LINK_RE = [...PLACE_URL].map(([o, u]) => [o.n, u]).filter(([n]) => n.length > 4).sort((a, b) => b[0].length - a[0].length)
-  .map(([n, u]) => [new RegExp("(^|[^\\w])(" + n.replace(/[.*+?^${}()|[\]\\]/g, "\\$&").replace(/[’']/g, "[’']") + ")(?![\\w])", "i"), u]);
+  .map(([n, u]) => [new RegExp("(^|[^\\w])(" + n.replace(/[.*+?^${}()|[\]\\]/g, "\\$&").replace(/[’']/g, "[’']") + ")(?![\\w])(?!\\s+Road\\b)", "i"), u]);
 function linkPlaces(html, used) {
   let depth = 0;
   return String(html).split(/(<[^>]+>)/).map(seg => {
@@ -203,7 +203,8 @@ for (const P of POSTS) {
   const text = norm(JSON.stringify(P.body));
   for (const [obj, u] of PLACE_URL) {
     const n = norm(obj.n);
-    if (n.length > 4 && text.includes(n)) { if (!placeLinked.has(u)) placeLinked.set(u, []); placeLinked.get(u).push(P); }
+    // whole-name match, and "Chakrata Road" is a road, not a mention of Chakrata
+    if (n.length > 4 && new RegExp("(^|[^\\w])" + n.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + "(?![\\w])(?!\\s+road\\b)").test(text)) { if (!placeLinked.has(u)) placeLinked.set(u, []); placeLinked.get(u).push(P); }
   }
 }
 for (const P of POSTS) {

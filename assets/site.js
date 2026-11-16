@@ -94,7 +94,7 @@ const PLACE_URL={},SCHOOL_URL={},LINKABLE=[];{const used=new Set();const claim=(
 (window.PLACES||[]).filter(p=>!p.u).forEach(p=>{PLACE_URL[p.id]=claim(p.n,p.a,p.id)});(window.GEMS||[]).forEach((g,i)=>claim(g.n,g.alt.split("·")[0],"g"+i));(window.SCHOOLS||[]).forEach((x,i)=>{SCHOOL_URL[x.n]=claim(x.n,x.a,"s"+i)})}
 const placeURL=p=>PLACE_URL[p.id]||"#";
 /* link the first mention of each place in a post to its page (same rules as tools/build.mjs) */
-const LINK_RE=LINKABLE.filter(([n])=>n.length>4).sort((a,b)=>b[0].length-a[0].length).map(([n,u])=>[new RegExp("(^|[^\\w])("+n.replace(/[.*+?^${}()|[\]\\]/g,"\\$&").replace(/[’']/g,"[’']")+")(?![\\w])","i"),u]);
+const LINK_RE=LINKABLE.filter(([n])=>n.length>4).sort((a,b)=>b[0].length-a[0].length).map(([n,u])=>[new RegExp("(^|[^\\w])("+n.replace(/[.*+?^${}()|[\]\\]/g,"\\$&").replace(/[’']/g,"[’']")+")(?![\\w])(?!\\s+Road\\b)","i"),u]);
 function linkPlaces(html,used){let depth=0;return String(html).split(/(<[^>]+>)/).map(seg=>{
   if(seg.startsWith("<")){if(/^<a[\s>]/i.test(seg))depth++;else if(/^<\/a>/i.test(seg))depth--;return seg}
   if(depth>0)return seg;
