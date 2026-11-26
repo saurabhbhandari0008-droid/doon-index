@@ -101,7 +101,7 @@ const urlOfItem = it => {
 
 /* Link the first mention of each place in a post to its page (same rules as assets/site.js linkPlaces). */
 const LINK_RE = [...PLACE_URL].map(([o, u]) => [o.n, u]).filter(([n]) => n.length > 4).sort((a, b) => b[0].length - a[0].length)
-  .map(([n, u]) => [new RegExp("(^|[^\\w])(" + n.replace(/[.*+?^${}()|[\]\\]/g, "\\$&").replace(/[’']/g, "[’']") + ")(?![\\w])(?!\\s+Road\\b)", "i"), u]);
+  .map(([n, u]) => [new RegExp("(^|[^\\w])(" + n.replace(/[.*+?^${}()|[\]\\]/g, "\\$&").replace(/[’']/g, "[’']") + ")(?![\\w])(?!\\s+(?:Road|Crossing|Chowk|Bypass|Marg)\\b)", "i"), u]);
 function linkPlaces(html, used) {
   let depth = 0;
   return String(html).split(/(<[^>]+>)/).map(seg => {
@@ -204,7 +204,7 @@ for (const P of POSTS) {
   for (const [obj, u] of PLACE_URL) {
     const n = norm(obj.n);
     // whole-name match, and "Chakrata Road" is a road, not a mention of Chakrata
-    if (n.length > 4 && new RegExp("(^|[^\\w])" + n.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + "(?![\\w])(?!\\s+road\\b)").test(text)) { if (!placeLinked.has(u)) placeLinked.set(u, []); placeLinked.get(u).push(P); }
+    if (n.length > 4 && new RegExp("(^|[^\\w])" + n.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + "(?![\\w])(?!\\s+(?:road|crossing|chowk|bypass|marg)\\b)").test(text)) { if (!placeLinked.has(u)) placeLinked.set(u, []); placeLinked.get(u).push(P); }
   }
 }
 for (const P of POSTS) {
@@ -520,7 +520,7 @@ if (fs.existsSync(path.join(ROOT, "place"))) for (const d of fs.readdirSync(path
 /* ---- home + credits ---- */
 let home = seoHead(read("index.html"), {
   title: "Dehradun City Guide: Cafés, Food, Places, Schools · Doon Dekho",
-  desc: "The complete guide to Dehradun: cafés, street food, hidden gems, schools, shops and stories from the Doon Valley.",
+  desc: "The complete guide to Dehradun: cafés, street food, bakeries, waterfalls, temples, schools, shops and day trips, with directions and local tips from the Doon Valley.",
   url: `${SITE}/`, image: BRAND_OG,
   ld: { "@context": "https://schema.org", "@graph": [
     { ...ORG, description: "A local city guide to Dehradun, Uttarakhand.", areaServed: { "@type": "City", name: "Dehradun" }, ...(SAME_AS.length ? { sameAs: SAME_AS } : {}) },
