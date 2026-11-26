@@ -226,7 +226,12 @@ for (const P of POSTS) {
   }];
   if (faqs.length) graph.push({ "@type": "FAQPage", mainEntity: faqs.map(([q, a]) => ({ "@type": "Question", name: strip(q), acceptedAnswer: { "@type": "Answer", text: strip(a) } })) });
   let h = seoHead(postTpl, { title: `${P.seo || P.t} · Doon Dekho`, desc, url, image: imgURL(P.img), type: "article", ld: { "@context": "https://schema.org", "@graph": graph } });
-  h = fill(h, "ahero", `<div class="wrap"><h1 id="atitle">${esc(P.t)}</h1><p class="dek">${esc(P.ex)}</p></div>`);
+  // visible "Updated" date when the post changed after it was published (content freshness)
+  const MON = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+  const human = iso => { const [y, m, d] = iso.split("-").map(Number); return `${d} ${MON[m - 1]} ${y}`; };
+  const updated = modified > published ? human(modified) : "";
+  h = fill(h, "ahero", `<div class="wrap"><h1 id="atitle">${esc(P.t)}</h1><p class="dek">${esc(P.ex)}</p><p class="meta"><span>${esc(P.date)}</span>${updated ? `<span>·</span><span>Updated ${updated}</span>` : ""}</p></div>`);
+  if (updated) h = h.replace('id="ahero"', `id="ahero" data-updated="${updated}"`);
   // places this post mentions, linked at the end so crawlers can follow them
   const mentioned = [...PLACE_URL].filter(([, pu]) => (placeLinked.get(pu) || []).includes(P));
   const more = mentioned.length ? `\n<h2>Places in this story</h2><ul class="list">${mentioned.map(([o, pu]) => `<li><a href="${pu}">${esc(o.n)}</a></li>`).join("")}</ul>` : "";

@@ -33,7 +33,7 @@
 <header id="nav"></header>
 
 <main>
-  <section class="article-hero" id="ahero"><div class="wrap"><h1 id="atitle">Things to Do in Dehradun at Night</h1><p class="dek">Dehradun is a city that eats early and goes home. What's still open after dark, what closes before you'd think, and how to plan an evening.</p></div></section>
+  <section class="article-hero" id="ahero"><div class="wrap"><h1 id="atitle">Things to Do in Dehradun at Night</h1><p class="dek">Dehradun is a city that eats early and goes home. What's still open after dark, what closes before you'd think, and how to plan an evening.</p><p class="meta"><span>16 Nov 2026</span></p></div></section>
   <div class="wrap">
     <div class="article">
       <aside class="toc" id="toc" aria-label="In this story"></aside>
@@ -104,9 +104,10 @@ if(P.desc){const md=document.querySelector('meta[name="description"]')||document
   const og=document.querySelector('meta[property="og:description"]');if(og)og.content=P.desc}
 const ogt=document.querySelector('meta[property="og:title"]');if(ogt)ogt.content=P.seo||P.t;
 
+const upd=$("#ahero").dataset.updated||"";
 $("#ahero").style.setProperty("--h",hue(P.img));
 $("#ahero").innerHTML=`${ph(P.img,2000,P.t,"",true)}<div class="wrap"><p class="crumbs"><a href="/">Home</a><span>/</span><a href="/blog/">Journal</a><span>/</span><span>${P.cat}</span></p>
- <h1 id="atitle">${P.t}</h1><p class="dek">${P.ex}</p><p class="meta" style="margin-top:22px"><span class="cat">${P.cat}</span><span>·</span><span>${P.min} min read</span><span>·</span><span>${P.date}</span></p></div>`;
+ <h1 id="atitle">${P.t}</h1><p class="dek">${P.ex}</p><p class="meta" style="margin-top:22px"><span class="cat">${P.cat}</span><span>·</span><span>${P.min} min read</span><span>·</span><span>${P.date}</span>${upd?`<span>·</span><span>Updated ${upd}</span>`:""}</p></div>`;
 if(matchMedia("(hover:hover) and (pointer:fine)").matches)addEventListener("scroll",()=>{const y=scrollY;if(y<innerHeight){const p=$("#ahero .ph");if(p)p.style.transform=`translateY(${y*.35}px)`}},{passive:true});
 
 let hn=0;const heads=[];
